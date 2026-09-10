@@ -1,0 +1,263 @@
+From 6a71694870da1027eb27b63e50ef45d01837eec3 Mon Sep 17 00:00:00 2001
+From: bixenonoff <MSTrikhunkov@gmail.com>
+Date: Thu, 10 Sep 2026 09:58:52 +0300
+Subject: [PATCH] security: reject unsafe archive members
+
+Backport the upstream archive containment fix to reject traversal through Windows path syntax and pre-existing symlinks.\n\nFixes GHSA-grgh-hr87-3jpw.
+---
+ newsfragments/+ghsa-grgh-hr87-3jpw.bugfix.rst |  8 ++
+ .../+ghsa-grgh-hr87-3jpw.feature.rst          |  6 ++
+ setuptools/archive_util.py                    | 58 +++++++++--
+ setuptools/tests/test_archive_util.py         | 98 +++++++++++++++++++
+ 4 files changed, 160 insertions(+), 10 deletions(-)
+ create mode 100644 newsfragments/+ghsa-grgh-hr87-3jpw.bugfix.rst
+ create mode 100644 newsfragments/+ghsa-grgh-hr87-3jpw.feature.rst
+
+diff --git a/newsfragments/+ghsa-grgh-hr87-3jpw.bugfix.rst b/newsfragments/+ghsa-grgh-hr87-3jpw.bugfix.rst
+new file mode 100644
+index 0000000..aeaae28
+--- /dev/null
++++ b/newsfragments/+ghsa-grgh-hr87-3jpw.bugfix.rst
+@@ -0,0 +1,8 @@
++``setuptools.archive_util`` no longer extracts archive members outside of the
++requested extraction directory. Both the tar and zip formats specify ``/`` as
++the only path separator, but the guard against ``..`` components split member
++names on ``/`` alone, so a name such as ``..\escaped.txt`` was treated as a
++single component and then resolved as a traversal by the filesystem on
++Windows. Member names containing a backslash, a drive letter, or a UNC prefix
++are now rejected on every platform, as are members whose resolved destination
++falls outside the extraction directory -- see GHSA-grgh-hr87-3jpw.
+diff --git a/newsfragments/+ghsa-grgh-hr87-3jpw.feature.rst b/newsfragments/+ghsa-grgh-hr87-3jpw.feature.rst
+new file mode 100644
+index 0000000..21a6de7
+--- /dev/null
++++ b/newsfragments/+ghsa-grgh-hr87-3jpw.feature.rst
+@@ -0,0 +1,6 @@
++``setuptools.archive_util`` now raises the new ``UnsafeMember`` exception when
++an archive member would be extracted outside of the extraction directory,
++where previously such a member was silently skipped. Aborting makes a
++malicious or malformed archive visible to the caller instead of yielding a
++quietly incomplete extraction, and matches the behavior of the standard
++library's ``tarfile`` extraction filters.
+diff --git a/setuptools/archive_util.py b/setuptools/archive_util.py
+index 1a02010..c85c9ad 100644
+--- a/setuptools/archive_util.py
++++ b/setuptools/archive_util.py
+@@ -1,6 +1,7 @@
+ """Utilities for extracting common archive formats"""
+ 
+ import contextlib
++import ntpath
+ import os
+ import posixpath
+ import shutil
+@@ -17,6 +18,7 @@ __all__ = [
+     "unpack_tarfile",
+     "default_filter",
+     "UnrecognizedFormat",
++    "UnsafeMember",
+     "extraction_drivers",
+     "unpack_directory",
+ ]
+@@ -26,11 +28,55 @@ class UnrecognizedFormat(DistutilsError):
+     """Couldn't recognize the archive type"""
+ 
+ 
++class UnsafeMember(DistutilsError):
++    """An archive member that would be extracted outside the destination.
++
++    Deliberately not an `UnrecognizedFormat`, which ``unpack_archive`` catches
++    to fall through to the next driver; an unsafe member must abort the
++    extraction rather than hand the archive to another driver.
++    """
++
++
+ def default_filter(src, dst):
+     """The default progress/filter callback; returns True for all files"""
+     return dst
+ 
+ 
++def _resolve_dest(extract_dir, name):
++    r"""
++    Return the destination for archive member `name` under `extract_dir`.
++
++    Raise `UnsafeMember` if the member would be written outside of the
++    extraction directory. Tar and zip specify '/' as the only path separator,
++    so backslashes, absolute names, drive-qualified names, and UNC names are
++    rejected. The resolved path is checked as defense against pre-existing
++    symlinks in the destination (GHSA-grgh-hr87-3jpw).
++
++    >>> _resolve_dest('dest', 'sub/file.txt') == os.path.join('dest', 'sub', 'file.txt')
++    True
++    >>> _resolve_dest('dest', 'sub/dir/') == os.path.join('dest', 'sub', 'dir', '')
++    True
++    >>> _resolve_dest('dest', '..\\escaped.txt')
++    Traceback (most recent call last):
++    ...
++    setuptools.archive_util.UnsafeMember: '..\\escaped.txt' would be extracted outside of 'dest'
++    """
++    if name.startswith('/') or '\\' in name or ntpath.splitdrive(name)[0]:
++        raise UnsafeMember(f"{name!r} would be extracted outside of {extract_dir!r}")
++
++    parts = name.split('/')
++    if '..' in parts:
++        raise UnsafeMember(f"{name!r} would be extracted outside of {extract_dir!r}")
++
++    dest = os.path.join(extract_dir, *parts)
++    root = os.path.realpath(extract_dir)
++    resolved = os.path.realpath(dest)
++    if resolved != root and not resolved.startswith(os.path.join(root, '')):
++        raise UnsafeMember(f"{name!r} would be extracted outside of {extract_dir!r}")
++
++    return dest
++
++
+ def unpack_archive(
+     filename, extract_dir, progress_filter=default_filter, drivers=None
+ ) -> None:
+@@ -115,11 +161,7 @@ def _unpack_zipfile_obj(zipfile_obj, extract_dir, progress_filter=default_filter
+     for info in zipfile_obj.infolist():
+         name = info.filename
+ 
+-        # don't extract absolute paths or ones with .. in them
+-        if name.startswith('/') or '..' in name.split('/'):
+-            continue
+-
+-        target = os.path.join(extract_dir, *name.split('/'))
++        target = _resolve_dest(extract_dir, name)
+         target = progress_filter(name, target)
+         if not target:
+             continue
+@@ -166,11 +208,7 @@ def _iter_open_tar(tar_obj, extract_dir, progress_filter):
+     with contextlib.closing(tar_obj):
+         for member in tar_obj:
+             name = member.name
+-            # don't extract absolute paths or ones with .. in them
+-            if name.startswith('/') or '..' in name.split('/'):
+-                continue
+-
+-            prelim_dst = os.path.join(extract_dir, *name.split('/'))
++            prelim_dst = _resolve_dest(extract_dir, name)
+ 
+             try:
+                 member = _resolve_tar_file_or_dir(tar_obj, member)
+diff --git a/setuptools/tests/test_archive_util.py b/setuptools/tests/test_archive_util.py
+index e3efc62..5e44378 100644
+--- a/setuptools/tests/test_archive_util.py
++++ b/setuptools/tests/test_archive_util.py
+@@ -1,10 +1,13 @@
+ import io
+ import tarfile
++import zipfile
+ 
+ import pytest
+ 
+ from setuptools import archive_util
+ 
++from .compat.py39 import os_helper
++
+ 
+ @pytest.fixture
+ def tarfile_with_unicode(tmpdir):
+@@ -34,3 +37,98 @@ def tarfile_with_unicode(tmpdir):
+ def test_unicode_files(tarfile_with_unicode, tmpdir):
+     target = tmpdir / 'out'
+     archive_util.unpack_archive(tarfile_with_unicode, str(target))
++
++
++TRAVERSAL_NAMES = [
++    '../escaped.txt',
++    'sub/../../escaped.txt',
++    '..\\escaped.txt',
++    'sub\\..\\..\\escaped.txt',
++    '/absolute.txt',
++    'C:escaped.txt',
++]
++
++
++def _make_tarfile(path, names):
++    with tarfile.open(path, mode='w:gz') as tgz:
++        for name in names:
++            data = name.encode()
++            info = tarfile.TarInfo(name)
++            info.size = len(data)
++            tgz.addfile(info, io.BytesIO(data))
++    return str(path)
++
++
++def _make_zipfile(path, names):
++    with zipfile.ZipFile(path, mode='w') as zf:
++        for name in names:
++            info = zipfile.ZipInfo()
++            info.filename = name
++            zf.writestr(info, name.encode())
++    return str(path)
++
++
++drivers = pytest.mark.parametrize(
++    ('suffix', 'make_archive'),
++    [('.tar.gz', _make_tarfile), ('.zip', _make_zipfile)],
++    ids=['tar', 'zip'],
++)
++
++
++@drivers
++@pytest.mark.parametrize('name', TRAVERSAL_NAMES)
++def test_unpack_rejects_traversal(tmp_path, name, suffix, make_archive):
++    """
++    A member that would land outside the extraction directory aborts extraction.
++
++    Regression test for GHSA-grgh-hr87-3jpw.
++    """
++    archive = make_archive(tmp_path / f'malicious{suffix}', [name])
++    target = tmp_path / 'dest'
++
++    with pytest.raises(archive_util.UnsafeMember):
++        archive_util.unpack_archive(archive, str(target))
++
++    assert {path.name for path in tmp_path.iterdir()} <= {
++        f'malicious{suffix}',
++        'dest',
++    }
++
++
++@drivers
++def test_unpack_extracts_safe_members(tmp_path, suffix, make_archive):
++    """Ordinary members are unaffected by the containment check."""
++    names = ['inside.txt', 'sub/nested.txt', './dot-prefixed.txt']
++    archive = make_archive(tmp_path / f'safe{suffix}', names)
++    target = tmp_path / 'dest'
++
++    archive_util.unpack_archive(archive, str(target))
++
++    assert (target / 'inside.txt').read_text(encoding='utf-8') == 'inside.txt'
++    assert (target / 'sub' / 'nested.txt').exists()
++    assert (target / 'dot-prefixed.txt').exists()
++
++
++def test_unpack_zipfile_creates_directory_members(tmp_path):
++    """A zip directory entry still creates the directory itself."""
++    archive = _make_zipfile(tmp_path / 'dirs.zip', ['empty/'])
++    target = tmp_path / 'dest'
++
++    archive_util.unpack_archive(archive, str(target))
++
++    assert (target / 'empty').is_dir()
++
++
++@pytest.mark.skipif(not os_helper.can_symlink(), reason='Symlink support required')
++def test_resolve_dest_rejects_symlinked_escape(tmp_path):
++    """A harmless member name cannot escape through a pre-existing symlink."""
++    target = tmp_path / 'dest'
++    target.mkdir()
++    outside = tmp_path / 'outside'
++    outside.mkdir()
++    (target / 'sub').symlink_to(outside, target_is_directory=True)
++
++    with pytest.raises(archive_util.UnsafeMember):
++        archive_util._resolve_dest(str(target), 'sub/file.txt')
++
++    assert archive_util._resolve_dest(str(target), 'ok/file.txt')
+-- 
+2.50.1 (Apple Git-155)
+
