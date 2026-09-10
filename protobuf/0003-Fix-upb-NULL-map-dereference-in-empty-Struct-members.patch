@@ -1,0 +1,61 @@
+From b8151a2c566a26656fc2e3a725e63bf2f574f12c Mon Sep 17 00:00:00 2001
+From: bixenonoff <MSTrikhunkov@gmail.com>
+Date: Thu, 10 Sep 2026 11:15:37 +0300
+Subject: [PATCH] Fix upb NULL map dereference in empty Struct membership
+
+Backport 21fdb7acdb11fbca234570fa30d2e5687eaf12f6 (upstream #19624 / #20446, v29.5). Return false before accessing an absent map. No CVE assigned. Reproduced SIGSEGV on pristine 5.29.3; subprocess regression passes on compiled upb and pure Python after the fix.
+---
+ python/message.c               |  1 +
+ tests/test_upb_empty_struct.py | 28 ++++++++++++++++++++++++++++
+ 2 files changed, 29 insertions(+)
+ create mode 100644 tests/test_upb_empty_struct.py
+
+diff --git a/python/message.c b/python/message.c
+index 5ad1b06..8e60aaa 100644
+--- a/python/message.c
++++ b/python/message.c
+@@ -1103,6 +1103,7 @@ static PyObject* PyUpb_Message_Contains(PyObject* _self, PyObject* arg) {
+       upb_Message* msg = PyUpb_Message_GetMsg(self);
+       const upb_FieldDef* f = upb_MessageDef_FindFieldByName(msgdef, "fields");
+       const upb_Map* map = upb_Message_GetFieldByDef(msg, f).map_val;
++      if (!map || upb_Map_Size(map) == 0) Py_RETURN_FALSE;
+       const upb_MessageDef* entry_m = upb_FieldDef_MessageSubDef(f);
+       const upb_FieldDef* key_f = upb_MessageDef_Field(entry_m, 0);
+       upb_MessageValue u_key;
+diff --git a/tests/test_upb_empty_struct.py b/tests/test_upb_empty_struct.py
+new file mode 100644
+index 0000000..eee97d4
+--- /dev/null
++++ b/tests/test_upb_empty_struct.py
+@@ -0,0 +1,28 @@
++"""Regression for upstream #19624 / #20446 (empty Struct membership crash)."""
++import os
++from pathlib import Path
++import subprocess
++import sys
++import unittest
++
++
++class EmptyStructTest(unittest.TestCase):
++    def test_membership(self):
++        code = '''
++from google.protobuf import struct_pb2
++msg = struct_pb2.Struct()
++msg.SetInParent()
++assert 'key' not in msg
++msg['key'] = 1
++assert 'key' in msg
++msg.Clear()
++assert 'key' not in msg
++'''
++        result = subprocess.run([sys.executable, '-B', '-c', code],
++                                cwd=str(Path(__file__).resolve().parents[1]),
++                                capture_output=True, text=True, timeout=20)
++        self.assertEqual(result.returncode, 0, result.stderr)
++
++
++if __name__ == '__main__':
++    unittest.main()
+-- 
+2.50.1 (Apple Git-155)
+

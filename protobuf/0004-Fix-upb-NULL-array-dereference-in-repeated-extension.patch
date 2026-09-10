@@ -1,0 +1,68 @@
+From 695f57fe3f82c90ca0ac20e49f41ecd6f4e21a86 Mon Sep 17 00:00:00 2001
+From: bixenonoff <MSTrikhunkov@gmail.com>
+Date: Thu, 10 Sep 2026 11:15:43 +0300
+Subject: [PATCH] Fix upb NULL array dereference in repeated extension
+ membership
+
+Backport da04261f2bf8a023458171cd95e7b375dfce1161 from v31.0. Return false for an absent repeated extension array. No CVE assigned. Reproduced SIGSEGV on pristine 5.29.3; membership, append and clear regression now passes on both backends.
+---
+ python/extension_dict.c           |  1 +
+ tests/test_upb_empty_extension.py | 34 +++++++++++++++++++++++++++++++
+ 2 files changed, 35 insertions(+)
+ create mode 100644 tests/test_upb_empty_extension.py
+
+diff --git a/python/extension_dict.c b/python/extension_dict.c
+index 34e1f9b..486d005 100644
+--- a/python/extension_dict.c
++++ b/python/extension_dict.c
+@@ -99,6 +99,7 @@ static int PyUpb_ExtensionDict_Contains(PyObject* _self, PyObject* key) {
+   if (!msg) return 0;
+   if (upb_FieldDef_IsRepeated(f)) {
+     upb_MessageValue val = upb_Message_GetFieldByDef(msg, f);
++    if (!val.array_val) return 0;
+     return upb_Array_Size(val.array_val) > 0;
+   } else {
+     return upb_Message_HasFieldByDef(msg, f);
+diff --git a/tests/test_upb_empty_extension.py b/tests/test_upb_empty_extension.py
+new file mode 100644
+index 0000000..9db58ad
+--- /dev/null
++++ b/tests/test_upb_empty_extension.py
+@@ -0,0 +1,34 @@
++"""Regression for da04261: empty repeated extension membership must not crash."""
++from pathlib import Path
++import subprocess
++import sys
++import unittest
++
++
++class EmptyExtensionTest(unittest.TestCase):
++    def test_membership(self):
++        code = '''
++from google.protobuf import descriptor_pb2, descriptor_pool, message_factory
++f = descriptor_pb2.FileDescriptorProto(name='extension.proto', syntax='proto2')
++m = f.message_type.add(name='M')
++m.extension_range.add(start=100, end=200)
++f.extension.add(name='items', number=100, label=3, type=5, extendee='.M')
++pool = descriptor_pool.DescriptorPool()
++pool.Add(f)
++cls = message_factory.GetMessageClass(pool.FindMessageTypeByName('M'))
++ext = pool.FindExtensionByName('items')
++msg = cls()
++assert ext not in msg.Extensions
++msg.Extensions[ext].append(123)
++assert ext in msg.Extensions
++msg.ClearExtension(ext)
++assert ext not in msg.Extensions
++'''
++        result = subprocess.run([sys.executable, '-B', '-c', code],
++                                cwd=str(Path(__file__).resolve().parents[1]),
++                                capture_output=True, text=True, timeout=20)
++        self.assertEqual(result.returncode, 0, result.stderr)
++
++
++if __name__ == '__main__':
++    unittest.main()
+-- 
+2.50.1 (Apple Git-155)
+

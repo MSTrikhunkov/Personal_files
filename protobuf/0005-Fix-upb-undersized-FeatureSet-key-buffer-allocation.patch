@@ -1,0 +1,93 @@
+From c870ee983acdc23b54b1bcc44cbac1780aa9f454 Mon Sep 17 00:00:00 2001
+From: bixenonoff <MSTrikhunkov@gmail.com>
+Date: Thu, 10 Sep 2026 11:17:28 +0300
+Subject: [PATCH] Fix upb undersized FeatureSet key buffer allocation
+
+Backport the allocation fix from eb8a34d22dc10847ea1ef4ae1da88b480fa7f3c3 (v30.0). Use existing upb_Log2CeilingSize instead of renaming the helper, preserving API. No CVE assigned. Native regression demonstrates undersized allocation before the fix and passes with AddressSanitizer and UndefinedBehaviorSanitizer afterwards.
+---
+ tests/c/feature_key_buffer_test.c     | 28 +++++++++++++++++++++++++++
+ tests/run_feature_key_buffer_test.py  | 23 ++++++++++++++++++++++
+ upb/reflection/internal/def_builder.c |  2 +-
+ 3 files changed, 52 insertions(+), 1 deletion(-)
+ create mode 100644 tests/c/feature_key_buffer_test.c
+ create mode 100644 tests/run_feature_key_buffer_test.py
+
+diff --git a/tests/c/feature_key_buffer_test.c b/tests/c/feature_key_buffer_test.c
+new file mode 100644
+index 0000000..6f4f601
+--- /dev/null
++++ b/tests/c/feature_key_buffer_test.c
+@@ -0,0 +1,28 @@
++/* Regression for eb8a34d: allocation must cover serialized FeatureSet keys. */
++#include <assert.h>
++#include <string.h>
++#include "upb/reflection/internal/def_builder.h"
++
++extern upb_StringView _upb_DefBuilder_MakeKey(
++    upb_DefBuilder* ctx, const google_protobuf_FeatureSet* parent,
++    upb_StringView key);
++
++int main(void) {
++  upb_DefBuilder ctx = {0};
++  ctx.tmp_arena = upb_Arena_New();
++  assert(ctx.tmp_arena);
++  const char key[128] = {0};
++  /* Crossing the initial 64-byte allocation exercises the broken rounding. */
++  upb_StringView result = _upb_DefBuilder_MakeKey(
++      &ctx, NULL, upb_StringView_FromDataAndSize(key, 57));
++  assert(ctx.tmp_buf_size >= result.size);
++  assert(result.size == 57 + sizeof(void*));
++  assert(memcmp(result.data + sizeof(void*), key, 57) == 0);
++  result = _upb_DefBuilder_MakeKey(
++      &ctx, NULL, upb_StringView_FromDataAndSize(key, sizeof(key)));
++  assert(ctx.tmp_buf_size >= result.size);
++  assert(result.size == sizeof(key) + sizeof(void*));
++  assert(memcmp(result.data + sizeof(void*), key, sizeof(key)) == 0);
++  upb_Arena_Free(ctx.tmp_arena);
++  return 0;
++}
+diff --git a/tests/run_feature_key_buffer_test.py b/tests/run_feature_key_buffer_test.py
+new file mode 100644
+index 0000000..c47784c
+--- /dev/null
++++ b/tests/run_feature_key_buffer_test.py
+@@ -0,0 +1,23 @@
++"""Build and run the native FeatureSet buffer regression (requires a C compiler).
++
++Usage: python3 tests/run_feature_key_buffer_test.py [--sanitize]
++"""
++import os
++from pathlib import Path
++import subprocess
++import sys
++import tempfile
++
++root = Path(__file__).resolve().parents[1]
++sources = sorted(root.joinpath('upb').rglob('*.c'))
++sources += sorted(root.joinpath('google/protobuf').glob('*.c'))
++sources += sorted(root.joinpath('utf8_range').glob('*.c'))
++flags = ['-fsanitize=address,undefined', '-g'] if '--sanitize' in sys.argv else []
++with tempfile.TemporaryDirectory(prefix='protobuf-feature-test-') as directory:
++    binary = str(Path(directory) / 'feature-key-test')
++    subprocess.run([os.environ.get('CC', 'cc'), '-I' + str(root),
++                    '-I' + str(root / 'utf8_range'), *flags,
++                    str(root / 'tests/c/feature_key_buffer_test.c'),
++                    *map(str, sources), '-o', binary], check=True)
++    subprocess.run([binary], check=True)
++print('FeatureSet key buffer regression: PASS')
+diff --git a/upb/reflection/internal/def_builder.c b/upb/reflection/internal/def_builder.c
+index 7e56017..67335f1 100644
+--- a/upb/reflection/internal/def_builder.c
++++ b/upb/reflection/internal/def_builder.c
+@@ -350,7 +350,7 @@ upb_StringView _upb_DefBuilder_MakeKey(upb_DefBuilder* ctx,
+                                        upb_StringView key) {
+   size_t need = key.size + sizeof(void*);
+   if (ctx->tmp_buf_size < need) {
+-    ctx->tmp_buf_size = UPB_MAX(64, upb_Log2Ceiling(need));
++    ctx->tmp_buf_size = UPB_MAX(64, upb_Log2CeilingSize(need));
+     ctx->tmp_buf = upb_Arena_Malloc(ctx->tmp_arena, ctx->tmp_buf_size);
+     if (!ctx->tmp_buf) _upb_DefBuilder_OomErr(ctx);
+   }
+-- 
+2.50.1 (Apple Git-155)
+
