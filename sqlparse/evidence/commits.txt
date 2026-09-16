@@ -1,0 +1,67 @@
+commit cd34748032ae9e1a1b978417e434761739e24ff5
+Author:     Security Backport <security-backport@localhost>
+AuthorDate: Wed Sep 16 15:13:34 2026 +0300
+Commit:     Security Backport <security-backport@localhost>
+CommitDate: Wed Sep 16 15:13:34 2026 +0300
+
+    CVE-2026-54284: backport upstream security fix to 0.5.4
+    
+    Upstream: https://github.com/andialbrecht/sqlparse/commit/939b129e24c0ad5d51368b1aa72fffcaca76f06f
+    
+    Apply upstream production hunks without modification. Omit unrelated
+    release changelog entries; retain/add focused regression tests.
+
+commit 6d5bd462531c6c5d23d38dfa77561c7875ddfaef
+Author:     Security Backport <security-backport@localhost>
+AuthorDate: Wed Sep 16 15:13:34 2026 +0300
+Commit:     Security Backport <security-backport@localhost>
+CommitDate: Wed Sep 16 15:14:35 2026 +0300
+
+    CVE-2026-59894: backport upstream security fix to 0.5.4
+    
+    Upstream: https://github.com/andialbrecht/sqlparse/commit/53ff44b53e27cff78259acc1af015506fea60f63
+    
+    Apply upstream production hunks without modification. Omit unrelated
+    release changelog entries; retain/add focused regression tests.
+
+commit 3d015beee669fd645d201936c53e785793e2c341
+Author:     Security Backport <security-backport@localhost>
+AuthorDate: Wed Sep 16 15:13:49 2026 +0300
+Commit:     Security Backport <security-backport@localhost>
+CommitDate: Wed Sep 16 15:14:35 2026 +0300
+
+    CVE-2026-59893: backport upstream security fix to 0.5.4
+    
+    Upstream: https://github.com/andialbrecht/sqlparse/commit/d1d80602741f77ec78e5a04ce4719244cf32352e
+    Upstream: https://github.com/andialbrecht/sqlparse/commit/519e41698a172add8aa7b54ab4e94daad0af213e
+    
+    Apply upstream production hunks without modification. Omit unrelated
+    release changelog entries; retain/add focused regression tests.
+    Include the upstream follow-up to preserve delimiters in strings and
+    comments and overlapping dollar delimiters.
+
+commit b43777d8d35c67ac2f64c966f041a0b2721134d7
+Author:     Security Backport <security-backport@localhost>
+AuthorDate: Wed Sep 16 15:13:49 2026 +0300
+Commit:     Security Backport <security-backport@localhost>
+CommitDate: Wed Sep 16 15:14:35 2026 +0300
+
+    CVE-2026-84305: backport upstream security fix to 0.5.4
+    
+    Upstream: https://github.com/andialbrecht/sqlparse/commit/a51df6d9e2d31b44be9adb6bc8732517db6bf96b
+    
+    Apply upstream production hunks without modification. Omit unrelated
+    release changelog entries; retain/add focused regression tests.
+
+commit c9728118530eeb5faa27f16b1143b662125933cf
+Author:     Security Backport <security-backport@localhost>
+AuthorDate: Wed Sep 16 15:13:49 2026 +0300
+Commit:     Security Backport <security-backport@localhost>
+CommitDate: Wed Sep 16 15:14:35 2026 +0300
+
+    CVE-2026-71491: backport upstream security fix to 0.5.4
+    
+    Upstream: https://github.com/andialbrecht/sqlparse/commit/ef2012a5eeb491e604dea2b00d516904a3830c87
+    
+    Apply upstream production hunks without modification. Omit unrelated
+    release changelog entries; retain/add focused regression tests.

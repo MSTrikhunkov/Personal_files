@@ -1,0 +1,116 @@
+FFFFF                                                                    [100%]
+=================================== FAILURES ===================================
+__________ test_group_construction_does_not_revisit_descendant_leaves __________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x106b0cf70>
+
+    def test_group_construction_does_not_revisit_descendant_leaves(monkeypatch):
+        visits = []
+        original = sql.TokenList.flatten
+    
+        def counted(self):
+            for token in original(self):
+                visits.append(token)
+                yield token
+    
+        monkeypatch.setattr(sql.TokenList, 'flatten', counted)
+        group = sql.TokenList([sql.Token(T.Name, 'x')])
+        for _ in range(40):
+            group = sql.TokenList([group])
+        assert group.value == 'x'
+>       assert len(visits) <= 40
+E       AssertionError: assert 861 <= 40
+E        +  where 861 = len([<Name 'x' at 0x106BBC100>, <Name 'x' at 0x106BBC100>, <Name 'x' at 0x106BBC100>, <Name 'x' at 0x106BBC100>, <Name 'x' at 0x106BBC100>, <Name 'x' at 0x106BBC100>, ...])
+
+tests/test_security_backports.py:21: AssertionError
+______________________ test_comment_tail_is_scanned_once _______________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x106b6d2b0>
+
+    def test_comment_tail_is_scanned_once(monkeypatch):
+        calls = []
+        original = sql.TokenList.token_not_matching
+    
+        def counted(self, *args, **kwargs):
+            calls.append(1)
+            return original(self, *args, **kwargs)
+    
+        monkeypatch.setattr(sql.TokenList, 'token_not_matching', counted)
+        statement = sql.Statement([
+            sql.Token(T.Comment.Single, '-- c\n') for _ in range(100)])
+        group_comments(statement)
+        assert str(statement) == '-- c\n' * 100
+>       assert len(calls) == 1
+E       assert 100 == 1
+E        +  where 100 = len([1, 1, 1, 1, 1, 1, ...])
+
+tests/test_security_backports.py:37: AssertionError
+______________ test_reindent_offset_does_not_walk_previous_lines _______________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x106b1ab50>
+
+    def test_reindent_offset_does_not_walk_previous_lines(monkeypatch):
+        prefix = [sql.Token(T.Name, 'x') for _ in range(500)]
+        target = sql.Token(T.Name, 'target')
+        statement = sql.Statement(prefix + [
+            sql.Token(T.Whitespace, '\n  '), target])
+        formatter = ReindentFilter()
+        formatter._curr_stmt = statement
+        visits = []
+        original = sql.TokenList.flatten
+    
+        def counted(self):
+            for token in original(self):
+                visits.append(token)
+                yield token
+    
+        monkeypatch.setattr(sql.TokenList, 'flatten', counted)
+        assert formatter._get_offset(target) == 2
+>       assert len(visits) < 10
+E       AssertionError: assert 502 < 10
+E        +  where 502 = len([<Name 'x' at 0x106BA4700>, <Name 'x' at 0x106BA4880>, <Name 'x' at 0x106BA4400>, <Name 'x' at 0x106BA4100>, <Name 'x' at 0x106BA40A0>, <Name 'x' at 0x106BA4160>, ...])
+
+tests/test_security_backports.py:57: AssertionError
+_______________ TestOutputFormat.test_python_escapes_backslashes _______________
+
+self = <tests.test_format.TestOutputFormat object at 0x106b395b0>
+
+    def test_python_escapes_backslashes(self):
+        # GHSA-3496-9g83-7v6x: backslashes must be escaped before quotes so
+        # crafted SQL cannot break out of the generated Python string literal.
+        # SQL  select '\foo\'  -> each \ doubled, each ' escaped.
+        sql = "select '\\foo\\'"
+        f = lambda sql: sqlparse.format(sql, output_format='python')
+>       assert f(sql) == "sql = 'select \\'\\\\foo\\\\\\''"
+E       assert "sql = 'select \\'\\foo\\\\''" == "sql = 'selec...\\foo\\\\\\''"
+E         
+E         - sql = 'select \'\\foo\\\''
+E         ?                 -      -
+E         + sql = 'select \'\foo\\''
+
+tests/test_format.py:698: AssertionError
+________________ TestOutputFormat.test_php_escapes_backslashes _________________
+
+self = <tests.test_format.TestOutputFormat object at 0x106b1a040>
+
+    def test_php_escapes_backslashes(self):
+        # GHSA-3496-9g83-7v6x: PHP double-quoted output must escape backslashes
+        # before quotes; a backslash before a quote otherwise closes the string.
+        # SQL  select '\foo\'  -> each \ doubled (single quotes need no escaping).
+        sql = "select '\\foo\\'"
+        f = lambda sql: sqlparse.format(sql, output_format='php')
+>       assert f(sql) == '$sql = "select \'\\\\foo\\\\\'";'
+E       assert '$sql = "select \'\\foo\\\'";' == '$sql = "sele...\\foo\\\\\'";'
+E         
+E         - $sql = "select '\\foo\\'";
+E         ?                 -     -
+E         + $sql = "select '\foo\'";
+
+tests/test_format.py:706: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_security_backports.py::test_group_construction_does_not_revisit_descendant_leaves
+FAILED tests/test_security_backports.py::test_comment_tail_is_scanned_once - ...
+FAILED tests/test_security_backports.py::test_reindent_offset_does_not_walk_previous_lines
+FAILED tests/test_format.py::TestOutputFormat::test_python_escapes_backslashes
+FAILED tests/test_format.py::TestOutputFormat::test_php_escapes_backslashes
+5 failed, 65 deselected in 0.11s

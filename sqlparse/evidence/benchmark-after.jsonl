@@ -1,0 +1,19 @@
+{"python": "3.9.6 (default, May 22 2026, 11:13:45) \n[Clang 21.0.0 (clang-2100.1.1.101)]", "source": "/Users/bixenonoff/WORK/sqlparse/sqlparse-0.5.4/sqlparse/__init__.py"}
+{"vector": "CVE-2026-59893-dollar", "n": 1000, "bytes": 7889, "median_seconds": 0.016874917000000003, "status": "ok"}
+{"vector": "CVE-2026-59893-dollar", "n": 2000, "bytes": 16889, "median_seconds": 0.03460733399999999, "status": "ok"}
+{"vector": "CVE-2026-59893-dollar", "n": 4000, "bytes": 34889, "median_seconds": 0.06919704199999999, "status": "ok"}
+{"vector": "CVE-2026-59893-comment", "n": 2000, "bytes": 8000, "median_seconds": 0.031855666999999976, "status": "ok"}
+{"vector": "CVE-2026-59893-comment", "n": 4000, "bytes": 16000, "median_seconds": 0.06390937499999993, "status": "ok"}
+{"vector": "CVE-2026-59893-comment", "n": 8000, "bytes": 32000, "median_seconds": 0.12821075000000004, "status": "ok"}
+{"vector": "CVE-2026-59893-hint", "n": 2000, "bytes": 10000, "median_seconds": 0.044007165999999875, "status": "ok"}
+{"vector": "CVE-2026-59893-hint", "n": 4000, "bytes": 20000, "median_seconds": 0.08713612500000001, "status": "ok"}
+{"vector": "CVE-2026-59893-hint", "n": 8000, "bytes": 40000, "median_seconds": 0.174093917, "status": "ok"}
+{"vector": "CVE-2026-71491", "n": 2000, "bytes": 10000, "median_seconds": 0.02208445800000014, "status": "ok"}
+{"vector": "CVE-2026-71491", "n": 4000, "bytes": 20000, "median_seconds": 0.04402679100000029, "status": "ok"}
+{"vector": "CVE-2026-71491", "n": 8000, "bytes": 40000, "median_seconds": 0.08885504099999997, "status": "ok"}
+{"vector": "CVE-2026-84305-IN", "n": 300, "bytes": 3467, "median_seconds": 0.05756904099999982, "status": "ok"}
+{"vector": "CVE-2026-84305-IN", "n": 600, "bytes": 7167, "median_seconds": 0.12298237499999987, "status": "ok"}
+{"vector": "CVE-2026-84305-IN", "n": 1200, "bytes": 15167, "median_seconds": 0.2948483340000001, "status": "ok"}
+{"vector": "CVE-2026-84305-VALUES", "n": 500, "bytes": 3409, "median_seconds": 0.06307324999999997, "status": "ok"}
+{"vector": "CVE-2026-84305-VALUES", "n": 1000, "bytes": 6909, "median_seconds": 0.15126574999999942, "status": "ok"}
+{"vector": "CVE-2026-84305-VALUES", "n": 1950, "bytes": 14509, "median_seconds": 0.3845335410000006, "status": "ok"}

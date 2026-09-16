@@ -1,0 +1,121 @@
+$ git init
+Initialized empty Git repository in /private/var/folders/0f/kjrjc_hd4lx8ccnyx79dbk2h0000gn/T/sqlparse-verify-5bcjffm2/sqlparse-0.5.4/.git/
+
+$ git add .
+
+$ git -c user.name=Security Backport -c user.email=security-backport@localhost commit -m Baseline tarball
+[main (root-commit) 13b1ab6] Baseline tarball
+ 88 files changed, 14700 insertions(+)
+ create mode 100644 .flake8
+ create mode 100644 .github/CODE_OF_CONDUCT.md
+ create mode 100644 .github/ISSUE_TEMPLATE/bug_report.md
+ create mode 100644 .github/ISSUE_TEMPLATE/config.yml
+ create mode 100644 .github/ISSUE_TEMPLATE/feature_request.md
+ create mode 100644 .github/PULL_REQUEST_TEMPLATE.md
+ create mode 100644 .github/workflows/codeql-analysis.yml
+ create mode 100644 .github/workflows/python-app.yml
+ create mode 100644 .gitignore
+ create mode 100644 .pre-commit-hooks.yaml
+ create mode 100644 .readthedocs.yaml
+ create mode 100644 AGENTS.md
+ create mode 100644 AUTHORS
+ create mode 100644 CHANGELOG
+ create mode 100644 CLAUDE.md
+ create mode 100644 CONTRIBUTING.md
+ create mode 100644 LICENSE
+ create mode 100644 Makefile
+ create mode 100644 README.rst
+ create mode 100644 SECURITY.md
+ create mode 100644 TODO
+ create mode 100644 docs/Makefile
+ create mode 100644 docs/source/analyzing.rst
+ create mode 100644 docs/source/api.rst
+ create mode 100644 docs/source/changes.rst
+ create mode 100644 docs/source/conf.py
+ create mode 100644 docs/source/extending.rst
+ create mode 100644 docs/source/index.rst
+ create mode 100644 docs/source/indices.rst
+ create mode 100644 docs/source/intro.rst
+ create mode 100644 docs/source/license.rst
+ create mode 100644 docs/source/ui.rst
+ create mode 100644 docs/sqlformat.1
+ create mode 100644 examples/column_defs_lowlevel.py
+ create mode 100644 examples/extract_table_names.py
+ create mode 100644 pixi.lock
+ create mode 100644 pyproject.toml
+ create mode 100644 sqlparse/__init__.py
+ create mode 100644 sqlparse/__main__.py
+ create mode 100644 sqlparse/cli.py
+ create mode 100644 sqlparse/engine/__init__.py
+ create mode 100644 sqlparse/engine/filter_stack.py
+ create mode 100644 sqlparse/engine/grouping.py
+ create mode 100644 sqlparse/engine/statement_splitter.py
+ create mode 100644 sqlparse/exceptions.py
+ create mode 100644 sqlparse/filters/__init__.py
+ create mode 100644 sqlparse/filters/aligned_indent.py
+ create mode 100644 sqlparse/filters/others.py
+ create mode 100644 sqlparse/filters/output.py
+ create mode 100644 sqlparse/filters/reindent.py
+ create mode 100644 sqlparse/filters/right_margin.py
+ create mode 100644 sqlparse/filters/tokens.py
+ create mode 100644 sqlparse/formatter.py
+ create mode 100644 sqlparse/keywords.py
+ create mode 100644 sqlparse/lexer.py
+ create mode 100644 sqlparse/py.typed
+ create mode 100644 sqlparse/sql.py
+ create mode 100644 sqlparse/tokens.py
+ create mode 100644 sqlparse/utils.py
+ create mode 100644 tests/__init__.py
+ create mode 100644 tests/conftest.py
+ create mode 100644 tests/files/_Make_DirEntry.sql
+ create mode 100644 tests/files/begintag.sql
+ create mode 100644 tests/files/begintag_2.sql
+ create mode 100644 tests/files/casewhen_procedure.sql
+ create mode 100644 tests/files/dashcomment.sql
+ create mode 100644 tests/files/encoding_gbk.sql
+ create mode 100644 tests/files/encoding_utf8.sql
+ create mode 100644 tests/files/function.sql
+ create mode 100644 tests/files/function_psql.sql
+ create mode 100644 tests/files/function_psql2.sql
+ create mode 100644 tests/files/function_psql3.sql
+ create mode 100644 tests/files/function_psql4.sql
+ create mode 100644 tests/files/huge_select.sql
+ create mode 100644 tests/files/multiple_case_in_begin.sql
+ create mode 100644 tests/files/mysql_handler.sql
+ create mode 100644 tests/files/stream.sql
+ create mode 100644 tests/files/test_cp1251.sql
+ create mode 100644 tests/test_cli.py
+ create mode 100644 tests/test_dos_prevention.py
+ create mode 100644 tests/test_format.py
+ create mode 100644 tests/test_grouping.py
+ create mode 100644 tests/test_keywords.py
+ create mode 100644 tests/test_parse.py
+ create mode 100644 tests/test_regressions.py
+ create mode 100644 tests/test_split.py
+ create mode 100644 tests/test_tokenize.py
+ create mode 100644 tests/test_utils.py
+
+$ git -c user.name=Security Backport -c user.email=security-backport@localhost am /Users/bixenonoff/WORK/sqlparse/security-fixes/0001-CVE-2026-54284-backport-upstream-security-fix-to-0.5.patch /Users/bixenonoff/WORK/sqlparse/security-fixes/0002-CVE-2026-59894-backport-upstream-security-fix-to-0.5.patch /Users/bixenonoff/WORK/sqlparse/security-fixes/0003-CVE-2026-59893-backport-upstream-security-fix-to-0.5.patch /Users/bixenonoff/WORK/sqlparse/security-fixes/0004-CVE-2026-84305-backport-upstream-security-fix-to-0.5.patch /Users/bixenonoff/WORK/sqlparse/security-fixes/0005-CVE-2026-71491-backport-upstream-security-fix-to-0.5.patch
+Applying: CVE-2026-54284: backport upstream security fix to 0.5.4
+Applying: CVE-2026-59894: backport upstream security fix to 0.5.4
+Applying: CVE-2026-59893: backport upstream security fix to 0.5.4
+Applying: CVE-2026-84305: backport upstream security fix to 0.5.4
+Applying: CVE-2026-71491: backport upstream security fix to 0.5.4
+
+$ /Users/bixenonoff/WORK/sqlparse/.venv/bin/python -m pytest -q
+........................................................................ [ 14%]
+......x...............x................................................. [ 29%]
+........................................................................ [ 43%]
+........................................................................ [ 58%]
+........................................................................ [ 72%]
+........X............................................................... [ 87%]
+...............................................................          [100%]
+492 passed, 2 xfailed, 1 xpassed in 1.84s
+
+$ /Users/bixenonoff/WORK/sqlparse/.venv/bin/python -m flake8 sqlparse/
+
+$ git diff --check
+
+$ git status --porcelain
+
+PASS: all tracked files byte-identical after git am on fresh tarball.
