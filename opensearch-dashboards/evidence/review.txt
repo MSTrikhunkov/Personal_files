@@ -1,0 +1,5 @@
+Focused independent code review, 2026-09-16
+Initial findings: restrict detection to installed package boundaries; eliminate repeated whole-input scans in URI fallback.
+Both addressed and re-reviewed. No remaining critical/important blocker found in the bounded review.
+Reviewer measurements on 64/128/256 KB inputs with distinct encoded runs: 4.3/4.7/8.4 ms after final fix, vs 85/317/1429 ms before outer-loop fix.
+These are local measurements, not cross-platform performance guarantees.

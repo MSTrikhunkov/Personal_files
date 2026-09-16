@@ -1,0 +1,3 @@
+Security backports: 1 packages checked, 11 files patched
+Security backports: 1 packages checked, 0 files patched
+PASS real production task patches freshly installed dependencies after install

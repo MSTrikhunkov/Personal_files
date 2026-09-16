@@ -1,0 +1,4 @@
+0001-js-yaml-omap-and-backport-hooks.patch
+0002-lodash-unset-omit-prototype-guard.patch
+0003-nanoid-size-and-random-pool.patch
+0004-decode-uri-component-bounded-decoder.patch

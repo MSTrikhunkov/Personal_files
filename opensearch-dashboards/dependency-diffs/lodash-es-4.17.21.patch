@@ -1,0 +1,19 @@
+--- a/_baseUnset.js
++++ b/_baseUnset.js
+@@ -13,6 +13,16 @@
+  */
+ function baseUnset(object, path) {
+   path = castPath(path, object);
++  // Normalize once so array/object path segments cannot bypass the guard.
++  var keys = [], index = -1;
++  while (++index < path.length) keys.push(toKey(path[index]));
++  path = keys;
++  for (index = 0; index < path.length; index++) {
++    if (path[index] === '__proto__' ||
++        (path[index] === 'constructor' && path[index + 1] === 'prototype')) {
++      return false;
++    }
++  }
+   object = parent(object, path);
+   return object == null || delete object[toKey(last(path))];
+ }

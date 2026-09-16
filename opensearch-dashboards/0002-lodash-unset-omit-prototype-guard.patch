@@ -1,0 +1,66 @@
+diff --git a/scripts/security_backports/02-lodash.json b/scripts/security_backports/02-lodash.json
+--- /dev/null
++++ b/scripts/security_backports/02-lodash.json
+@@ -0,0 +1,62 @@
++[
++  {
++    "name": "lodash",
++    "version": "4.17.21",
++    "files": [
++      {
++        "path": "_baseUnset.js",
++        "before": "b246cdf2a6d701349ee331fcaf6db235def81702abaccb3193da2d91e560eccc",
++        "after": "339af6da76b9ee34e155bf4aee3c8f038cceef2e479008e0514ed8c2eadef28b",
++        "edits": [
++          {
++            "from": "function baseUnset(object, path) {\n  path = castPath(path, object);",
++            "to": "function baseUnset(object, path) {\n  path = castPath(path, object);\n  // Normalize once so array/object path segments cannot bypass the guard.\n  var keys = [], index = -1;\n  while (++index < path.length) keys.push(toKey(path[index]));\n  path = keys;\n  for (index = 0; index < path.length; index++) {\n    if (path[index] === '__proto__' ||\n        (path[index] === 'constructor' && path[index + 1] === 'prototype')) {\n      return false;\n    }\n  }",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "lodash.js",
++        "before": "4c04561befdf653aef017a42ac5addf68ea943cdfca6bdee5ce04e04e8139f54",
++        "after": "62bd921f1aba81dda1f1bd1fbd12fc1d853bd0f3a67a4244f9d30d57609f0b3e",
++        "edits": [
++          {
++            "from": "function baseUnset(object, path) {\n      path = castPath(path, object);",
++            "to": "function baseUnset(object, path) {\n      path = castPath(path, object);\n      // Normalize once so array/object path segments cannot bypass the guard.\n      var keys = [], index = -1;\n      while (++index < path.length) keys.push(toKey(path[index]));\n      path = keys;\n      for (index = 0; index < path.length; index++) {\n        if (path[index] === '__proto__' ||\n            (path[index] === 'constructor' && path[index + 1] === 'prototype')) {\n          return false;\n        }\n      }",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "lodash.min.js",
++        "before": "a9705dfc47c0763380d851ab1801be6f76019f6b67e40e9b873f8b4a0603f7a9",
++        "after": "f2dcde750589684d2c39691b5c56ba2b75ca202d2f5c59736099554314ea03a4",
++        "edits": [
++          {
++            "from": "function yu(n,t){return t=ku(t,n),n=Gi(n,t),null==n||delete n[no(jo(t))]}",
++            "to": "function yu(n,t){t=ku(t,n);var r=[],e=-1;while(++e<t.length)r.push(no(t[e]));t=r;for(e=0;e<t.length;e++){if(t[e]===\"__proto__\"||(t[e]===\"constructor\"&&t[e+1]===\"prototype\"))return false}n=Gi(n,t);return null==n||delete n[no(jo(t))]}",
++            "count": 1
++          }
++        ]
++      }
++    ]
++  },
++  {
++    "name": "lodash-es",
++    "version": "4.17.21",
++    "files": [
++      {
++        "path": "_baseUnset.js",
++        "before": "03f96487914730f7462632d4b655ce2033636dbf9c2a63569e57f922830d023f",
++        "after": "8ab8a642b49edade96131a0bd6938b9a0e444f194c24d236c7b59db541bdc48c",
++        "edits": [
++          {
++            "from": "function baseUnset(object, path) {\n  path = castPath(path, object);",
++            "to": "function baseUnset(object, path) {\n  path = castPath(path, object);\n  // Normalize once so array/object path segments cannot bypass the guard.\n  var keys = [], index = -1;\n  while (++index < path.length) keys.push(toKey(path[index]));\n  path = keys;\n  for (index = 0; index < path.length; index++) {\n    if (path[index] === '__proto__' ||\n        (path[index] === 'constructor' && path[index + 1] === 'prototype')) {\n      return false;\n    }\n  }",
++            "count": 1
++          }
++        ]
++      }
++    ]
++  }
++]

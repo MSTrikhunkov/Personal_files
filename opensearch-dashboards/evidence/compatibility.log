@@ -1,0 +1,3 @@
+PASS 10000 valid-URI equivalence cases; exported API names unchanged
+{"comparisons":20000,"malformedCases":10000,"malformedDifferences":20,"examples":[{"input":"%80%20a%C3%80%20","before":"%80 a%C3%80 ","after":"%80 aÀ "},{"input":"%00%%9F$&%00%20","before":"\u0000%%9F$&\u0000%20","after":"\u0000%%9F$&\u0000 "},{"input":"%00%%FF%FF%FF%FE%00%","before":"\u0000%%FF%FF��\u0000%","after":"\u0000%%FF%FF��%00%"},{"input":"%41%%FF%FF%FF%F0%41%20","before":"A%%FF%FF%FF%F0A%20","after":"A%%FF%FF%FF%F0A "}]}
+Documented security fallback change: malformed %FF%FF%FF%25 preserves the final % instead of losing it.

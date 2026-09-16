@@ -1,0 +1,180 @@
+--- a/async/index.browser.cjs
++++ b/async/index.browser.cjs
+@@ -1,8 +1,9 @@
+ let random = async bytes => crypto.getRandomValues(new Uint8Array(bytes))
+ let customAlphabet = (alphabet, defaultSize = 21) => {
+   let mask = (2 << (Math.log(alphabet.length - 1) / Math.LN2)) - 1
+-  let step = -~((1.6 * mask * defaultSize) / alphabet.length)
++  let step = Math.max(1, -~((1.6 * mask * defaultSize) / alphabet.length))
+   return async (size = defaultSize) => {
++    if (size <= 0) return ''
+     let id = ''
+     while (true) {
+       let bytes = crypto.getRandomValues(new Uint8Array(step))
+--- a/async/index.browser.js
++++ b/async/index.browser.js
+@@ -1,8 +1,9 @@
+ let random = async bytes => crypto.getRandomValues(new Uint8Array(bytes))
+ let customAlphabet = (alphabet, defaultSize = 21) => {
+   let mask = (2 << (Math.log(alphabet.length - 1) / Math.LN2)) - 1
+-  let step = -~((1.6 * mask * defaultSize) / alphabet.length)
++  let step = Math.max(1, -~((1.6 * mask * defaultSize) / alphabet.length))
+   return async (size = defaultSize) => {
++    if (size <= 0) return ''
+     let id = ''
+     while (true) {
+       let bytes = crypto.getRandomValues(new Uint8Array(step))
+--- a/async/index.cjs
++++ b/async/index.cjs
+@@ -12,9 +12,9 @@
+   })
+ let customAlphabet = (alphabet, defaultSize = 21) => {
+   let mask = (2 << (31 - Math.clz32((alphabet.length - 1) | 1))) - 1
+-  let step = Math.ceil((1.6 * mask * defaultSize) / alphabet.length)
++  let step = Math.max(1, Math.ceil((1.6 * mask * defaultSize) / alphabet.length))
+   let tick = (id, size = defaultSize) =>
+-    random(step).then(bytes => {
++    size <= 0 ? Promise.resolve('') : random(step).then(bytes => {
+       let i = step
+       while (i--) {
+         id += alphabet[bytes[i] & mask] || ''
+--- a/async/index.js
++++ b/async/index.js
+@@ -12,9 +12,9 @@
+   })
+ let customAlphabet = (alphabet, defaultSize = 21) => {
+   let mask = (2 << (31 - Math.clz32((alphabet.length - 1) | 1))) - 1
+-  let step = Math.ceil((1.6 * mask * defaultSize) / alphabet.length)
++  let step = Math.max(1, Math.ceil((1.6 * mask * defaultSize) / alphabet.length))
+   let tick = (id, size = defaultSize) =>
+-    random(step).then(bytes => {
++    size <= 0 ? Promise.resolve('') : random(step).then(bytes => {
+       let i = step
+       while (i--) {
+         id += alphabet[bytes[i] & mask] || ''
+--- a/async/index.native.js
++++ b/async/index.native.js
+@@ -3,9 +3,9 @@
+ let random = getRandomBytesAsync
+ let customAlphabet = (alphabet, defaultSize = 21) => {
+   let mask = (2 << (31 - Math.clz32((alphabet.length - 1) | 1))) - 1
+-  let step = Math.ceil((1.6 * mask * defaultSize) / alphabet.length)
++  let step = Math.max(1, Math.ceil((1.6 * mask * defaultSize) / alphabet.length))
+   let tick = (id, size = defaultSize) =>
+-    random(step).then(bytes => {
++    size <= 0 ? Promise.resolve('') : random(step).then(bytes => {
+       let i = step
+       while (i--) {
+         id += alphabet[bytes[i] & mask] || ''
+--- a/index.browser.cjs
++++ b/index.browser.cjs
+@@ -2,8 +2,9 @@
+ let random = bytes => crypto.getRandomValues(new Uint8Array(bytes))
+ let customRandom = (alphabet, defaultSize, getRandom) => {
+   let mask = (2 << (Math.log(alphabet.length - 1) / Math.LN2)) - 1
+-  let step = -~((1.6 * mask * defaultSize) / alphabet.length)
++  let step = Math.max(1, -~((1.6 * mask * defaultSize) / alphabet.length))
+   return (size = defaultSize) => {
++    if (size <= 0) return ''
+     let id = ''
+     while (true) {
+       let bytes = getRandom(step)
+--- a/index.browser.js
++++ b/index.browser.js
+@@ -2,8 +2,9 @@
+ let random = bytes => crypto.getRandomValues(new Uint8Array(bytes))
+ let customRandom = (alphabet, defaultSize, getRandom) => {
+   let mask = (2 << (Math.log(alphabet.length - 1) / Math.LN2)) - 1
+-  let step = -~((1.6 * mask * defaultSize) / alphabet.length)
++  let step = Math.max(1, -~((1.6 * mask * defaultSize) / alphabet.length))
+   return (size = defaultSize) => {
++    if (size <= 0) return ''
+     let id = ''
+     while (true) {
+       let bytes = getRandom(step)
+--- a/index.cjs
++++ b/index.cjs
+@@ -3,6 +3,9 @@
+ const POOL_SIZE_MULTIPLIER = 128
+ let pool, poolOffset
+ let fillPool = bytes => {
++  if (!Number.isSafeInteger(bytes) || bytes < 0) {
++    throw new RangeError('Invalid random byte count')
++  }
+   if (!pool || pool.length < bytes) {
+     pool = Buffer.allocUnsafe(bytes * POOL_SIZE_MULTIPLIER)
+     crypto.randomFillSync(pool)
+@@ -19,8 +22,9 @@
+ }
+ let customRandom = (alphabet, defaultSize, getRandom) => {
+   let mask = (2 << (31 - Math.clz32((alphabet.length - 1) | 1))) - 1
+-  let step = Math.ceil((1.6 * mask * defaultSize) / alphabet.length)
++  let step = Math.max(1, Math.ceil((1.6 * mask * defaultSize) / alphabet.length))
+   return (size = defaultSize) => {
++    if (size <= 0) return ''
+     let id = ''
+     while (true) {
+       let bytes = getRandom(step)
+--- a/index.js
++++ b/index.js
+@@ -3,6 +3,9 @@
+ const POOL_SIZE_MULTIPLIER = 128
+ let pool, poolOffset
+ let fillPool = bytes => {
++  if (!Number.isSafeInteger(bytes) || bytes < 0) {
++    throw new RangeError('Invalid random byte count')
++  }
+   if (!pool || pool.length < bytes) {
+     pool = Buffer.allocUnsafe(bytes * POOL_SIZE_MULTIPLIER)
+     crypto.randomFillSync(pool)
+@@ -19,8 +22,9 @@
+ }
+ let customRandom = (alphabet, defaultSize, getRandom) => {
+   let mask = (2 << (31 - Math.clz32((alphabet.length - 1) | 1))) - 1
+-  let step = Math.ceil((1.6 * mask * defaultSize) / alphabet.length)
++  let step = Math.max(1, Math.ceil((1.6 * mask * defaultSize) / alphabet.length))
+   return (size = defaultSize) => {
++    if (size <= 0) return ''
+     let id = ''
+     while (true) {
+       let bytes = getRandom(step)
+--- a/non-secure/index.cjs
++++ b/non-secure/index.cjs
+@@ -4,7 +4,7 @@
+   return (size = defaultSize) => {
+     let id = ''
+     let i = size
+-    while (i--) {
++    while (i-- > 0) {
+       id += alphabet[(Math.random() * alphabet.length) | 0]
+     }
+     return id
+@@ -13,7 +13,7 @@
+ let nanoid = (size = 21) => {
+   let id = ''
+   let i = size
+-  while (i--) {
++  while (i-- > 0) {
+     id += urlAlphabet[(Math.random() * 64) | 0]
+   }
+   return id
+--- a/non-secure/index.js
++++ b/non-secure/index.js
+@@ -4,7 +4,7 @@
+   return (size = defaultSize) => {
+     let id = ''
+     let i = size
+-    while (i--) {
++    while (i-- > 0) {
+       id += alphabet[(Math.random() * alphabet.length) | 0]
+     }
+     return id
+@@ -13,7 +13,7 @@
+ let nanoid = (size = 21) => {
+   let id = ''
+   let i = size
+-  while (i--) {
++  while (i-- > 0) {
+     id += urlAlphabet[(Math.random() * 64) | 0]
+   }
+   return id

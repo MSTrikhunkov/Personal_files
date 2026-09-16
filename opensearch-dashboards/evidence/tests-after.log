@@ -1,0 +1,43 @@
+PASS yaml 3.13.1 lib/js-yaml/type/omap.js linear uniqueness + semantics
+PASS yaml 3.13.1 dist/js-yaml.js linear uniqueness + semantics
+PASS yaml 3.13.1 dist/js-yaml.min.js linear uniqueness + semantics
+PASS yaml 3.14.1 lib/js-yaml/type/omap.js linear uniqueness + semantics
+PASS yaml 3.14.1 dist/js-yaml.js linear uniqueness + semantics
+PASS yaml 3.14.1 dist/js-yaml.min.js linear uniqueness + semantics
+PASS yaml 4.1.0 lib/type/omap.js linear uniqueness + semantics
+PASS yaml 4.1.0 dist/js-yaml.js linear uniqueness + semantics
+PASS yaml 4.1.0 dist/js-yaml.min.js linear uniqueness + semantics
+PASS yaml 4.1.0 dist/js-yaml.mjs linear uniqueness + semantics
+PASS yaml ESM omap
+PASS lodash prototype protection lodash.js
+PASS lodash prototype protection lodash.min.js
+PASS lodash prototype protection unset.js
+PASS lodash prototype protection fp/unset.js
+PASS lodash omit and ordinary paths
+PASS lodash-es protection
+PASS nanoid 3.3.2 zero size index.cjs
+PASS nanoid 3.3.2 zero size index.js
+PASS nanoid 3.3.2 zero size index.browser.js
+PASS nanoid 3.3.2 zero size index.browser.cjs
+PASS nanoid 3.3.2 negative non-secure/index.cjs
+PASS nanoid 3.3.2 negative non-secure/index.js
+PASS nanoid 3.3.2 async zero async/index.cjs
+PASS nanoid 3.3.2 async zero async/index.js
+PASS nanoid 3.3.2 async zero async/index.browser.js
+PASS nanoid 3.3.2 async zero async/index.browser.cjs
+PASS nanoid 3.3.2 pool validation
+PASS nanoid 3.3.3 zero size index.cjs
+PASS nanoid 3.3.3 zero size index.js
+PASS nanoid 3.3.3 zero size index.browser.js
+PASS nanoid 3.3.3 zero size index.browser.cjs
+PASS nanoid 3.3.3 negative non-secure/index.cjs
+PASS nanoid 3.3.3 negative non-secure/index.js
+PASS nanoid 3.3.3 async zero async/index.cjs
+PASS nanoid 3.3.3 async zero async/index.js
+PASS nanoid 3.3.3 async zero async/index.browser.js
+PASS nanoid 3.3.3 async zero async/index.browser.cjs
+PASS nanoid 3.3.3 pool validation
+PASS decode CommonJS and compatibility
+PASS decode malformed 1400 tokens bounded time
+PASS decode total replacement work is linear for distinct runs
+{"checks":42,"failures":0,"node":"v18.19.0"}

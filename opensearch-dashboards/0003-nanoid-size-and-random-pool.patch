@@ -1,0 +1,392 @@
+diff --git a/scripts/security_backports/03-nanoid.json b/scripts/security_backports/03-nanoid.json
+--- /dev/null
++++ b/scripts/security_backports/03-nanoid.json
+@@ -0,0 +1,388 @@
++[
++  {
++    "name": "nanoid",
++    "version": "3.3.2",
++    "files": [
++      {
++        "path": "async/index.browser.cjs",
++        "before": "5380fbc4a9523714fc47f2d581d4b269f64c4c3a830b3776c705866a985d061a",
++        "after": "5e1c1007a42be616a206629bb05fdf0c61115c81bd82975b516a3924d2e7ea7f",
++        "edits": [
++          {
++            "from": "return async (size = defaultSize) => {",
++            "to": "return async (size = defaultSize) => {\n    if (size <= 0) return ''",
++            "count": 1
++          },
++          {
++            "from": "let step = -~((1.6 * mask * defaultSize) / alphabet.length)",
++            "to": "let step = Math.max(1, -~((1.6 * mask * defaultSize) / alphabet.length))",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "async/index.browser.js",
++        "before": "df218a44dca7a1a2f3896a550a99cfbd7346939dd1e01154024359621c878354",
++        "after": "a410dfda88d4a3e9715672a9bc4646a06d7a09c5d95a9976eff6ef98c55181e3",
++        "edits": [
++          {
++            "from": "return async (size = defaultSize) => {",
++            "to": "return async (size = defaultSize) => {\n    if (size <= 0) return ''",
++            "count": 1
++          },
++          {
++            "from": "let step = -~((1.6 * mask * defaultSize) / alphabet.length)",
++            "to": "let step = Math.max(1, -~((1.6 * mask * defaultSize) / alphabet.length))",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "async/index.cjs",
++        "before": "f5911ad498fcae995a2e7f14be65cbb5df7f94091545668e8589a4fc62690ea4",
++        "after": "75df3feb29eaea49062b7390c6d2b4f169c2c39ce82c76e2e44e6366667c3ee6",
++        "edits": [
++          {
++            "from": "let tick = (id, size = defaultSize) =>\n    random(step)",
++            "to": "let tick = (id, size = defaultSize) =>\n    size <= 0 ? Promise.resolve('') : random(step)",
++            "count": 1
++          },
++          {
++            "from": "let step = Math.ceil((1.6 * mask * defaultSize) / alphabet.length)",
++            "to": "let step = Math.max(1, Math.ceil((1.6 * mask * defaultSize) / alphabet.length))",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "async/index.js",
++        "before": "8f8317c6517081062acbbded96fbbfd4dc33ae7fc09e16d2cd3b53751ce91564",
++        "after": "c59d827355861626205fda54e106ca7595bd9d96574d5e7d7dc86238000fc8c7",
++        "edits": [
++          {
++            "from": "let tick = (id, size = defaultSize) =>\n    random(step)",
++            "to": "let tick = (id, size = defaultSize) =>\n    size <= 0 ? Promise.resolve('') : random(step)",
++            "count": 1
++          },
++          {
++            "from": "let step = Math.ceil((1.6 * mask * defaultSize) / alphabet.length)",
++            "to": "let step = Math.max(1, Math.ceil((1.6 * mask * defaultSize) / alphabet.length))",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "async/index.native.js",
++        "before": "4df89ec87db404ad93d551dc82cc59f461d565b961c756bb08e90b1486854e92",
++        "after": "0ea5ffafa72903913ba9dbf0933167e1aad3b21a304e0b4e7308084e3a96df32",
++        "edits": [
++          {
++            "from": "let tick = (id, size = defaultSize) =>\n    random(step)",
++            "to": "let tick = (id, size = defaultSize) =>\n    size <= 0 ? Promise.resolve('') : random(step)",
++            "count": 1
++          },
++          {
++            "from": "let step = Math.ceil((1.6 * mask * defaultSize) / alphabet.length)",
++            "to": "let step = Math.max(1, Math.ceil((1.6 * mask * defaultSize) / alphabet.length))",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "index.browser.cjs",
++        "before": "7212d79bcb7edbf29db87c9cd49f974ae63a1b14642d617b7fce7412c1e13f28",
++        "after": "36f78db556727b11f46513e602fc13c49ec72021cc1bd57d494d2083751b6fd5",
++        "edits": [
++          {
++            "from": "return (size = defaultSize) => {",
++            "to": "return (size = defaultSize) => {\n    if (size <= 0) return ''",
++            "count": 1
++          },
++          {
++            "from": "let step = -~((1.6 * mask * defaultSize) / alphabet.length)",
++            "to": "let step = Math.max(1, -~((1.6 * mask * defaultSize) / alphabet.length))",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "index.browser.js",
++        "before": "65acc2a100a856fe89e807cdfb4e1266426f8eabab04b5d2799f667649fd10b2",
++        "after": "e1c4ebc6fc391e4cb6d5579746868cadc3240630e8f48c83bfc46afbf1265303",
++        "edits": [
++          {
++            "from": "return (size = defaultSize) => {",
++            "to": "return (size = defaultSize) => {\n    if (size <= 0) return ''",
++            "count": 1
++          },
++          {
++            "from": "let step = -~((1.6 * mask * defaultSize) / alphabet.length)",
++            "to": "let step = Math.max(1, -~((1.6 * mask * defaultSize) / alphabet.length))",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "index.cjs",
++        "before": "208a883b4ab6623c5340fce09719eb9c3cef111002c36263fa80682a8924b473",
++        "after": "df05498d3427c456afdf44c5a42a4d8e4fc946c1c281e259ad80097b7a0525fe",
++        "edits": [
++          {
++            "from": "let fillPool = bytes => {",
++            "to": "let fillPool = bytes => {\n  if (!Number.isSafeInteger(bytes) || bytes < 0) {\n    throw new RangeError('Invalid random byte count')\n  }",
++            "count": 1
++          },
++          {
++            "from": "return (size = defaultSize) => {",
++            "to": "return (size = defaultSize) => {\n    if (size <= 0) return ''",
++            "count": 1
++          },
++          {
++            "from": "let step = Math.ceil((1.6 * mask * defaultSize) / alphabet.length)",
++            "to": "let step = Math.max(1, Math.ceil((1.6 * mask * defaultSize) / alphabet.length))",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "index.js",
++        "before": "75ae4ecb41d5dcc6b8f86bcf4e742c47064591afc484f79bad6c9d987476c157",
++        "after": "7418ded757cb0c30eecc3493abfb3c7b3d2e626998cfd18d896a8850d1533bb3",
++        "edits": [
++          {
++            "from": "let fillPool = bytes => {",
++            "to": "let fillPool = bytes => {\n  if (!Number.isSafeInteger(bytes) || bytes < 0) {\n    throw new RangeError('Invalid random byte count')\n  }",
++            "count": 1
++          },
++          {
++            "from": "return (size = defaultSize) => {",
++            "to": "return (size = defaultSize) => {\n    if (size <= 0) return ''",
++            "count": 1
++          },
++          {
++            "from": "let step = Math.ceil((1.6 * mask * defaultSize) / alphabet.length)",
++            "to": "let step = Math.max(1, Math.ceil((1.6 * mask * defaultSize) / alphabet.length))",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "non-secure/index.cjs",
++        "before": "2796014ef9ecaf270255a7af7732625524fafbbde58f60d0644fb2cbc87822f6",
++        "after": "5be345b9dcfdf0dca75b00cc13229ee70b83f8142a764f151b5a62405f6cb3e0",
++        "edits": [
++          {
++            "from": "while (i--)",
++            "to": "while (i-- > 0)",
++            "count": 2
++          }
++        ]
++      },
++      {
++        "path": "non-secure/index.js",
++        "before": "7bebb58e9418255e446d10e07e6dea07e44c36918a797f73cff0088a3058241e",
++        "after": "3d99bbb417b6e1269373db24e187fbc1ed214fcbad77c9bc474e51e92fc1dc2c",
++        "edits": [
++          {
++            "from": "while (i--)",
++            "to": "while (i-- > 0)",
++            "count": 2
++          }
++        ]
++      }
++    ]
++  },
++  {
++    "name": "nanoid",
++    "version": "3.3.3",
++    "files": [
++      {
++        "path": "async/index.browser.cjs",
++        "before": "5380fbc4a9523714fc47f2d581d4b269f64c4c3a830b3776c705866a985d061a",
++        "after": "5e1c1007a42be616a206629bb05fdf0c61115c81bd82975b516a3924d2e7ea7f",
++        "edits": [
++          {
++            "from": "return async (size = defaultSize) => {",
++            "to": "return async (size = defaultSize) => {\n    if (size <= 0) return ''",
++            "count": 1
++          },
++          {
++            "from": "let step = -~((1.6 * mask * defaultSize) / alphabet.length)",
++            "to": "let step = Math.max(1, -~((1.6 * mask * defaultSize) / alphabet.length))",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "async/index.browser.js",
++        "before": "df218a44dca7a1a2f3896a550a99cfbd7346939dd1e01154024359621c878354",
++        "after": "a410dfda88d4a3e9715672a9bc4646a06d7a09c5d95a9976eff6ef98c55181e3",
++        "edits": [
++          {
++            "from": "return async (size = defaultSize) => {",
++            "to": "return async (size = defaultSize) => {\n    if (size <= 0) return ''",
++            "count": 1
++          },
++          {
++            "from": "let step = -~((1.6 * mask * defaultSize) / alphabet.length)",
++            "to": "let step = Math.max(1, -~((1.6 * mask * defaultSize) / alphabet.length))",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "async/index.cjs",
++        "before": "f5911ad498fcae995a2e7f14be65cbb5df7f94091545668e8589a4fc62690ea4",
++        "after": "75df3feb29eaea49062b7390c6d2b4f169c2c39ce82c76e2e44e6366667c3ee6",
++        "edits": [
++          {
++            "from": "let tick = (id, size = defaultSize) =>\n    random(step)",
++            "to": "let tick = (id, size = defaultSize) =>\n    size <= 0 ? Promise.resolve('') : random(step)",
++            "count": 1
++          },
++          {
++            "from": "let step = Math.ceil((1.6 * mask * defaultSize) / alphabet.length)",
++            "to": "let step = Math.max(1, Math.ceil((1.6 * mask * defaultSize) / alphabet.length))",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "async/index.js",
++        "before": "8f8317c6517081062acbbded96fbbfd4dc33ae7fc09e16d2cd3b53751ce91564",
++        "after": "c59d827355861626205fda54e106ca7595bd9d96574d5e7d7dc86238000fc8c7",
++        "edits": [
++          {
++            "from": "let tick = (id, size = defaultSize) =>\n    random(step)",
++            "to": "let tick = (id, size = defaultSize) =>\n    size <= 0 ? Promise.resolve('') : random(step)",
++            "count": 1
++          },
++          {
++            "from": "let step = Math.ceil((1.6 * mask * defaultSize) / alphabet.length)",
++            "to": "let step = Math.max(1, Math.ceil((1.6 * mask * defaultSize) / alphabet.length))",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "async/index.native.js",
++        "before": "4df89ec87db404ad93d551dc82cc59f461d565b961c756bb08e90b1486854e92",
++        "after": "0ea5ffafa72903913ba9dbf0933167e1aad3b21a304e0b4e7308084e3a96df32",
++        "edits": [
++          {
++            "from": "let tick = (id, size = defaultSize) =>\n    random(step)",
++            "to": "let tick = (id, size = defaultSize) =>\n    size <= 0 ? Promise.resolve('') : random(step)",
++            "count": 1
++          },
++          {
++            "from": "let step = Math.ceil((1.6 * mask * defaultSize) / alphabet.length)",
++            "to": "let step = Math.max(1, Math.ceil((1.6 * mask * defaultSize) / alphabet.length))",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "index.browser.cjs",
++        "before": "64819851dd1b0d523ab346bc28f667164be109b4ad25a69e52aa784191a8c5a5",
++        "after": "b5cf2bfe8cb1aa91a85f06e81617c63ba614775fe61dee3c5697d1548f33aede",
++        "edits": [
++          {
++            "from": "return (size = defaultSize) => {",
++            "to": "return (size = defaultSize) => {\n    if (size <= 0) return ''",
++            "count": 1
++          },
++          {
++            "from": "let step = -~((1.6 * mask * defaultSize) / alphabet.length)",
++            "to": "let step = Math.max(1, -~((1.6 * mask * defaultSize) / alphabet.length))",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "index.browser.js",
++        "before": "cc29dde422f382986f35a751904be190e59853c1999e799eb4c0a1df371dbc7c",
++        "after": "8306a26f4c5a5e4cac55424a26f05f30718ae4c43c9ed6458436faf0e36ed9f1",
++        "edits": [
++          {
++            "from": "return (size = defaultSize) => {",
++            "to": "return (size = defaultSize) => {\n    if (size <= 0) return ''",
++            "count": 1
++          },
++          {
++            "from": "let step = -~((1.6 * mask * defaultSize) / alphabet.length)",
++            "to": "let step = Math.max(1, -~((1.6 * mask * defaultSize) / alphabet.length))",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "index.cjs",
++        "before": "208a883b4ab6623c5340fce09719eb9c3cef111002c36263fa80682a8924b473",
++        "after": "df05498d3427c456afdf44c5a42a4d8e4fc946c1c281e259ad80097b7a0525fe",
++        "edits": [
++          {
++            "from": "let fillPool = bytes => {",
++            "to": "let fillPool = bytes => {\n  if (!Number.isSafeInteger(bytes) || bytes < 0) {\n    throw new RangeError('Invalid random byte count')\n  }",
++            "count": 1
++          },
++          {
++            "from": "return (size = defaultSize) => {",
++            "to": "return (size = defaultSize) => {\n    if (size <= 0) return ''",
++            "count": 1
++          },
++          {
++            "from": "let step = Math.ceil((1.6 * mask * defaultSize) / alphabet.length)",
++            "to": "let step = Math.max(1, Math.ceil((1.6 * mask * defaultSize) / alphabet.length))",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "index.js",
++        "before": "75ae4ecb41d5dcc6b8f86bcf4e742c47064591afc484f79bad6c9d987476c157",
++        "after": "7418ded757cb0c30eecc3493abfb3c7b3d2e626998cfd18d896a8850d1533bb3",
++        "edits": [
++          {
++            "from": "let fillPool = bytes => {",
++            "to": "let fillPool = bytes => {\n  if (!Number.isSafeInteger(bytes) || bytes < 0) {\n    throw new RangeError('Invalid random byte count')\n  }",
++            "count": 1
++          },
++          {
++            "from": "return (size = defaultSize) => {",
++            "to": "return (size = defaultSize) => {\n    if (size <= 0) return ''",
++            "count": 1
++          },
++          {
++            "from": "let step = Math.ceil((1.6 * mask * defaultSize) / alphabet.length)",
++            "to": "let step = Math.max(1, Math.ceil((1.6 * mask * defaultSize) / alphabet.length))",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "non-secure/index.cjs",
++        "before": "2796014ef9ecaf270255a7af7732625524fafbbde58f60d0644fb2cbc87822f6",
++        "after": "5be345b9dcfdf0dca75b00cc13229ee70b83f8142a764f151b5a62405f6cb3e0",
++        "edits": [
++          {
++            "from": "while (i--)",
++            "to": "while (i-- > 0)",
++            "count": 2
++          }
++        ]
++      },
++      {
++        "path": "non-secure/index.js",
++        "before": "7bebb58e9418255e446d10e07e6dea07e44c36918a797f73cff0088a3058241e",
++        "after": "3d99bbb417b6e1269373db24e187fbc1ed214fcbad77c9bc474e51e92fc1dc2c",
++        "edits": [
++          {
++            "from": "while (i--)",
++            "to": "while (i-- > 0)",
++            "count": 2
++          }
++        ]
++      }
++    ]
++  }
++]

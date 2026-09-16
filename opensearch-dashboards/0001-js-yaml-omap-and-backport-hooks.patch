@@ -1,0 +1,305 @@
+diff --git a/scripts/postinstall.js b/scripts/postinstall.js
+--- a/scripts/postinstall.js
++++ b/scripts/postinstall.js
+@@ -47,6 +47,7 @@
+ };
+ 
+ const run = async () => {
++  require('./security_backports/apply.cjs').apply(process.cwd());
+   const promises = await removeUnwantedFolders('node_modules', ['demo', 'example', 'examples']);
+ 
+   promises.push(
+diff --git a/src/dev/build/tasks/install_dependencies_task.ts b/src/dev/build/tasks/install_dependencies_task.ts
+--- a/src/dev/build/tasks/install_dependencies_task.ts
++++ b/src/dev/build/tasks/install_dependencies_task.ts
+@@ -50,5 +50,9 @@
+         '--no-bin-links',
+       ],
+     });
++
++    // Production dependencies are freshly installed and need the same backports.
++    const { apply } = require(config.resolveFromRepo('scripts/security_backports/apply.cjs'));
++    apply(build.resolvePath());
+   },
+ };
+diff --git a/scripts/security_backports/apply.cjs b/scripts/security_backports/apply.cjs
+--- /dev/null
++++ b/scripts/security_backports/apply.cjs
+@@ -0,0 +1,98 @@
++/* Copyright OpenSearch Contributors. SPDX-License-Identifier: Apache-2.0 */
++'use strict';
++
++// Security backports deliberately retain the dependency versions in yarn.lock.
++// Verify every input before writing anything; never silently patch an unknown file.
++const fs = require('fs');
++const path = require('path');
++const crypto = require('crypto');
++const hash = text => crypto.createHash('sha256').update(text).digest('hex');
++
++function apply(root, { check = false } = {}) {
++  root = fs.realpathSync(root);
++  const recipes = fs.readdirSync(__dirname)
++    .filter(name => name.endsWith('.json'))
++    .flatMap(name => JSON.parse(fs.readFileSync(path.join(__dirname, name), 'utf8')));
++  const names = new Set(recipes.map(recipe => recipe.name));
++  const seen = new Set();
++  const prepared = new Set();
++  const planned = new Map();
++  let packages = 0;
++
++  function prepare(dir, pkg) {
++    const recipe = recipes.find(item => item.name === pkg.name && item.version === pkg.version);
++    if (!recipe) throw new Error(`Unsupported security backport target: ${pkg.name}@${pkg.version} (${dir})`);
++    packages++;
++    for (const file of recipe.files) {
++      const target = path.join(dir, file.path);
++      // Refuse symlinked files: the patch must not modify another package or cache.
++      if (!fs.lstatSync(target).isFile()) throw new Error(`Not a regular file: ${target}`);
++      const before = fs.readFileSync(target, 'utf8');
++      if (hash(before) === file.after) continue;
++      if (hash(before) !== file.before) throw new Error(`Unexpected content: ${target}`);
++      let after = before;
++      for (const edit of file.edits) {
++        const parts = after.split(edit.from);
++        if (parts.length - 1 !== edit.count) throw new Error(`Unexpected match count: ${target}`);
++        after = parts.join(edit.to);
++      }
++      if (hash(after) !== file.after) throw new Error(`Invalid backport output: ${target}`);
++      planned.set(target, after);
++    }
++  }
++
++  function walk(dir) {
++    const real = fs.realpathSync(dir);
++    if (real !== root && !real.startsWith(root + path.sep)) {
++      // External workspace links are not part of this source/distribution tree.
++      return;
++    }
++    const parent = path.dirname(dir);
++    const packageRoot = path.basename(parent) === 'node_modules' ||
++      (path.basename(parent).startsWith('@') && path.basename(path.dirname(parent)) === 'node_modules');
++    const manifest = path.join(real, 'package.json');
++    if (packageRoot && !prepared.has(real) && fs.existsSync(manifest)) {
++      const pkg = JSON.parse(fs.readFileSync(manifest, 'utf8'));
++      if (names.has(pkg.name)) {
++        prepare(real, pkg);
++        prepared.add(real);
++      }
++    }
++    if (seen.has(real)) return;
++    seen.add(real);
++    for (const entry of fs.readdirSync(real, { withFileTypes: true })) {
++      if (entry.name === '.git' || entry.name === '.yarn-cache') continue;
++      const child = path.join(real, entry.name);
++      if (entry.isDirectory()) walk(child);
++      else if (entry.isSymbolicLink()) {
++        // Workspace links can be cycles or dangling optional dependencies.
++        try { if (fs.statSync(child).isDirectory()) walk(child); }
++        catch (e) { if (e.code !== 'ENOENT') throw e; }
++      }
++    }
++  }
++
++  walk(root);
++  if (!packages) throw new Error(`No supported installed dependencies found under ${root}`);
++  if (check && planned.size) throw new Error(`${planned.size} files still need security backports`);
++  if (!check) {
++    for (const [file, content] of planned) {
++      // Rename rather than overwrite: protect files hard-linked to Yarn's cache.
++      const temp = `${file}.osd-security-${process.pid}.tmp`;
++      try {
++        fs.writeFileSync(temp, content, { flag: 'wx', mode: fs.statSync(file).mode });
++        fs.renameSync(temp, file);
++      } finally {
++        if (fs.existsSync(temp)) fs.unlinkSync(temp);
++      }
++    }
++  }
++  console.log(`Security backports: ${packages} packages checked, ${planned.size} files patched`);
++  return { packages, files: planned.size };
++}
++
++module.exports = { apply };
++if (require.main === module) {
++  try { apply(process.argv[2] || process.cwd(), { check: process.argv.includes('--check') }); }
++  catch (e) { console.error(e.message); process.exitCode = 1; }
++}
+diff --git a/scripts/security_backports/01-js-yaml.json b/scripts/security_backports/01-js-yaml.json
+--- /dev/null
++++ b/scripts/security_backports/01-js-yaml.json
+@@ -0,0 +1,175 @@
++[
++  {
++    "name": "js-yaml",
++    "version": "3.13.1",
++    "files": [
++      {
++        "path": "lib/js-yaml/type/omap.js",
++        "before": "a4fa54ca0343665eb199503d772a4fe4aab792e4e08bee682e70c0d4a5ada043",
++        "after": "2b15c40dbd485eba191ab5ab5655350a96e0fc99b7aaa15354400eb25e47b490",
++        "edits": [
++          {
++            "from": "objectKeys = []",
++            "to": "objectKeys = new Set()",
++            "count": 1
++          },
++          {
++            "from": "objectKeys.indexOf(pairKey) === -1) objectKeys.push(pairKey)",
++            "to": "!objectKeys.has(pairKey)) objectKeys.add(pairKey)",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "dist/js-yaml.js",
++        "before": "01680f005cd0b602240745d28b8bd439bc41001875f92413252ec0e50983e921",
++        "after": "f770f9cdf2238029757c3767b90c7829eda582e94b0ad6f844b068ce17609f37",
++        "edits": [
++          {
++            "from": "objectKeys = []",
++            "to": "objectKeys = new Set()",
++            "count": 1
++          },
++          {
++            "from": "objectKeys.indexOf(pairKey) === -1) objectKeys.push(pairKey)",
++            "to": "!objectKeys.has(pairKey)) objectKeys.add(pairKey)",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "dist/js-yaml.min.js",
++        "before": "af2ea794b435266465e5150f438792b9a4a9feb18d3ef975e385871ecec188d1",
++        "after": "a75d63969cd6d09f4ffbc3a784db4269e728b0c0cd869986f4125997d474933a",
++        "edits": [
++          {
++            "from": "2002:omap\",{kind:\"sequence\",resolve:function(e){if(null===e)return!0;var t,n,i,r,o,a=[],s=e;for(t=0,n=s.length;t<n;t+=1){if(i=s[t],o=!1,\"[object Object]\"!==u.call(i))return!1;for(r in i)if(c.call(i,r)){if(o)return!1;o=!0}if(!o)return!1;if(-1!==a.indexOf(r))return!1;a.push(r)}return!0}",
++            "to": "2002:omap\",{kind:\"sequence\",resolve:function(e){if(null===e)return!0;var t,n,i,r,o,a=new Set(),s=e;for(t=0,n=s.length;t<n;t+=1){if(i=s[t],o=!1,\"[object Object]\"!==u.call(i))return!1;for(r in i)if(c.call(i,r)){if(o)return!1;o=!0}if(!o)return!1;if(a.has(r))return!1;a.add(r)}return!0}",
++            "count": 1
++          }
++        ]
++      }
++    ]
++  },
++  {
++    "name": "js-yaml",
++    "version": "3.14.1",
++    "files": [
++      {
++        "path": "lib/js-yaml/type/omap.js",
++        "before": "a4fa54ca0343665eb199503d772a4fe4aab792e4e08bee682e70c0d4a5ada043",
++        "after": "2b15c40dbd485eba191ab5ab5655350a96e0fc99b7aaa15354400eb25e47b490",
++        "edits": [
++          {
++            "from": "objectKeys = []",
++            "to": "objectKeys = new Set()",
++            "count": 1
++          },
++          {
++            "from": "objectKeys.indexOf(pairKey) === -1) objectKeys.push(pairKey)",
++            "to": "!objectKeys.has(pairKey)) objectKeys.add(pairKey)",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "dist/js-yaml.js",
++        "before": "168ce0debc08becc45e63a6e0e8472278da9e8a9b831dc26e82ead9b174bfced",
++        "after": "7f4028f2cec15ee10dc69c10568346e2ee8c133036fa7ebbd1cd179a6c1d35c7",
++        "edits": [
++          {
++            "from": "objectKeys = []",
++            "to": "objectKeys = new Set()",
++            "count": 1
++          },
++          {
++            "from": "objectKeys.indexOf(pairKey) === -1) objectKeys.push(pairKey)",
++            "to": "!objectKeys.has(pairKey)) objectKeys.add(pairKey)",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "dist/js-yaml.min.js",
++        "before": "d85544aca4b80b700e8ed1c79077fcefb71ec7aad217af85bcd69ed5afe7d852",
++        "after": "4cc53b4b904915cca6125ee3a49d6dcaeb1a6bec07a0214b5a84ab5861d425b0",
++        "edits": [
++          {
++            "from": "2002:omap\",{kind:\"sequence\",resolve:function(e){if(null===e)return!0;for(var t,n,i,r=[],o=e,a=0,s=o.length;a<s;a+=1){if(t=o[a],i=!1,\"[object Object]\"!==u.call(t))return!1;for(n in t)if(c.call(t,n)){if(i)return!1;i=!0}if(!i)return!1;if(-1!==r.indexOf(n))return!1;r.push(n)}return!0}",
++            "to": "2002:omap\",{kind:\"sequence\",resolve:function(e){if(null===e)return!0;for(var t,n,i,r=new Set(),o=e,a=0,s=o.length;a<s;a+=1){if(t=o[a],i=!1,\"[object Object]\"!==u.call(t))return!1;for(n in t)if(c.call(t,n)){if(i)return!1;i=!0}if(!i)return!1;if(r.has(n))return!1;r.add(n)}return!0}",
++            "count": 1
++          }
++        ]
++      }
++    ]
++  },
++  {
++    "name": "js-yaml",
++    "version": "4.1.0",
++    "files": [
++      {
++        "path": "lib/type/omap.js",
++        "before": "a4fa54ca0343665eb199503d772a4fe4aab792e4e08bee682e70c0d4a5ada043",
++        "after": "2b15c40dbd485eba191ab5ab5655350a96e0fc99b7aaa15354400eb25e47b490",
++        "edits": [
++          {
++            "from": "objectKeys = []",
++            "to": "objectKeys = new Set()",
++            "count": 1
++          },
++          {
++            "from": "objectKeys.indexOf(pairKey) === -1) objectKeys.push(pairKey)",
++            "to": "!objectKeys.has(pairKey)) objectKeys.add(pairKey)",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "dist/js-yaml.js",
++        "before": "c738b0020702aa631abd8de23a902a3079d99d3060e44166955cb51f570881c4",
++        "after": "10d91c3fede437c5eca87acd1c81c3e0de0f68047984401fd018bf752c3ed80c",
++        "edits": [
++          {
++            "from": "objectKeys = []",
++            "to": "objectKeys = new Set()",
++            "count": 1
++          },
++          {
++            "from": "objectKeys.indexOf(pairKey) === -1) objectKeys.push(pairKey)",
++            "to": "!objectKeys.has(pairKey)) objectKeys.add(pairKey)",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "dist/js-yaml.mjs",
++        "before": "16f210b939b359b6ec8dde581eb62c157185711dc7b719b33779c43db5c31a91",
++        "after": "e4c38b4a45edad3cff118c541b0551faa22574fdd2b2763e62cfaf983aa4b4bb",
++        "edits": [
++          {
++            "from": "objectKeys = []",
++            "to": "objectKeys = new Set()",
++            "count": 1
++          },
++          {
++            "from": "objectKeys.indexOf(pairKey) === -1) objectKeys.push(pairKey)",
++            "to": "!objectKeys.has(pairKey)) objectKeys.add(pairKey)",
++            "count": 1
++          }
++        ]
++      },
++      {
++        "path": "dist/js-yaml.min.js",
++        "before": "45dc3dd03dc07a06705a2c2989b8c7f709013f04bd5386e3279d4e447f07ebd7",
++        "after": "800e3febab9ac2a893410e67c8685706f20d46f45ba0c3d0893edf6ccfd51239",
++        "edits": [
++          {
++            "from": "2002:omap\",{kind:\"sequence\",resolve:function(e){if(null===e)return!0;var t,n,i,r,o,a=[],l=e;for(t=0,n=l.length;t<n;t+=1){if(i=l[t],o=!1,\"[object Object]\"!==D.call(i))return!1;for(r in i)if(_.call(i,r)){if(o)return!1;o=!0}if(!o)return!1;if(-1!==a.indexOf(r))return!1;a.push(r)}return!0}",
++            "to": "2002:omap\",{kind:\"sequence\",resolve:function(e){if(null===e)return!0;var t,n,i,r,o,a=new Set(),l=e;for(t=0,n=l.length;t<n;t+=1){if(i=l[t],o=!1,\"[object Object]\"!==D.call(i))return!1;for(r in i)if(_.call(i,r)){if(o)return!1;o=!0}if(!o)return!1;if(a.has(r))return!1;a.add(r)}return!0}",
++            "count": 1
++          }
++        ]
++      }
++    ]
++  }
++]

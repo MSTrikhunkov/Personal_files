@@ -1,0 +1,5 @@
+Security backports: 1 packages checked, 11 files patched
+Security backports: 1 packages checked, 0 files patched
+Security backports: 1 packages checked, 0 files patched
+Security backports: 8 packages checked, 0 files patched
+PASS ignores non-package fixture manifests; nested packages, cycle, hard-link cache safety, idempotence, check mode, preflight, unknown version

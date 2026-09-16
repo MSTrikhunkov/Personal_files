@@ -1,0 +1,187 @@
+FAIL yaml 3.13.1 lib/js-yaml/type/omap.js linear uniqueness + semantics linear search per key is still used
+FAIL yaml 3.13.1 dist/js-yaml.js linear uniqueness + semantics quadratic key scan: 1000 indexOf calls
+FAIL yaml 3.13.1 dist/js-yaml.min.js linear uniqueness + semantics quadratic key scan: 1000 indexOf calls
+FAIL yaml 3.14.1 lib/js-yaml/type/omap.js linear uniqueness + semantics linear search per key is still used
+FAIL yaml 3.14.1 dist/js-yaml.js linear uniqueness + semantics quadratic key scan: 1000 indexOf calls
+FAIL yaml 3.14.1 dist/js-yaml.min.js linear uniqueness + semantics quadratic key scan: 1000 indexOf calls
+FAIL yaml 4.1.0 lib/type/omap.js linear uniqueness + semantics linear search per key is still used
+FAIL yaml 4.1.0 dist/js-yaml.js linear uniqueness + semantics quadratic key scan: 1000 indexOf calls
+FAIL yaml 4.1.0 dist/js-yaml.min.js linear uniqueness + semantics quadratic key scan: 1000 indexOf calls
+PASS yaml 4.1.0 dist/js-yaml.mjs linear uniqueness + semantics
+PASS yaml ESM omap
+FAIL lodash prototype protection lodash.js node:assert:125
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+undefined !== 123
+
+    at [eval]:6:16
+    at Script.runInThisContext (node:vm:122:12)
+    at Object.runInThisContext (node:vm:298:38)
+    at node:internal/process/execution:82:21
+    at [eval]-wrapper:6:24
+    at runScript (node:internal/process/execution:81:62)
+    at evalScript (node:internal/process/execution:103:10)
+    at node:internal/main/eval_string:30:3 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: 123,
+  operator: 'strictEqual'
+}
+
+Node.js v18.19.0
+
+FAIL lodash prototype protection lodash.min.js node:assert:125
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+undefined !== 123
+
+    at [eval]:6:16
+    at Script.runInThisContext (node:vm:122:12)
+    at Object.runInThisContext (node:vm:298:38)
+    at node:internal/process/execution:82:21
+    at [eval]-wrapper:6:24
+    at runScript (node:internal/process/execution:81:62)
+    at evalScript (node:internal/process/execution:103:10)
+    at node:internal/main/eval_string:30:3 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: 123,
+  operator: 'strictEqual'
+}
+
+Node.js v18.19.0
+
+FAIL lodash prototype protection unset.js node:assert:125
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+undefined !== 123
+
+    at [eval]:6:16
+    at Script.runInThisContext (node:vm:122:12)
+    at Object.runInThisContext (node:vm:298:38)
+    at node:internal/process/execution:82:21
+    at [eval]-wrapper:6:24
+    at runScript (node:internal/process/execution:81:62)
+    at evalScript (node:internal/process/execution:103:10)
+    at node:internal/main/eval_string:30:3 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: 123,
+  operator: 'strictEqual'
+}
+
+Node.js v18.19.0
+
+FAIL lodash prototype protection fp/unset.js node:assert:125
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+undefined !== 123
+
+    at [eval]:6:16
+    at Script.runInThisContext (node:vm:122:12)
+    at Object.runInThisContext (node:vm:298:38)
+    at node:internal/process/execution:82:21
+    at [eval]-wrapper:6:24
+    at runScript (node:internal/process/execution:81:62)
+    at evalScript (node:internal/process/execution:103:10)
+    at node:internal/main/eval_string:30:3 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: 123,
+  operator: 'strictEqual'
+}
+
+Node.js v18.19.0
+
+FAIL lodash omit and ordinary paths Expected values to be strictly equal:
+
+undefined !== 1
+
+FAIL lodash-es protection Expected values to be strictly equal:
+
+undefined !== 1
+
+FAIL nanoid 3.3.2 zero size index.cjs ifError got unwanted exception: spawnSync /Users/bixenonoff/WORK/opensearch-dashboards/.security-work/node-v18.19.0-darwin-arm64/bin/node ETIMEDOUT
+FAIL nanoid 3.3.2 zero size index.js ifError got unwanted exception: spawnSync /Users/bixenonoff/WORK/opensearch-dashboards/.security-work/node-v18.19.0-darwin-arm64/bin/node ETIMEDOUT
+FAIL nanoid 3.3.2 zero size index.browser.js ifError got unwanted exception: spawnSync /Users/bixenonoff/WORK/opensearch-dashboards/.security-work/node-v18.19.0-darwin-arm64/bin/node ETIMEDOUT
+FAIL nanoid 3.3.2 zero size index.browser.cjs ifError got unwanted exception: spawnSync /Users/bixenonoff/WORK/opensearch-dashboards/.security-work/node-v18.19.0-darwin-arm64/bin/node ETIMEDOUT
+FAIL nanoid 3.3.2 negative non-secure/index.cjs ifError got unwanted exception: spawnSync /Users/bixenonoff/WORK/opensearch-dashboards/.security-work/node-v18.19.0-darwin-arm64/bin/node ETIMEDOUT
+FAIL nanoid 3.3.2 negative non-secure/index.js ifError got unwanted exception: spawnSync /Users/bixenonoff/WORK/opensearch-dashboards/.security-work/node-v18.19.0-darwin-arm64/bin/node ETIMEDOUT
+FAIL nanoid 3.3.2 async zero async/index.cjs ifError got unwanted exception: spawnSync /Users/bixenonoff/WORK/opensearch-dashboards/.security-work/node-v18.19.0-darwin-arm64/bin/node ETIMEDOUT
+FAIL nanoid 3.3.2 async zero async/index.js ifError got unwanted exception: spawnSync /Users/bixenonoff/WORK/opensearch-dashboards/.security-work/node-v18.19.0-darwin-arm64/bin/node ETIMEDOUT
+FAIL nanoid 3.3.2 async zero async/index.browser.js ifError got unwanted exception: spawnSync /Users/bixenonoff/WORK/opensearch-dashboards/.security-work/node-v18.19.0-darwin-arm64/bin/node ETIMEDOUT
+FAIL nanoid 3.3.2 async zero async/index.browser.cjs ifError got unwanted exception: spawnSync /Users/bixenonoff/WORK/opensearch-dashboards/.security-work/node-v18.19.0-darwin-arm64/bin/node ETIMEDOUT
+FAIL nanoid 3.3.2 pool validation node:assert:125
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: Missing expected exception.
+    at [eval]:3:78
+    at Script.runInThisContext (node:vm:122:12)
+    at Object.runInThisContext (node:vm:298:38)
+    at node:internal/process/execution:82:21
+    at [eval]-wrapper:6:24
+    at runScript (node:internal/process/execution:81:62)
+    at evalScript (node:internal/process/execution:103:10)
+    at node:internal/main/eval_string:30:3 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: undefined,
+  operator: 'throws'
+}
+
+Node.js v18.19.0
+
+FAIL nanoid 3.3.3 zero size index.cjs ifError got unwanted exception: spawnSync /Users/bixenonoff/WORK/opensearch-dashboards/.security-work/node-v18.19.0-darwin-arm64/bin/node ETIMEDOUT
+FAIL nanoid 3.3.3 zero size index.js ifError got unwanted exception: spawnSync /Users/bixenonoff/WORK/opensearch-dashboards/.security-work/node-v18.19.0-darwin-arm64/bin/node ETIMEDOUT
+FAIL nanoid 3.3.3 zero size index.browser.js ifError got unwanted exception: spawnSync /Users/bixenonoff/WORK/opensearch-dashboards/.security-work/node-v18.19.0-darwin-arm64/bin/node ETIMEDOUT
+FAIL nanoid 3.3.3 zero size index.browser.cjs ifError got unwanted exception: spawnSync /Users/bixenonoff/WORK/opensearch-dashboards/.security-work/node-v18.19.0-darwin-arm64/bin/node ETIMEDOUT
+FAIL nanoid 3.3.3 negative non-secure/index.cjs ifError got unwanted exception: spawnSync /Users/bixenonoff/WORK/opensearch-dashboards/.security-work/node-v18.19.0-darwin-arm64/bin/node ETIMEDOUT
+FAIL nanoid 3.3.3 negative non-secure/index.js ifError got unwanted exception: spawnSync /Users/bixenonoff/WORK/opensearch-dashboards/.security-work/node-v18.19.0-darwin-arm64/bin/node ETIMEDOUT
+FAIL nanoid 3.3.3 async zero async/index.cjs ifError got unwanted exception: spawnSync /Users/bixenonoff/WORK/opensearch-dashboards/.security-work/node-v18.19.0-darwin-arm64/bin/node ETIMEDOUT
+FAIL nanoid 3.3.3 async zero async/index.js ifError got unwanted exception: spawnSync /Users/bixenonoff/WORK/opensearch-dashboards/.security-work/node-v18.19.0-darwin-arm64/bin/node ETIMEDOUT
+FAIL nanoid 3.3.3 async zero async/index.browser.js ifError got unwanted exception: spawnSync /Users/bixenonoff/WORK/opensearch-dashboards/.security-work/node-v18.19.0-darwin-arm64/bin/node ETIMEDOUT
+FAIL nanoid 3.3.3 async zero async/index.browser.cjs ifError got unwanted exception: spawnSync /Users/bixenonoff/WORK/opensearch-dashboards/.security-work/node-v18.19.0-darwin-arm64/bin/node ETIMEDOUT
+FAIL nanoid 3.3.3 pool validation node:assert:125
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: Missing expected exception.
+    at [eval]:3:78
+    at Script.runInThisContext (node:vm:122:12)
+    at Object.runInThisContext (node:vm:298:38)
+    at node:internal/process/execution:82:21
+    at [eval]-wrapper:6:24
+    at runScript (node:internal/process/execution:81:62)
+    at evalScript (node:internal/process/execution:103:10)
+    at node:internal/main/eval_string:30:3 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: undefined,
+  operator: 'throws'
+}
+
+Node.js v18.19.0
+
+PASS decode CommonJS and compatibility
+FAIL decode malformed 1400 tokens bounded time ifError got unwanted exception: spawnSync /Users/bixenonoff/WORK/opensearch-dashboards/.security-work/node-v18.19.0-darwin-arm64/bin/node ETIMEDOUT
+FAIL decode total replacement work is linear for distinct runs repeated input rescans: 11062012 chars for 16003 input chars
+{"checks":42,"failures":39,"node":"v18.19.0"}
