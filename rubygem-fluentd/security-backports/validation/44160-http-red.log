@@ -1,0 +1,46 @@
+Loaded suite fluentd-1.16.2/test/plugin/test_in_http
+Started
+F
+===============================================================================
+Failure: test_content_encoding_deflate_size_error(HttpInputTest)
+fluentd-1.16.2/test/plugin/test_in_http.rb:1018:in `test_content_encoding_deflate_size_error'
+     1015:       end
+     1016:     end
+     1017: 
+  => 1018:     assert_equal ["400"], res_codes
+     1019:     assert_true d.events.empty?
+     1020: 
+     1021:     log = d.logs.first
+<["400"]> expected but was
+<["200"]>
+
+diff:
+? ["400"]
+?   2    
+?   ?    
+===============================================================================
+F
+===============================================================================
+Failure: test_content_encoding_gzip_size_error(HttpInputTest)
+fluentd-1.16.2/test/plugin/test_in_http.rb:967:in `test_content_encoding_gzip_size_error'
+     964:       end
+     965:     end
+     966: 
+  => 967:     assert_equal ["400"], res_codes
+     968:     assert_true d.events.empty?
+     969: 
+     970:     log = d.logs.first
+<["400"]> expected but was
+<["200"]>
+
+diff:
+? ["400"]
+?   2    
+?   ?    
+===============================================================================
+Finished in 1.227355 seconds.
+-------------------------------------------------------------------------------
+2 tests, 2 assertions, 2 failures, 0 errors, 0 pendings, 0 omissions, 0 notifications
+0% passed
+-------------------------------------------------------------------------------
+1.63 tests/s, 1.63 assertions/s

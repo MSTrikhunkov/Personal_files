@@ -1,0 +1,9 @@
+Loaded suite fluentd-1.16.2/test/plugin/test_decompression_limit
+Started
+.......
+Finished in 0.003141 seconds.
+-------------------------------------------------------------------------------
+7 tests, 8 assertions, 0 failures, 0 errors, 0 pendings, 0 omissions, 0 notifications
+100% passed
+-------------------------------------------------------------------------------
+2228.59 tests/s, 2546.96 assertions/s

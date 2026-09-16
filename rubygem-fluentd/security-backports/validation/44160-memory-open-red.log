@@ -1,0 +1,19 @@
+Loaded suite fluentd-1.16.2/test/plugin/test_memory_chunk_decompression_limit
+Started
+F
+===============================================================================
+Failure: test_open_cannot_bypass_read_limit(MemoryChunkDecompressionLimitTest): <Fluent::Plugin::Extractor::SizeLimitError> exception was expected but none was thrown.
+fluentd-1.16.2/test/plugin/test_memory_chunk_decompression_limit.rb:10:in `test_open_cannot_bypass_read_limit'
+      7:     chunk = Fluent::Plugin::Buffer::MemoryChunk.new(metadata, compress: :gzip, decompression_size_limit: 1024)
+      8:     chunk.append(['A' * 1025], compress: :gzip)
+      9:     chunk.commit
+  => 10:     assert_raise(Fluent::Plugin::Extractor::SizeLimitError) { chunk.open { |io| io.read } }
+     11:   end
+     12: end
+===============================================================================
+Finished in 0.004877 seconds.
+-------------------------------------------------------------------------------
+1 tests, 1 assertions, 1 failures, 0 errors, 0 pendings, 0 omissions, 0 notifications
+0% passed
+-------------------------------------------------------------------------------
+205.04 tests/s, 205.04 assertions/s

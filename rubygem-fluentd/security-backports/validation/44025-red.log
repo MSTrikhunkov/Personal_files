@@ -1,0 +1,93 @@
+Loaded suite fluentd-1.16.2/test/plugin/test_monitor_agent_security
+Started
+F
+===============================================================================
+Failure: test_debug_does_not_expose_secret_by_default(MonitorAgentSecurityTest):
+  <"{\n" +
+  "  \"plugins\": [\n" +
+  "    {\n" +
+  "      \"plugin_id\": \"object:4fce085fc\",\n" +
+  "      \"plugin_category\": \"input\",\n" +
+  "      \"type\": \"security_test\",\n" +
+  "      \"config\": {\n" +
+  "        \"@type\": \"security_test\",\n" +
+  "        \"password\": \"xxxxxx\"\n" +
+  "      },\n" +
+  "      \"output_plugin\": false,\n" +
+  "      \"retry_count\": null,\n" +
+  "      \"emit_records\": 0,\n" +
+  "      \"emit_size\": 0,\n" +
+  "      \"instance_variables\": {\n" +
+  "        \"log\": \"#<Fluent::Test::TestLogger:0x00000009f9c190f0>\",\n" +
+  "        \"fluentd_lock_dir\": null,\n" +
+  "        \"_state\": \"#<struct Fluent::Plugin::Base::State configure=true, start=false, after_start=false, stop=false, before_shutdown=false, shutdown=false, after_shutdown=false, close=false, terminate=false>\",\n" +
+  "        \"_context_router\": null,\n" +
+  "        \"_fluentd_worker_id\": null,\n" +
+  "        \"under_plugin_development\": true,\n" +
+  "        \"_plugin_id_variable_store\": \"#<Set: {}>\",\n" +
+  "        \"_plugin_root_dir\": null,\n" +
+  "        \"id\": null,\n" +
+  "        \"_metrics_started\": false,\n" +
+  "        \"_metrics\": {\n" +
+  "          \"security_test.object:4fce085fc_fluentd_input_emit_records\": \"#<Fluent::Plugin::LocalMetrics:0x00000009f9cd1880>\",\n" +
+  "          \"security_test.object:4fce085fc_fluentd_input_emit_size\": \"#<Fluent::Plugin::LocalMetrics:0x00000009f9cd6c90>\"\n" +
+  "        },\n" +
+  "        \"_event_emitter_used_actually\": false,\n" +
+  "        \"_event_emitter_lazy_init\": false,\n" +
+  "        \"router\": \"#<Fluent::Test::Driver::TestEventRouter:0x00000009f9c1c700>\",\n" +
+  "        \"emit_records_metrics\": \"#<Fluent::Plugin::LocalMetrics:0x00000009f9cd1880>\",\n" +
+  "        \"emit_size_metrics\": \"#<Fluent::Plugin::LocalMetrics:0x00000009f9cd6c90>\",\n" +
+  "        \"counter_mutex\": \"#<Thread::Mutex:0x00000009f9c179a8>\",\n" +
+  "        \"enable_size_metrics\": false,\n" +
+  "        \"_system_config\": \"#<Fluent::SystemConfig:0x00000009f9c17818>\",\n" +
+  "        \"_id_configured\": false,\n" +
+  "        \"password\": \"sentinel-secret\",\n" +
+  "        \"plugin_type_or_id\": \"security_test.object:4fce085fc\"\n" +
+  "      }\n" +
+  "    }\n" +
+  "  ]\n" +
+  "}"> was expected to not include
+  <"sentinel-secret">.
+fluentd-1.16.2/test/plugin/test_monitor_agent_security.rb:26:in `test_debug_does_not_expose_secret_by_default'
+     23: 
+     24:   def test_debug_does_not_expose_secret_by_default
+     25:     body = response('debug=1')
+  => 26:     assert_not_include body, 'sentinel-secret'
+     27:     assert_false JSON.parse(body)['plugins'][0].key?('instance_variables')
+     28:   end
+     29: 
+===============================================================================
+F
+===============================================================================
+Failure: test_explicit_ivars_cannot_bypass_gate(MonitorAgentSecurityTest):
+  <"{\"plugins\":[{\"plugin_id\":\"object:4fce05d5c\",\"plugin_category\":\"input\",\"type\":\"security_test\",\"config\":{\"@type\":\"security_test\",\"password\":\"xxxxxx\"},\"output_plugin\":false,\"retry_count\":null,\"emit_records\":0,\"emit_size\":0,\"instance_variables\":{\"password\":\"sentinel-secret\",\"config\":{\"@type\":\"security_test\",\"password\":\"sentinel-secret\"},\"config_root_section\":\"<Fluent::Config::Section {\\\"@log_level\\\":null,\\\"password\\\":\\\"sentinel-secret\\\"}>\"}}]}"> was expected to not include
+  <"sentinel-secret">.
+fluentd-1.16.2/test/plugin/test_monitor_agent_security.rb:32:in `test_explicit_ivars_cannot_bypass_gate'
+     29: 
+     30:   def test_explicit_ivars_cannot_bypass_gate
+     31:     body = response('with_ivars=password,config,config_root_section')
+  => 32:     assert_not_include body, 'sentinel-secret'
+     33:     assert_false JSON.parse(body)['plugins'][0].key?('instance_variables')
+     34:   end
+     35: 
+===============================================================================
+F
+===============================================================================
+Failure: test_query_cannot_enable_config_disabled_by_operator(MonitorAgentSecurityTest):
+  <false> expected but was
+  <true>
+fluentd-1.16.2/test/plugin/test_monitor_agent_security.rb:49:in `test_query_cannot_enable_config_disabled_by_operator'
+     46: 
+     47:   def test_query_cannot_enable_config_disabled_by_operator
+     48:     info = JSON.parse(response('with_config=yes', "include_config false\n"))['plugins'][0]
+  => 49:     assert_false info.key?('config')
+     50:   end
+     51: 
+     52:   def test_query_can_still_hide_config
+===============================================================================
+Finished in 0.018235 seconds.
+-------------------------------------------------------------------------------
+7 tests, 9 assertions, 3 failures, 0 errors, 0 pendings, 0 omissions, 0 notifications
+57.1429% passed
+-------------------------------------------------------------------------------
+383.88 tests/s, 493.56 assertions/s

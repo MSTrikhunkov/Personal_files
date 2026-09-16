@@ -1,0 +1,4 @@
+977a35eabf15efe58238574a87d51e37e144b9faaf22a1b18f09d9693824fdd9  0001-CVE-2026-44160-bound-gzip-and-deflate-decompression-.patch
+6db0dc0f9756604046d5eb6b1de799799d7df8e140770b0180756066e16dba0c  0002-CVE-2026-44025-require-opt-in-for-monitor-instance-v.patch
+9cb68e872c74e2bdef8c4289d0ee168bf6747b722957f99d219a30acec53143f  upstream/5392.patch
+8c5799230b2d56e3048b9592ce5b737ef644fd091d4f668cfea07e72bc7d2cf3  upstream/5393.patch

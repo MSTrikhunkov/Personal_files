@@ -1,0 +1,20 @@
+Loaded suite -e
+Started
+2026-09-16 15:42:52 +0300 [info]: #0 init worker0 logger path=nil rotate_age=nil rotate_size=nil
+2026-09-16 15:42:52 +0300 [info]: #0 init worker0 logger path=nil rotate_age=nil rotate_size=nil
+2026-09-16 15:42:52 +0300 [info]: #0 init worker0 logger path=nil rotate_age=nil rotate_size=nil
+2026-09-16 15:42:52 +0300 [info]: #0 init worker0 logger path=nil rotate_age=nil rotate_size=nil
+2026-09-16 15:42:52 +0300 [info]: #0 init worker0 logger path=nil rotate_age=nil rotate_size=nil
+2026-09-16 15:42:52 +0300 [info]: #0 init worker0 logger path=nil rotate_age=nil rotate_size=nil
+2026-09-16 15:42:52 +0300 [info]: #0 init worker0 logger path=nil rotate_age=nil rotate_size=nil
+2026-09-16 15:42:52 +0300 [info]: #0 init worker0 logger path=nil rotate_age=nil rotate_size=nil
+2026-09-16 15:42:52 +0300 [info]: #0 init worker0 logger path=nil rotate_age=nil rotate_size=nil
+2026-09-16 15:42:52 +0300 [info]: #0 init worker0 logger path=nil rotate_age=nil rotate_size=nil
+2026-09-16 15:42:52 +0300 [info]: #0 init worker0 logger path=nil rotate_age=nil rotate_size=nil
+2026-09-16 15:42:52 +0300 [info]: #0 init worker0 logger path=nil rotate_age=nil rotate_size=nil
+Finished in 76.39123 seconds.
+-------------------------------------------------------------------------------
+424 tests, 1711 assertions, 0 failures, 0 errors, 0 pendings, 0 omissions, 0 notifications
+100% passed
+-------------------------------------------------------------------------------
+5.55 tests/s, 22.40 assertions/s

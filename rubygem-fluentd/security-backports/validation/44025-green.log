@@ -1,0 +1,8 @@
+Loaded suite fluentd-1.16.2/test/plugin/test_monitor_agent_security
+Started
+Finished in 0.01088 seconds.
+-------------------------------------------------------------------------------
+8 tests, 14 assertions, 0 failures, 0 errors, 0 pendings, 0 omissions, 0 notifications
+100% passed
+-------------------------------------------------------------------------------
+735.29 tests/s, 1286.76 assertions/s

@@ -1,0 +1,2 @@
+Applying: CVE-2026-44160: bound gzip and deflate decompression on 1.16.2
+Applying: CVE-2026-44025: require opt-in for monitor instance variables

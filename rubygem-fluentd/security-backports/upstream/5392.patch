@@ -1,0 +1,266 @@
+From 30fbbd74bccc5824b81a04fac197fb531512f106 Mon Sep 17 00:00:00 2001
+From: Shizuo Fujita <fujita@clear-code.com>
+Date: Thu, 25 Jun 2026 15:56:32 +0900
+Subject: [PATCH] in_monitor_agent: change default visibility of config, retry,
+ and debug info
+
+**Which issue(s) this PR fixes**:
+Fixes #
+
+**What this PR does / why we need it**:
+This PR updates the default behavior of the `monitor_agent` API to provide a more minimal and predictable response footprint.
+
+### Before
+The HTTP API (`/api/plugins.json`, etc.) included `config`, `retry` state, and `instance_variables` of plugins by default (or when dynamically queried with parameters like `debug=1`, `with_config`, `with_retry`, or `with_ivars`).
+
+This resulted in unnecessarily verbose payloads that exposed deep internal plugin states not typically required for standard health monitoring.
+
+### After
+Inclusion of these detailed internal states is now disabled by default to reduce payload size and enforce explicit configuration.
+
+* Changed
+  * `include_config` default is changed from `true` to `false`.
+  * `include_retry` default is changed from `true` to `false`.
+  * The API no longer allows URL query parameters to override these settings.
+* Added
+  * `include_debug_info` parameter to explicitly control the visibility of internal instance variables (default `false`).
+  * Debug information (via queries such as `debug=1` or `with_ivars=xxx`) is now only included when this parameter is explicitly enabled in the configuration block.
+
+**Docs Changes**:
+
+**Release Note**:
+* in_monitor_agent: change default visibility of config, retry, and debug info
+
+Signed-off-by: Shizuo Fujita <fujita@clear-code.com>
+---
+ lib/fluent/plugin/in_monitor_agent.rb |  41 +++++------
+ test/plugin/test_in_monitor_agent.rb  | 100 ++++++++++++++++++++++++--
+ 2 files changed, 114 insertions(+), 27 deletions(-)
+
+diff --git a/lib/fluent/plugin/in_monitor_agent.rb b/lib/fluent/plugin/in_monitor_agent.rb
+index f8ec2edfbc..60f47942af 100644
+--- a/lib/fluent/plugin/in_monitor_agent.rb
++++ b/lib/fluent/plugin/in_monitor_agent.rb
+@@ -37,9 +37,11 @@ class MonitorAgentInput < Input
+     desc 'Determine the rate to emit internal metrics as events.'
+     config_param :emit_interval, :time, default: 60
+     desc 'Determine whether to include the config information.'
+-    config_param :include_config, :bool, default: true
++    config_param :include_config, :bool, default: false
+     desc 'Determine whether to include the retry information.'
+-    config_param :include_retry, :bool, default: true
++    config_param :include_retry, :bool, default: false
++    desc 'Determine whether to include the debug information.'
++    config_param :include_debug_info, :bool, default: false
+ 
+     class APIHandler
+       def initialize(agent)
+@@ -151,28 +153,23 @@ def build_option(req)
+         # parse ?=query string
+         qs.merge!(req.query || {})
+ 
+-        # if ?debug=1 is set, set :with_debug_info for get_monitor_info
+-        # and :pretty_json for render_json_error
+-        opts = { query: qs }
+-        if qs['debug'.freeze].first
+-          opts[:with_debug_info] = true
+-          opts[:pretty_json] = true
+-        end
+-
+-        if ivars = qs['with_ivars'.freeze].first
+-          opts[:ivars] = ivars.split(',')
+-        end
++        opts = {
++          query: qs,
++          with_config: @agent.include_config,
++          with_retry: @agent.include_retry
++        }
+ 
+-        if with_config = qs['with_config'.freeze].first
+-          opts[:with_config] = Fluent::Config.bool_value(with_config)
+-        else
+-          opts[:with_config] = @agent.include_config
+-        end
++        if @agent.include_debug_info
++          # if ?debug=1 is set, set :with_debug_info for get_monitor_info
++          # and :pretty_json for render_json_error
++          if qs['debug'.freeze].first
++            opts[:with_debug_info] = true
++            opts[:pretty_json] = true
++          end
+ 
+-        if with_retry = qs['with_retry'.freeze].first
+-          opts[:with_retry] = Fluent::Config.bool_value(with_retry)
+-        else
+-          opts[:with_retry] = @agent.include_retry
++          if ivars = qs['with_ivars'.freeze].first
++            opts[:ivars] = ivars.split(',')
++          end
+         end
+ 
+         opts
+diff --git a/test/plugin/test_in_monitor_agent.rb b/test/plugin/test_in_monitor_agent.rb
+index 86d00b0e79..57f65f5c08 100644
+--- a/test/plugin/test_in_monitor_agent.rb
++++ b/test/plugin/test_in_monitor_agent.rb
+@@ -35,7 +35,9 @@ def test_configure
+     assert_equal(24220, d.instance.port)
+     assert_equal(nil, d.instance.tag)
+     assert_equal(60, d.instance.emit_interval)
+-    assert_true d.instance.include_config
++    assert_false d.instance.include_config
++    assert_false d.instance.include_retry
++    assert_false d.instance.include_debug_info
+   end
+ 
+   sub_test_case "collect in_monitor_agent plugin statistics" do
+@@ -614,8 +616,8 @@ def get(uri, header = {})
+       d.instance_shutdown
+     end
+ 
+-    data(:with_config_and_retry_yes => [true, true, "?with_config=yes&with_retry"],
+-         :with_config_and_retry_no => [false, false, "?with_config=no&with_retry=no"])
++    data(:with_config_and_retry_yes => [true, true, "?with_config=no&with_retry=no"],
++         :with_config_and_retry_no => [false, false, "?with_config=yes&with_retry=yes"])
+     test "/api/plugins.json with query parameter. query parameter is preferred than include_config" do |(with_config, with_retry, query_param)|
+ 
+       d = create_driver("
+@@ -623,6 +625,8 @@ def get(uri, header = {})
+   bind '127.0.0.1'
+   port #{@port}
+   tag monitor
++  include_config #{with_config}
++  include_retry #{with_retry}
+ ")
+       d.instance.start
+       expected_test_in_response = {
+@@ -659,6 +663,7 @@ def get(uri, header = {})
+       }
+       expected_null_response["config"] = {"@id" => "null", "@type" => "null"} if with_config
+       expected_null_response["retry"] = {} if with_retry
++      # The values are retrieved based on the configuration settings, regardless of query parameters.
+       response = JSON.parse(get("http://127.0.0.1:#{@port}/api/plugins.json#{query_param}").body)
+       test_in_response = response["plugins"][0]
+       null_response = response["plugins"][5]
+@@ -674,6 +679,7 @@ def get(uri, header = {})
+   bind '127.0.0.1'
+   port #{@port}
+   tag monitor
++  include_debug_info true
+ ")
+       d.instance.start
+       expected_test_in_response = {
+@@ -710,7 +716,7 @@ def get(uri, header = {})
+         "flush_time_count" => Integer,
+         "drop_oldest_chunk_count" => Integer,
+       }
+-      response = JSON.parse(get("http://127.0.0.1:#{@port}/api/plugins.json?with_config=no&with_retry=no&with_ivars=id,num_errors").body)
++      response = JSON.parse(get("http://127.0.0.1:#{@port}/api/plugins.json?with_config=no&with_retry=no&with_ivars=id,non_existed_ivar").body)
+       test_in_response = response["plugins"][0]
+       null_response = response["plugins"][5]
+       assert_equal(expected_test_in_response, test_in_response)
+@@ -758,6 +764,7 @@ def get(uri, header = {})
+   bind '127.0.0.1'
+   port #{@port}
+   tag monitor
++  include_debug_info true
+ ")
+       d.instance.start
+       # To check pretty print
+@@ -823,7 +830,8 @@ def write(chunk)
+   @type monitor_agent
+   bind '127.0.0.1'
+   port #{@port}
+-  include_config no
++  include_config false
++  include_retry true
+ ")
+       d.instance.start
+       output = @ra.outputs[0]
+@@ -968,4 +976,86 @@ def filter(tag, time, record)
+       d.instance_shutdown
+     end
+   end
++
++  sub_test_case 'debug information exposure configurations' do
++    setup do
++      @port = unused_port(protocol: :tcp)
++
++      conf = <<~EOC
++        <source>
++          @type test_in
++          @id test_in
++        </source>
++      EOC
++      @ra = Fluent::RootAgent.new(log: $log)
++      stub(Fluent::Engine).root_agent { @ra }
++      @ra = configure_ra(@ra, conf)
++    end
++
++    def config(include_debug_info:)
++      <<~"CONFIG"
++        @type monitor_agent
++        bind '127.0.0.1'
++        port #{@port}
++        tag monitor
++        include_debug_info #{include_debug_info}
++      CONFIG
++    end
++
++    sub_test_case "include_debug_info true" do
++      test "'/api/plugins.json?with_ivars=xxx' expose instance variables" do
++        d = create_driver(config(include_debug_info: true))
++        d.instance.start
++
++        response = JSON.parse(get("http://127.0.0.1:#{@port}/api/plugins.json?with_ivars=id").body)
++        test_in_response = response["plugins"][0]
++        assert_equal({"id" => "test_in"} , test_in_response["instance_variables"])
++
++        d.instance_shutdown
++      end
++
++      test "'/api/plugins.json?debug=1' expose instance variables" do
++        d = create_driver(config(include_debug_info: true))
++        d.instance.start
++
++        response = JSON.parse(get("http://127.0.0.1:#{@port}/api/plugins.json?debug=1").body)
++        test_in_response = response["plugins"][0]
++        assert_true(test_in_response.has_key?("instance_variables"))
++        # check existence about one of typical debug element
++        assert_false(test_in_response["instance_variables"]["log"].nil?)
++
++        d.instance_shutdown
++      end
++    end
++
++    sub_test_case "include_debug_info false" do
++      test "'/api/plugins.json?with_ivars=xxx' does not expose instance variables" do
++        d = create_driver(config(include_debug_info: false))
++        d.instance.start
++
++        response = JSON.parse(get("http://127.0.0.1:#{@port}/api/plugins.json?with_ivars=id").body)
++        test_in_response = response["plugins"][0]
++        assert_false(test_in_response.has_key?("instance_variables"))
++
++        no_query_response = JSON.parse(get("http://127.0.0.1:#{@port}/api/plugins.json").body)
++        assert_equal(response, no_query_response)
++
++        d.instance_shutdown
++      end
++
++      test "'/api/plugins.json?debug=1' does not expose instance variables" do
++        d = create_driver(config(include_debug_info: false))
++        d.instance.start
++
++        response = JSON.parse(get("http://127.0.0.1:#{@port}/api/plugins.json?debug=1").body)
++        test_in_response = response["plugins"][0]
++        assert_false(test_in_response.has_key?("instance_variables"))
++
++        no_query_response = JSON.parse(get("http://127.0.0.1:#{@port}/api/plugins.json").body)
++        assert_equal(response, no_query_response)
++
++        d.instance_shutdown
++      end
++    end
++  end
+ end

@@ -1,0 +1,19 @@
+Loaded suite fluentd-1.16.2/test/test_event_decompression_limit
+Started
+F
+===============================================================================
+Failure: test_copy_retains_limit_before_lazy_decompression(EventDecompressionLimitTest): <Fluent::Plugin::Extractor::SizeLimitError> exception was expected but none was thrown.
+fluentd-1.16.2/test/test_event_decompression_limit.rb:10:in `test_copy_retains_limit_before_lazy_decompression'
+      7:   def test_copy_retains_limit_before_lazy_decompression
+      8:     packed = [1, {'message' => 'A' * 2000}].to_msgpack
+      9:     stream = Fluent::CompressedMessagePackEventStream.new(compress(packed), nil, 1, decompression_size_limit: 1024)
+  => 10:     assert_raise(Fluent::Plugin::Extractor::SizeLimitError) { stream.dup.to_a }
+     11:   end
+     12: end
+===============================================================================
+Finished in 0.003222 seconds.
+-------------------------------------------------------------------------------
+1 tests, 1 assertions, 1 failures, 0 errors, 0 pendings, 0 omissions, 0 notifications
+0% passed
+-------------------------------------------------------------------------------
+310.37 tests/s, 310.37 assertions/s
