@@ -1,0 +1,44 @@
+....E.EE.F..
+======================================================================
+ERROR: test_expired_legacy_cookie_raises_signature_expired (signed_cookies_tests.tests.SignedCookieTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/test/utils.py", line 461, in inner
+    return func(*args, **kwargs)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/signed_cookies_tests/tests.py", line 44, in test_expired_legacy_cookie_raises_signature_expired
+    salt=signing._cookie_signer_legacy_salt("a", "bc")
+AttributeError: module 'django.core.signing' has no attribute '_cookie_signer_legacy_salt'
+
+======================================================================
+ERROR: test_legacy_salt_namespace_is_accepted_by_default (signed_cookies_tests.tests.SignedCookieTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/test/utils.py", line 461, in inner
+    return func(*args, **kwargs)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/signed_cookies_tests/tests.py", line 56, in test_legacy_salt_namespace_is_accepted_by_default
+    salt=signing._cookie_signer_legacy_salt("a", "bc")
+AttributeError: module 'django.core.signing' has no attribute '_cookie_signer_legacy_salt'
+
+======================================================================
+ERROR: test_legacy_salt_namespace_not_accepted (signed_cookies_tests.tests.SignedCookieTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/signed_cookies_tests/tests.py", line 64, in test_legacy_salt_namespace_not_accepted
+    salt=signing._cookie_signer_legacy_salt("a", "bc")
+AttributeError: module 'django.core.signing' has no attribute '_cookie_signer_legacy_salt'
+
+======================================================================
+FAIL: test_salt_namespace_is_unambiguous (signed_cookies_tests.tests.SignedCookieTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/signed_cookies_tests/tests.py", line 37, in test_salt_namespace_is_unambiguous
+    request.get_signed_cookie("ab", salt="c")
+AssertionError: BadSignature not raised
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.005s
+
+FAILED (failures=1, errors=3)
+Testing against Django installed in '/Users/bixenonoff/WORK/django/django-4.2.30/django'
+Found 12 test(s).
+System check identified no issues (0 silenced).

@@ -1,0 +1,72 @@
+
+======================================================================
+FAIL: test_has_vary_header_whitespace (cache.tests.CacheUtils) (value=' * ', query='*')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/cache/tests.py", line 2007, in test_has_vary_header_whitespace
+    self.assertTrue(has_vary_header(response, query))
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_has_vary_header_whitespace (cache.tests.CacheUtils) (value='Cookie, * ', query='*')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/cache/tests.py", line 2007, in test_has_vary_header_whitespace
+    self.assertTrue(has_vary_header(response, query))
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_has_vary_header_whitespace (cache.tests.CacheUtils) (value=' Cookie ', query='cookie')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/cache/tests.py", line 2007, in test_has_vary_header_whitespace
+    self.assertTrue(has_vary_header(response, query))
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_has_vary_header_whitespace (cache.tests.CacheUtils) (value='cookie', query=' Cookie ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/cache/tests.py", line 2007, in test_has_vary_header_whitespace
+    self.assertTrue(has_vary_header(response, query))
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_vary_asterisk_not_cached (cache.tests.CacheMiddlewareTest) (value='*')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/cache/tests.py", line 2719, in test_vary_asterisk_not_cached
+    self.assertEqual(view(request, "2").content, b"2")
+AssertionError: b'1' != b'2'
+
+======================================================================
+FAIL: test_vary_asterisk_not_cached (cache.tests.CacheMiddlewareTest) (value=' * ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/cache/tests.py", line 2719, in test_vary_asterisk_not_cached
+    self.assertEqual(view(request, "2").content, b"2")
+AssertionError: b'1' != b'2'
+
+======================================================================
+FAIL: test_vary_asterisk_not_cached (cache.tests.CacheMiddlewareTest) (value='Cookie, * ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/cache/tests.py", line 2719, in test_vary_asterisk_not_cached
+    self.assertEqual(view(request, "2").content, b"2")
+AssertionError: b'1' != b'2'
+
+======================================================================
+FAIL: test_vary_asterisk_not_cached (cache.tests.CacheMiddlewareTest) (value='Cookie, *, Pony')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/cache/tests.py", line 2719, in test_vary_asterisk_not_cached
+    self.assertEqual(view(request, "2").content, b"2")
+AssertionError: b'1' != b'2'
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.004s
+
+FAILED (failures=8)
+Testing against Django installed in '/Users/bixenonoff/WORK/django/django-4.2.30/django'
+Found 2 test(s).
+System check identified no issues (0 silenced).

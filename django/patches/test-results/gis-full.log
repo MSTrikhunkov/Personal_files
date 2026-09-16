@@ -1,0 +1,662 @@
+test_default_limit (gis_tests.geos_tests.test_backport_limit.BackportLimitTests) ... ok
+test_getitem (gis_tests.geos_tests.test_coordseq.GEOSCoordSeqTest) ... Found 293 test(s).
+Skipping setup of unused database(s): default, other.
+System check identified no issues (0 silenced).
+ok
+test_buffer (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_buffer_with_style (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_closed (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_collection_dims (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_collections_of_collections (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing GeometryCollection handling of other collections. ... ok
+test_coord_seq (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing Coordinate Sequence objects. ... ok
+test_copy (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing use with the Python `copy` module. ... ok
+test_covers (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_create_hex (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing creation from HEX. ... ok
+test_create_wkb (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing creation from WKB. ... ok
+test_custom_srid (gis_tests.geos_tests.test_geos.GEOSTest)
+Test with a null srid and a srid unknown to GDAL. ... ok
+test_deconstructible (gis_tests.geos_tests.test_geos.GEOSTest)
+Geometry classes should be deconstructible. ... ok
+test_difference (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing difference(). ... ok
+test_distance (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing the distance() function. ... ok
+test_emptyCollections (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing empty geometries and collections. ... ok
+test_empty_point (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_eq (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing equivalence. ... ok
+test_eq_with_srid (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing non-equivalence with different srids. ... ok
+test_errors (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing the Error handlers. ... ok
+test_ewkt (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing EWKT. ... ok
+test_extent (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing `extent` method. ... ok
+test_from_ewkt (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_from_ewkt_empty_string (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_from_ewkt_invalid_srid (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_from_gml (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_fromfile (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing the fromfile() factory. ... ok
+test_fromstr_scientific_wkt (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_gdal (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing `ogr` and `srs` properties. ... ok
+test_geometry_collection_list_assignment (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_geos_version_tuple (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_hash (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_hex (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing HEX output. ... ok
+test_hexewkb (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing (HEX)EWKB output. ... ok
+test_intersection (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing intersects() and intersection(). ... ok
+test_is_counterclockwise (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_is_counterclockwise_fallback (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_is_counterclockwise_geos_error (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_json (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing GeoJSON input/output (via GDAL). ... ok
+test_json_srid (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_kml (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing KML output. ... ok
+test_length (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing the length property. ... ok
+test_line_merge (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing line merge support ... ok
+test_linearref (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing linear referencing ... ok
+test_linearring (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing LinearRing objects. ... ok
+test_linearring_json (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_linearring_list_assignment (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_linestring (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing LineString objects. ... ok
+test_linestring_iter (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_linestring_list_assignment (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_linestring_reverse (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_make_valid (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_make_valid_geos_version (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_memory_hijinks (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing Geometry __del__() on rings and polygons. ... ok
+test_multilinestring (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing MultiLineString objects. ... ok
+test_multipoints (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing MultiPoint objects. ... ok
+test_multipolygons (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing MultiPolygon objects. ... ok
+test_mutable_geometries (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing the mutability of Polygons and Geometry Collections. ... ok
+test_normalize (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_pickle (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing pickling and unpickling support. ... ok
+test_point_list_assignment (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_point_reverse (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_points (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing Point objects. ... ok
+test_polygon_comparison (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_polygon_list_assignment (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_polygons (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing Polygon objects. ... ok
+test_polygons_from_bbox (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing `from_bbox` class method. ... ok
+test_polygons_templates (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_prepared (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing PreparedGeometry support. ... ok
+test_relate_pattern (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing relate() and relate_pattern(). ... ok
+test_srid (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing the SRID property and keyword. ... ok
+test_subclassing (gis_tests.geos_tests.test_geos.GEOSTest)
+GEOSGeometry subclass may itself be subclassed without being forced-cast ... ok
+test_symdifference (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing sym_difference(). ... ok
+test_threed (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing three-dimensional geometries. ... ok
+test_transform (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing `transform` method. ... ok
+test_transform_3d (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_transform_noop (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing `transform` method (SRID match) ... ok
+test_transform_nosrid (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing `transform` method (no SRID or negative SRID) ... ok
+test_unary_union (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing unary_union. ... ok
+test_union (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing union(). ... ok
+test_valid_reason (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing IsValidReason support ... ok
+test_wkb (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing WKB output. ... ok
+test_wkt (gis_tests.geos_tests.test_geos.GEOSTest)
+Testing WKT output. ... ok
+test_wkt_invalid (gis_tests.geos_tests.test_geos.GEOSTest) ... ok
+test_big_endian_hex_collection_with_srid (gis_tests.geos_tests.test_geos_limit.GEOSLimitTest) ... ok
+test_from_ewkt_leading_whitespace_is_limited (gis_tests.geos_tests.test_geos_limit.GEOSLimitTest) ... ok
+test_geometry_collection_limit_exceeded (gis_tests.geos_tests.test_geos_limit.GEOSLimitTest) ... ok
+test_malformed_multi_wkb_child_is_limited (gis_tests.geos_tests.test_geos_limit.GEOSLimitTest) ... ok
+test_non_collection_wkt_root_fast_path (gis_tests.geos_tests.test_geos_limit.GEOSLimitTest) ... ok
+test_wkt_dimension_marker_whitespace_is_limited (gis_tests.geos_tests.test_geos_limit.GEOSLimitTest) ... ok
+test_wkt_geometry_collection_flat (gis_tests.geos_tests.test_geos_limit.GEOSLimitTest) ... ok
+test_wkt_mixed_case_and_inner_whitespace_is_limited (gis_tests.geos_tests.test_geos_limit.GEOSLimitTest) ... ok
+test_wkt_reader_whitespace_is_limited (gis_tests.geos_tests.test_geos_limit.GEOSLimitTest) ... ok
+test01_wktreader (gis_tests.geos_tests.test_io.GEOSIOTest) ... ok
+test02_wktwriter (gis_tests.geos_tests.test_io.GEOSIOTest) ... ok
+test03_wkbreader (gis_tests.geos_tests.test_io.GEOSIOTest) ... ok
+test04_wkbwriter (gis_tests.geos_tests.test_io.GEOSIOTest) ... ok
+test_empty_point_wkb (gis_tests.geos_tests.test_io.GEOSIOTest) ... ok
+test_empty_polygon_wkb (gis_tests.geos_tests.test_io.GEOSIOTest) ... ok
+test_wkt_writer_precision (gis_tests.geos_tests.test_io.GEOSIOTest) ... ok
+test_wkt_writer_trim (gis_tests.geos_tests.test_io.GEOSIOTest) ... ok
+test_wktwriter_constructor_arguments (gis_tests.geos_tests.test_io.GEOSIOTest) ... ok
+test01_valid_shp (gis_tests.gdal_tests.test_ds.DataSourceTest)
+Testing valid SHP Data Source files. ... ok
+test02_invalid_shp (gis_tests.gdal_tests.test_ds.DataSourceTest)
+Testing invalid SHP files for the Data Source. ... ok
+test03a_layers (gis_tests.gdal_tests.test_ds.DataSourceTest)
+Testing Data Source Layers. ... FAIL
+test03b_layer_slice (gis_tests.gdal_tests.test_ds.DataSourceTest)
+Test indexing and slicing on Layers. ... ok
+test03c_layer_references (gis_tests.gdal_tests.test_ds.DataSourceTest)
+Ensure OGR objects keep references to the objects they belong to. ... ok
+test04_features (gis_tests.gdal_tests.test_ds.DataSourceTest)
+Testing Data Source Features. ... ok
+test05_geometries (gis_tests.gdal_tests.test_ds.DataSourceTest)
+Testing Geometries from Data Source Features. ... ok
+test06_spatial_filter (gis_tests.gdal_tests.test_ds.DataSourceTest)
+Testing the Layer.spatial_filter property. ... ok
+test07_integer_overflow (gis_tests.gdal_tests.test_ds.DataSourceTest)
+Testing that OFTReal fields, treated as OFTInteger, do not overflow. ... ok
+test_ds_input_pathlib (gis_tests.gdal_tests.test_ds.DataSourceTest) ... ok
+test_nonexistent_field (gis_tests.gdal_tests.test_ds.DataSourceTest) ... ok
+test_25D (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing 2.5D geometries. ... ok
+test_add (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing GeometryCollection.add(). ... ok
+test_closepolygons (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing closing Polygon objects. ... ERROR
+test_contains (gis_tests.gdal_tests.test_geom.OGRGeomTest) ... FAIL
+test_crosses (gis_tests.gdal_tests.test_geom.OGRGeomTest) ... FAIL
+test_difference (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing difference(). ... ERROR
+test_disjoint (gis_tests.gdal_tests.test_geom.OGRGeomTest) ... FAIL
+test_empty (gis_tests.gdal_tests.test_geom.OGRGeomTest) ... ok
+test_empty_point_to_geos (gis_tests.gdal_tests.test_geom.OGRGeomTest) ... ok
+test_equals (gis_tests.gdal_tests.test_geom.OGRGeomTest) ... FAIL
+test_equivalence_regression (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing equivalence methods with non-OGRGeometry instances. ... ok
+test_ewkt (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing EWKT input/output. ... ok
+test_extent (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing `extent` property. ... ok
+test_from_gml (gis_tests.gdal_tests.test_geom.OGRGeomTest) ... ok
+test_geomtype (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing OGRGeomType object. ... ok
+test_geomtype_25d (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing OGRGeomType object with 25D types. ... ok
+test_gml (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing GML output. ... ok
+test_hex (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing HEX input/output. ... ok
+test_intersection (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing intersects() and intersection(). ... ERROR
+test_intersects (gis_tests.gdal_tests.test_geom.OGRGeomTest) ... ok
+test_json (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing GeoJSON input/output. ... ok
+test_linearring (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing LinearRing objects. ... ok
+test_linestring (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing LineString objects. ... ok
+test_multilinestring (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing MultiLineString objects. ... ok
+test_multipoints (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing MultiPoint objects. ... ok
+test_multipolygons (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing MultiPolygon objects. ... ok
+test_ogrgeometry_transform_workaround (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing coordinate dimensions on geometries after transformation. ... ok
+test_overlaps (gis_tests.gdal_tests.test_geom.OGRGeomTest) ... FAIL
+test_pickle (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing pickle support. ... ok
+test_points (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing Point objects. ... ok
+test_polygons (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing Polygon objects. ... ERROR
+test_polygons_templates (gis_tests.gdal_tests.test_geom.OGRGeomTest) ... ok
+test_srs (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing OGR Geometries with Spatial Reference objects. ... ERROR
+test_srs_transform (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing transform(). ... ok
+test_symdifference (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing sym_difference(). ... ERROR
+test_touches (gis_tests.gdal_tests.test_geom.OGRGeomTest) ... FAIL
+test_transform_dim (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing coordinate dimension is the same on transformed geometries. ... ok
+test_union (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing union(). ... ERROR
+test_within (gis_tests.gdal_tests.test_geom.OGRGeomTest) ... FAIL
+test_wkb (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing WKB input/output. ... ok
+test_wkt (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing WKT output. ... ok
+test_band_data (gis_tests.gdal_tests.test_raster.GDALBandTests) ... ok
+test_band_data_replication (gis_tests.gdal_tests.test_raster.GDALBandTests) ... ok
+test_band_data_setters (gis_tests.gdal_tests.test_raster.GDALBandTests) ... ok
+test_band_delete_nodata (gis_tests.gdal_tests.test_raster.GDALBandTests) ... ok
+test_band_statistics (gis_tests.gdal_tests.test_raster.GDALBandTests) ... ok
+test_band_statistics_automatic_refresh (gis_tests.gdal_tests.test_raster.GDALBandTests) ... ok
+test_band_statistics_empty_band (gis_tests.gdal_tests.test_raster.GDALBandTests) ... ok
+test_read_mode_error (gis_tests.gdal_tests.test_raster.GDALBandTests) ... ok
+test_compressed_file_based_raster_creation (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... skipped 'GDAL_PIXEL_TYPES are missing types from GDAL 3.5+.'
+test_file_based_raster_creation (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_gdalraster_input_as_path (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_geotransform_and_friends (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_geotransform_bad_inputs (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_memory_based_raster_creation (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_nonexistent_file (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_offset_size_and_shape_on_raster_creation (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_raster_clone (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_raster_info_accessor (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_raster_metadata_property (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_raster_transform (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_raster_transform_clone (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_raster_transform_clone_name (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_raster_warp (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_raster_warp_nodata_zone (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_rs_bands (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_rs_driver (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_rs_extent (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_rs_name_repr (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_rs_size (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_rs_srid (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_rs_srs (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_set_nodata_none_on_raster_creation (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_set_nodata_value_on_raster_creation (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_vsi_buffer_length (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_vsi_buffer_property (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_vsi_invalid_buffer_error (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_vsi_raster_creation (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_vsi_raster_deletion (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_vsi_vsizip_filesystem (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test01_wkt (gis_tests.gdal_tests.test_srs.SpatialRefTest)
+Testing initialization on valid OGC WKT. ... ok
+test02_bad_wkt (gis_tests.gdal_tests.test_srs.SpatialRefTest)
+Testing initialization on invalid WKT. ... ok
+test03_get_wkt (gis_tests.gdal_tests.test_srs.SpatialRefTest)
+Testing getting the WKT. ... ok
+test04_proj (gis_tests.gdal_tests.test_srs.SpatialRefTest)
+PROJ import and export. ... ok
+test05_epsg (gis_tests.gdal_tests.test_srs.SpatialRefTest)
+Test EPSG import. ... ok
+test07_boolean_props (gis_tests.gdal_tests.test_srs.SpatialRefTest)
+Testing the boolean properties. ... ok
+test08_angular_linear (gis_tests.gdal_tests.test_srs.SpatialRefTest)
+Testing the linear and angular units routines. ... ok
+test09_authority (gis_tests.gdal_tests.test_srs.SpatialRefTest)
+Testing the authority name & code routines. ... ok
+test10_attributes (gis_tests.gdal_tests.test_srs.SpatialRefTest)
+Testing the attribute retrieval routines. ... ok
+test11_wellknown (gis_tests.gdal_tests.test_srs.SpatialRefTest)
+Testing Well Known Names of Spatial References. ... ok
+test12_coordtransform (gis_tests.gdal_tests.test_srs.SpatialRefTest)
+Testing initialization of a CoordTransform. ... ok
+test13_attr_value (gis_tests.gdal_tests.test_srs.SpatialRefTest)
+Testing the attr_value() method. ... ok
+test_axis_order (gis_tests.gdal_tests.test_srs.SpatialRefTest) ... ok
+test_axis_order_invalid (gis_tests.gdal_tests.test_srs.SpatialRefTest) ... ok
+test_axis_order_non_traditional_invalid (gis_tests.gdal_tests.test_srs.SpatialRefTest) ... skipped "GDAL < 3.0 doesn't support authority."
+test_esri (gis_tests.gdal_tests.test_srs.SpatialRefTest) ... ok
+test_srid (gis_tests.gdal_tests.test_srs.SpatialRefTest)
+The srid property returns top-level authority code. ... ok
+test_unicode (gis_tests.gdal_tests.test_srs.SpatialRefTest) ... ERROR
+test_area_field_deepcopy (gis_tests.test_fields.FieldsTests) ... ok
+test_distance_field_deepcopy (gis_tests.test_fields.FieldsTests) ... ok
+test_deconstruct_empty (gis_tests.test_fields.GeometryFieldTests) ... ok
+test_deconstruct_max_geom_collections (gis_tests.test_fields.GeometryFieldTests) ... ok
+test_deconstruct_values (gis_tests.test_fields.GeometryFieldTests) ... ok
+test_formfield_forwards_max_geom_collections (gis_tests.test_fields.GeometryFieldTests) ... ok
+test_formfield_forwards_none_max_geom_collections (gis_tests.test_fields.GeometryFieldTests) ... ok
+test_get_prep_value_without_max_geom_collections_uses_default (gis_tests.test_fields.GeometryFieldTests) ... ok
+test_field_string_value (gis_tests.test_geoforms.GeometryFieldTest)
+Initialization of a geometry field with a valid/empty/invalid string. ... ok
+test_field_with_text_widget (gis_tests.test_geoforms.GeometryFieldTest) ... ok
+test_geom_type (gis_tests.test_geoforms.GeometryFieldTest)
+Testing GeometryField's handling of different geometry types. ... ok
+test_init (gis_tests.test_geoforms.GeometryFieldTest)
+Testing GeometryField initialization with defaults. ... ok
+test_max_geom_collections_custom_widget_uses_default (gis_tests.test_geoforms.GeometryFieldTest) ... ok
+test_max_geom_collections_default (gis_tests.test_geoforms.GeometryFieldTest)
+The limit has a default and reaches the widget. ... ok
+test_max_geom_collections_none (gis_tests.test_geoforms.GeometryFieldTest) ... ok
+test_max_geom_collections_override (gis_tests.test_geoforms.GeometryFieldTest)
+A per-field limit is enforced when cleaning nested collections. ... ok
+test_max_geom_collections_subclass_default (gis_tests.test_geoforms.GeometryFieldTest) ... ok
+test_max_geom_collections_widget_without_deserialize (gis_tests.test_geoforms.GeometryFieldTest) ... ok
+test_null (gis_tests.test_geoforms.GeometryFieldTest)
+Testing GeometryField's handling of null (None) geometries. ... ok
+test_srid (gis_tests.test_geoforms.GeometryFieldTest)
+Testing GeometryField with a SRID set. ... ok
+test_to_python (gis_tests.test_geoforms.GeometryFieldTest)
+to_python() either returns a correct GEOSGeometry object or ... ok
+test_to_python_different_map_srid (gis_tests.test_geoforms.GeometryFieldTest) ... ok
+test_custom_serialization_widget (gis_tests.test_geoforms.GeometryWidgetTests) ... ok
+test_deprecated_width_and_height (gis_tests.test_geoforms.GeometryWidgetTests) ... ok
+test_get_context_attrs (gis_tests.test_geoforms.GeometryWidgetTests) ... ok
+test_subwidgets (gis_tests.test_geoforms.GeometryWidgetTests) ... ok
+test_default_lat_lon (gis_tests.test_geoforms.OSMWidgetTest) ... ok
+test_osm_widget (gis_tests.test_geoforms.OSMWidgetTest) ... ok
+test_geometrycollectionfield (gis_tests.test_geoforms.SpecializedFieldTest) ... ok
+test_linestringfield (gis_tests.test_geoforms.SpecializedFieldTest) ... ok
+test_multilinestringfield (gis_tests.test_geoforms.SpecializedFieldTest) ... ok
+test_multipointfield (gis_tests.test_geoforms.SpecializedFieldTest) ... ok
+test_multipolygonfield (gis_tests.test_geoforms.SpecializedFieldTest) ... ok
+test_pointfield (gis_tests.test_geoforms.SpecializedFieldTest) ... ok
+test_polygonfield (gis_tests.test_geoforms.SpecializedFieldTest) ... ok
+test00_GEOSIndexException (gis_tests.geos_tests.test_geos_mutation.GEOSMutationTest)
+Testing Geometry IndexError ... ok
+test01_PointMutations (gis_tests.geos_tests.test_geos_mutation.GEOSMutationTest)
+Testing Point mutations ... ok
+test02_PointExceptions (gis_tests.geos_tests.test_geos_mutation.GEOSMutationTest)
+Testing Point exceptions ... ok
+test03_PointApi (gis_tests.geos_tests.test_geos_mutation.GEOSMutationTest)
+Testing Point API ... ok
+test04_LineStringMutations (gis_tests.geos_tests.test_geos_mutation.GEOSMutationTest)
+Testing LineString mutations ... ok
+test05_Polygon (gis_tests.geos_tests.test_geos_mutation.GEOSMutationTest)
+Testing Polygon mutations ... ok
+test06_Collection (gis_tests.geos_tests.test_geos_mutation.GEOSMutationTest)
+Testing Collection mutations ... ok
+test01_getslice (gis_tests.geos_tests.test_mutable_list.ListMixinTest)
+Slice retrieval ... ok
+test02_setslice (gis_tests.geos_tests.test_mutable_list.ListMixinTest)
+Slice assignment ... ok
+test03_delslice (gis_tests.geos_tests.test_mutable_list.ListMixinTest)
+Delete slice ... ok
+test04_get_set_del_single (gis_tests.geos_tests.test_mutable_list.ListMixinTest)
+Get/set/delete single item ... ok
+test05_out_of_range_exceptions (gis_tests.geos_tests.test_mutable_list.ListMixinTest)
+Out of range exceptions ... ok
+test06_list_methods (gis_tests.geos_tests.test_mutable_list.ListMixinTest)
+List methods ... ok
+test07_allowed_types (gis_tests.geos_tests.test_mutable_list.ListMixinTest)
+Type-restricted list ... ok
+test08_min_length (gis_tests.geos_tests.test_mutable_list.ListMixinTest)
+Length limits ... ok
+test09_iterable_check (gis_tests.geos_tests.test_mutable_list.ListMixinTest)
+Error on assigning non-iterable to slice ... ok
+test10_checkindex (gis_tests.geos_tests.test_mutable_list.ListMixinTest)
+Index check ... ok
+test_11_sorting (gis_tests.geos_tests.test_mutable_list.ListMixinTest)
+Sorting ... ok
+test_12_arithmetic (gis_tests.geos_tests.test_mutable_list.ListMixinTest)
+Arithmetic ... ok
+test01_getslice (gis_tests.geos_tests.test_mutable_list.ListMixinTestSingle)
+Slice retrieval ... ok
+test02_setslice (gis_tests.geos_tests.test_mutable_list.ListMixinTestSingle)
+Slice assignment ... ok
+test03_delslice (gis_tests.geos_tests.test_mutable_list.ListMixinTestSingle)
+Delete slice ... ok
+test04_get_set_del_single (gis_tests.geos_tests.test_mutable_list.ListMixinTestSingle)
+Get/set/delete single item ... ok
+test05_out_of_range_exceptions (gis_tests.geos_tests.test_mutable_list.ListMixinTestSingle)
+Out of range exceptions ... ok
+test06_list_methods (gis_tests.geos_tests.test_mutable_list.ListMixinTestSingle)
+List methods ... ok
+test07_allowed_types (gis_tests.geos_tests.test_mutable_list.ListMixinTestSingle)
+Type-restricted list ... ok
+test08_min_length (gis_tests.geos_tests.test_mutable_list.ListMixinTestSingle)
+Length limits ... ok
+test09_iterable_check (gis_tests.geos_tests.test_mutable_list.ListMixinTestSingle)
+Error on assigning non-iterable to slice ... ok
+test10_checkindex (gis_tests.geos_tests.test_mutable_list.ListMixinTestSingle)
+Index check ... ok
+test_11_sorting (gis_tests.geos_tests.test_mutable_list.ListMixinTestSingle)
+Sorting ... ok
+test_12_arithmetic (gis_tests.geos_tests.test_mutable_list.ListMixinTestSingle)
+Arithmetic ... ok
+test01_valid_driver (gis_tests.gdal_tests.test_driver.DriverTest)
+Testing valid GDAL/OGR Data Source Drivers. ... ERROR
+test02_invalid_driver (gis_tests.gdal_tests.test_driver.DriverTest)
+Testing invalid GDAL/OGR Data Source Drivers. ... ok
+test03_aliases (gis_tests.gdal_tests.test_driver.DriverTest)
+Testing driver aliases. ... ERROR
+test_registered (gis_tests.gdal_tests.test_driver.DriverTest)
+Prototypes are registered only if their respective driver counts are ... ok
+test01_init (gis_tests.gdal_tests.test_envelope.EnvelopeTest)
+Testing Envelope initialization. ... ok
+test02_properties (gis_tests.gdal_tests.test_envelope.EnvelopeTest)
+Testing Envelope properties. ... ok
+test03_equivalence (gis_tests.gdal_tests.test_envelope.EnvelopeTest)
+Testing Envelope equivalence. ... ok
+test04_expand_to_include_pt_2_params (gis_tests.gdal_tests.test_envelope.EnvelopeTest)
+Testing Envelope expand_to_include -- point as two parameters. ... ok
+test05_expand_to_include_pt_2_tuple (gis_tests.gdal_tests.test_envelope.EnvelopeTest)
+Testing Envelope expand_to_include -- point as a single 2-tuple parameter. ... ok
+test06_expand_to_include_extent_4_params (gis_tests.gdal_tests.test_envelope.EnvelopeTest)
+Testing Envelope expand_to_include -- extent as 4 parameters. ... ok
+test06_expand_to_include_extent_4_tuple (gis_tests.gdal_tests.test_envelope.EnvelopeTest)
+Testing Envelope expand_to_include -- extent as a single 4-tuple parameter. ... ok
+test07_expand_to_include_envelope (gis_tests.gdal_tests.test_envelope.EnvelopeTest)
+Testing Envelope expand_to_include with Envelope as parameter. ... ok
+test08_expand_to_include_point (gis_tests.gdal_tests.test_envelope.EnvelopeTest)
+Testing Envelope expand_to_include with Point as parameter. ... ok
+test_gdal_full_version (gis_tests.gdal_tests.tests.GDALTest) ... ok
+test_gdal_version (gis_tests.gdal_tests.tests.GDALTest) ... ok
+
+======================================================================
+ERROR: test_closepolygons (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing closing Polygon objects.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/gis_tests/gdal_tests/test_geom.py", line 268, in test_closepolygons
+    self.assertEqual(OGRGeometry("POINT(2.5 2.5)"), poly.centroid)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/geometries.py", line 661, in centroid
+    capi.get_centroid(self.ptr, p.ptr)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/prototypes/errcheck.py", line 120, in check_errcode
+    check_err(result, cpl=cpl)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/error.py", line 59, in check_err
+    raise e(msg)
+django.contrib.gis.gdal.error.GDALException: OGR failure.
+
+======================================================================
+ERROR: test_difference (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing difference().
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/gis_tests/gdal_tests/test_geom.py", line 390, in test_difference
+    d2 = a.difference(b)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/geometries.py", line 499, in difference
+    return self._geomgen(capi.geom_diff, other)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/geometries.py", line 477, in _geomgen
+    return OGRGeometry(gen_func(self.ptr, other.ptr), self.srs)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/prototypes/errcheck.py", line 82, in check_geom
+    raise GDALException(
+django.contrib.gis.gdal.error.GDALException: Invalid geometry pointer returned from "OGR_G_Difference".
+
+======================================================================
+ERROR: test_intersection (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing intersects() and intersection().
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/gis_tests/gdal_tests/test_geom.py", line 405, in test_intersection
+    i2 = a.intersection(b)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/geometries.py", line 506, in intersection
+    return self._geomgen(capi.geom_intersection, other)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/geometries.py", line 477, in _geomgen
+    return OGRGeometry(gen_func(self.ptr, other.ptr), self.srs)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/prototypes/errcheck.py", line 82, in check_geom
+    raise GDALException(
+django.contrib.gis.gdal.error.GDALException: Invalid geometry pointer returned from "OGR_G_Intersection".
+
+======================================================================
+ERROR: test_polygons (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing Polygon objects.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/gis_tests/gdal_tests/test_geom.py", line 231, in test_polygons
+    x, y = poly.centroid.tuple
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/geometries.py", line 661, in centroid
+    capi.get_centroid(self.ptr, p.ptr)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/prototypes/errcheck.py", line 120, in check_errcode
+    check_err(result, cpl=cpl)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/error.py", line 59, in check_err
+    raise e(msg)
+django.contrib.gis.gdal.error.GDALException: OGR failure.
+
+======================================================================
+ERROR: test_srs (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing OGR Geometries with Spatial Reference objects.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/gis_tests/gdal_tests/test_geom.py", line 310, in test_srs
+    diff = a.difference(b)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/geometries.py", line 499, in difference
+    return self._geomgen(capi.geom_diff, other)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/geometries.py", line 477, in _geomgen
+    return OGRGeometry(gen_func(self.ptr, other.ptr), self.srs)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/prototypes/errcheck.py", line 82, in check_geom
+    raise GDALException(
+django.contrib.gis.gdal.error.GDALException: Invalid geometry pointer returned from "OGR_G_Difference".
+
+======================================================================
+ERROR: test_symdifference (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing sym_difference().
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/gis_tests/gdal_tests/test_geom.py", line 419, in test_symdifference
+    d2 = a.sym_difference(b)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/geometries.py", line 513, in sym_difference
+    return self._geomgen(capi.geom_sym_diff, other)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/geometries.py", line 477, in _geomgen
+    return OGRGeometry(gen_func(self.ptr, other.ptr), self.srs)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/prototypes/errcheck.py", line 82, in check_geom
+    raise GDALException(
+django.contrib.gis.gdal.error.GDALException: Invalid geometry pointer returned from "OGR_G_SymmetricDifference".
+
+======================================================================
+ERROR: test_union (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+Testing union().
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/gis_tests/gdal_tests/test_geom.py", line 433, in test_union
+    u2 = a.union(b)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/geometries.py", line 520, in union
+    return self._geomgen(capi.geom_union, other)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/geometries.py", line 477, in _geomgen
+    return OGRGeometry(gen_func(self.ptr, other.ptr), self.srs)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/prototypes/errcheck.py", line 82, in check_geom
+    raise GDALException(
+django.contrib.gis.gdal.error.GDALException: Invalid geometry pointer returned from "OGR_G_Union".
+
+======================================================================
+ERROR: test_unicode (gis_tests.gdal_tests.test_srs.SpatialRefTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/gis_tests/gdal_tests/test_srs.py", line 359, in test_unicode
+    self.assertIn("Langschoß", srs.xml)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/srs.py", line 346, in xml
+    return capi.to_xml(self.ptr, byref(c_char_p()), force_bytes(dialect))
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/prototypes/generation.py", line 135, in _check_str
+    res = check_string(result, func, cargs, offset=offset, str_result=str_result)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/prototypes/errcheck.py", line 54, in check_string
+    check_err(result)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/error.py", line 59, in check_err
+    raise e(msg)
+django.contrib.gis.gdal.error.GDALException: OGR failure.
+
+======================================================================
+ERROR: test01_valid_driver (gis_tests.gdal_tests.test_driver.DriverTest)
+Testing valid GDAL/OGR Data Source Drivers.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/gis_tests/gdal_tests/test_driver.py", line 42, in test01_valid_driver
+    dr = Driver(d)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/driver.py", line 71, in __init__
+    raise GDALException(
+django.contrib.gis.gdal.error.GDALException: Could not initialize GDAL/OGR Driver on input: TIGER
+
+======================================================================
+ERROR: test03_aliases (gis_tests.gdal_tests.test_driver.DriverTest)
+Testing driver aliases.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/gis_tests/gdal_tests/test_driver.py", line 54, in test03_aliases
+    dr = Driver(alias)
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/django/contrib/gis/gdal/driver.py", line 71, in __init__
+    raise GDALException(
+django.contrib.gis.gdal.error.GDALException: Could not initialize GDAL/OGR Driver on input: TigER/linE
+
+======================================================================
+FAIL: test03a_layers (gis_tests.gdal_tests.test_ds.DataSourceTest)
+Testing Data Source Layers.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/gis_tests/gdal_tests/test_ds.py", line 162, in test03a_layers
+    self.assertEqual(len(layer), source.nfeat)
+AssertionError: 0 != 3
+
+======================================================================
+FAIL: test_contains (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/gis_tests/gdal_tests/test_geom.py", line 527, in test_contains
+    self.assertIs(
+AssertionError: False is not True
+
+======================================================================
+FAIL: test_crosses (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/gis_tests/gdal_tests/test_geom.py", line 535, in test_crosses
+    self.assertIs(
+AssertionError: False is not True
+
+======================================================================
+FAIL: test_disjoint (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/gis_tests/gdal_tests/test_geom.py", line 555, in test_disjoint
+    self.assertIs(
+AssertionError: False is not True
+
+======================================================================
+FAIL: test_equals (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/gis_tests/gdal_tests/test_geom.py", line 563, in test_equals
+    self.assertIs(
+AssertionError: False is not True
+
+======================================================================
+FAIL: test_overlaps (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/gis_tests/gdal_tests/test_geom.py", line 585, in test_overlaps
+    self.assertIs(
+AssertionError: False is not True
+
+======================================================================
+FAIL: test_touches (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/gis_tests/gdal_tests/test_geom.py", line 596, in test_touches
+    self.assertIs(
+AssertionError: False is not True
+
+======================================================================
+FAIL: test_within (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/gis_tests/gdal_tests/test_geom.py", line 607, in test_within
+    self.assertIs(
+AssertionError: False is not True
+
+----------------------------------------------------------------------
+Ran 293 tests in 0.698s
+
+FAILED (failures=8, errors=10, skipped=2)

@@ -1,0 +1,47 @@
+test_band_data (gis_tests.gdal_tests.test_raster.GDALBandTests) ... Found 39 test(s).
+Skipping setup of unused database(s): default, other.
+System check identified no issues (0 silenced).
+ok
+test_band_data_replication (gis_tests.gdal_tests.test_raster.GDALBandTests) ... ok
+test_band_data_setters (gis_tests.gdal_tests.test_raster.GDALBandTests) ... ok
+test_band_delete_nodata (gis_tests.gdal_tests.test_raster.GDALBandTests) ... ok
+test_band_statistics (gis_tests.gdal_tests.test_raster.GDALBandTests) ... ok
+test_band_statistics_automatic_refresh (gis_tests.gdal_tests.test_raster.GDALBandTests) ... ok
+test_band_statistics_empty_band (gis_tests.gdal_tests.test_raster.GDALBandTests) ... ok
+test_read_mode_error (gis_tests.gdal_tests.test_raster.GDALBandTests) ... ok
+test_compressed_file_based_raster_creation (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... skipped 'GDAL_PIXEL_TYPES are missing types from GDAL 3.5+.'
+test_file_based_raster_creation (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_gdalraster_input_as_path (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_geotransform_and_friends (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_geotransform_bad_inputs (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_memory_based_raster_creation (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_nonexistent_file (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_offset_size_and_shape_on_raster_creation (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_raster_clone (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_raster_info_accessor (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_raster_metadata_property (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_raster_transform (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_raster_transform_clone (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_raster_transform_clone_name (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_raster_warp (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_raster_warp_nodata_zone (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_rs_bands (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_rs_driver (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_rs_extent (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_rs_name_repr (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_rs_size (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_rs_srid (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_rs_srs (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_set_nodata_none_on_raster_creation (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_set_nodata_value_on_raster_creation (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_vsi_buffer_length (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_vsi_buffer_property (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_vsi_invalid_buffer_error (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_vsi_raster_creation (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_vsi_raster_deletion (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+test_vsi_vsizip_filesystem (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... ok
+
+----------------------------------------------------------------------
+Ran 39 tests in 0.245s
+
+OK (skipped=1)

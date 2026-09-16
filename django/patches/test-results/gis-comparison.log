@@ -1,0 +1,22 @@
+Baseline and patched broad GIS suites have identical failing test IDs.
+Count: 18
+New failures: 0
+
+test01_valid_driver (gis_tests.gdal_tests.test_driver.DriverTest)
+test03_aliases (gis_tests.gdal_tests.test_driver.DriverTest)
+test03a_layers (gis_tests.gdal_tests.test_ds.DataSourceTest)
+test_closepolygons (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+test_contains (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+test_crosses (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+test_difference (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+test_disjoint (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+test_equals (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+test_intersection (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+test_overlaps (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+test_polygons (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+test_srs (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+test_symdifference (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+test_touches (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+test_unicode (gis_tests.gdal_tests.test_srs.SpatialRefTest)
+test_union (gis_tests.gdal_tests.test_geom.OGRGeomTest)
+test_within (gis_tests.gdal_tests.test_geom.OGRGeomTest)

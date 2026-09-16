@@ -1,0 +1,35 @@
+
+======================================================================
+FAIL: test_cached_control_private_not_cached (cache.tests.CacheMiddlewareTest) (directive='Private')
+Manually set private directives are case-insensitive.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/cache/tests.py", line 2698, in test_cached_control_private_not_cached
+    self.assertEqual(view(request, "2").content, b"Hello World 2")
+AssertionError: b'Hello World 1' != b'Hello World 2'
+
+======================================================================
+FAIL: test_cached_control_private_not_cached (cache.tests.CacheMiddlewareTest) (directive='PRIVATE')
+Manually set private directives are case-insensitive.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/cache/tests.py", line 2698, in test_cached_control_private_not_cached
+    self.assertEqual(view(request, "2").content, b"Hello World 2")
+AssertionError: b'Hello World 1' != b'Hello World 2'
+
+======================================================================
+FAIL: test_cached_control_private_not_cached (cache.tests.CacheMiddlewareTest) (directive='max-age=60, pRiVaTe')
+Manually set private directives are case-insensitive.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/cache/tests.py", line 2698, in test_cached_control_private_not_cached
+    self.assertEqual(view(request, "2").content, b"Hello World 2")
+AssertionError: b'Hello World 1' != b'Hello World 2'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.004s
+
+FAILED (failures=3)
+Testing against Django installed in '/Users/bixenonoff/WORK/django/django-4.2.30/django'
+Found 1 test(s).
+System check identified no issues (0 silenced).

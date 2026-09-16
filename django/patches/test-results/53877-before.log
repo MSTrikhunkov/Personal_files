@@ -1,0 +1,17 @@
+Found 1 test(s).
+Skipping setup of unused database(s): default, other.
+System check identified no issues (0 silenced).
+test_vsi_buffer_length (gis_tests.gdal_tests.test_raster.GDALRasterTests) ... FAIL
+
+======================================================================
+FAIL: test_vsi_buffer_length (gis_tests.gdal_tests.test_raster.GDALRasterTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/gis_tests/gdal_tests/test_raster.py", line 270, in test_vsi_buffer_length
+    self.assertEqual(len(vsimem.vsi_buffer), len(rst_bytes))
+AssertionError: 35519 != 35486
+
+----------------------------------------------------------------------
+Ran 1 test in 0.006s
+
+FAILED (failures=1)

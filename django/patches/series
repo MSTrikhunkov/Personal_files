@@ -1,0 +1,6 @@
+0001-CVE-2026-6873-separate-signed-cookie-salt-namespaces.patch
+0002-CVE-2026-8404-recognize-private-cache-directives-cas.patch
+0003-CVE-2026-48587-strip-Vary-whitespace-and-prevent-wil.patch
+0004-CVE-2026-48588-do-not-cache-Set-Cookie-responses-var.patch
+0005-CVE-2026-53877-use-actual-byte-length-for-GDAL-raste.patch
+0006-CVE-2026-15830-bound-geometry-collection-parsing-bef.patch

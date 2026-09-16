@@ -1,0 +1,7 @@
+Applying: CVE-2026-6873: separate signed-cookie salt namespaces
+Applying: CVE-2026-8404: recognize private cache directives case-insensitively
+Applying: CVE-2026-48587: strip Vary whitespace and prevent wildcard caching
+Applying: CVE-2026-48588: do not cache Set-Cookie responses varying on Cookie
+Applying: CVE-2026-53877: use actual byte length for GDAL raster buffers
+Applying: CVE-2026-15830: bound geometry collection parsing before GEOS
+Identical final trees: ba44c0f33a3cf1bfba59fd154f1ef7f0424f1e6b

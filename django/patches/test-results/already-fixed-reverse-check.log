@@ -1,0 +1,35 @@
+CVE-2026-3902 https://github.com/django/django/commit/4412731aa64d62a6dd7edae79e0c15b72666d7ca
+exit=0
+
+CVE-2026-33034 https://github.com/django/django/commit/ed4dfda62718a0bb644b80ac8b1d3099861f2295
+exit=0
+
+CVE-2026-25673 https://github.com/django/django/commit/b3e8ec8cc310489fe80174b14b11edb970d682ea
+exit=0
+
+CVE-2026-1207 https://github.com/django/django/commit/a14363102d98fa29b8cced578eb3a0fadaa5bcb7
+exit=0
+
+CVE-2026-1287 https://github.com/django/django/commit/f75f8f3597e1ce351d5ac08b6ba7ebd9dadd9b5d
+exit=0
+
+CVE-2025-64458 https://github.com/django/django/commit/770eea38d7a0e9ba9455140b5a9a9e33618226a7
+exit=1
+error: patch failed: django/utils/http.py:47
+error: django/utils/http.py: patch does not apply
+error: patch failed: django/http/response.py:21
+error: django/http/response.py: patch does not apply
+
+CVE-2025-64459 https://github.com/django/django/commit/59ae82e67053d281ff4562a24bbba21299f0a7d4
+exit=0
+
+CVE-2025-59681 https://github.com/django/django/commit/38d9ef8c7b5cb6ef51b933e51a20e0e0063f33d5
+exit=1
+error: patch failed: django/db/models/sql/query.py:46
+error: django/db/models/sql/query.py: patch does not apply
+
+CVE-2025-57833 https://github.com/django/django/commit/31334e6965ad136a5e369993b01721499c5d1a92
+exit=1
+error: patch failed: django/db/models/sql/query.py:1620
+error: django/db/models/sql/query.py: patch does not apply
+

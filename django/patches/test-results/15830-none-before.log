@@ -1,0 +1,35 @@
+Found 3 test(s).
+Skipping setup of unused database(s): default, other.
+System check identified no issues (0 silenced).
+test_formfield_forwards_none_max_geom_collections (gis_tests.test_fields.GeometryFieldTests) ... FAIL
+test_max_geom_collections_none (gis_tests.test_geoforms.GeometryFieldTest) ... FAIL
+test_max_geom_collections_subclass_default (gis_tests.test_geoforms.GeometryFieldTest) ... FAIL
+
+======================================================================
+FAIL: test_formfield_forwards_none_max_geom_collections (gis_tests.test_fields.GeometryFieldTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/gis_tests/test_fields.py", line 72, in test_formfield_forwards_none_max_geom_collections
+    self.assertIsNone(field.formfield().max_geom_collections)
+AssertionError: 198 is not None
+
+======================================================================
+FAIL: test_max_geom_collections_none (gis_tests.test_geoforms.GeometryFieldTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/gis_tests/test_geoforms.py", line 53, in test_max_geom_collections_none
+    self.assertIsNone(field.max_geom_collections)
+AssertionError: 198 is not None
+
+======================================================================
+FAIL: test_max_geom_collections_subclass_default (gis_tests.test_geoforms.GeometryFieldTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/django/django-4.2.30/tests/gis_tests/test_geoforms.py", line 61, in test_max_geom_collections_subclass_default
+    self.assertIsNone(LimitedField(max_geom_collections=None).max_geom_collections)
+AssertionError: 5 is not None
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.002s
+
+FAILED (failures=3)
