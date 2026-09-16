@@ -1,0 +1,23 @@
+PASS utils rejects non-callable "x"
+PASS utils rejects non-callable 1
+PASS utils rejects non-callable true
+PASS utils rejects non-callable {}
+PASS utils rejects non-callable []
+PASS utils rejects non-callable {"isBuffer":true}
+PASS utils rejects non-callable false
+PASS utils rejects non-callable 0
+PASS utils rejects non-callable null
+PASS utils rejects non-callable undefined
+PASS stringify "x"
+PASS stringify true
+PASS stringify {"b":"c"}
+PASS stringify ["b"]
+PASS roundtrip {"plainObjects":true}
+PASS roundtrip {"allowPrototypes":true}
+PASS default parse keeps existing prototype filtering
+PASS native Buffer
+PASS duck-typed buffer and receiver preserved
+PASS primitives/null-prototype objects
+PASS browser UMD without Node globals
+PASS 3000 ordinary serialization comparisons and API exports
+{"checks":22,"failures":0,"node":"v18.19.0"}

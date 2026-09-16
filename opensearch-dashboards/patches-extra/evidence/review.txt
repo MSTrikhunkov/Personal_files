@@ -1,0 +1,1 @@
+Independent focused review: no important blockers. qs edit matches upstream, covers CommonJS source and UMD bundle; dependency on previous installer explicitly documented.

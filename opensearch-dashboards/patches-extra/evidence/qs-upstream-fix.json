@@ -1,0 +1,125 @@
+{
+  "sha": "e83d321ffafb38cf210683ac31714fce6ce1c6c6",
+  "node_id": "C_kwDOAVPDq9oAKGU4M2QzMjFmZmFmYjM4Y2YyMTA2ODNhYzMxNzE0ZmNlNmNlMWM2YzY",
+  "commit": {
+    "author": {
+      "name": "Jordan Harband",
+      "email": "ljharb@gmail.com",
+      "date": "2026-08-28T22:48:10Z"
+    },
+    "committer": {
+      "name": "Jordan Harband",
+      "email": "ljharb@gmail.com",
+      "date": "2026-08-28T22:48:10Z"
+    },
+    "message": "[Fix] `utils`: `isBuffer`: do not invoke a non-callable `constructor.isBuffer`\n\n`isBuffer` duck-types buffers via `obj.constructor.isBuffer(obj)`\n(since 3768a75 / v2.2.5, so that it works without referencing the `Buffer` global and recognizes polyfill and foreign-realm buffers),\nbut only checked that the property was truthy before calling it.\nAn object with an own `constructor` key whose `isBuffer` member is a non-function,\nas produced by `qs.parse` under `plainObjects` or `allowPrototypes`,\nor by `JSON.parse`,\nmade `stringify` throw `TypeError: obj.constructor.isBuffer is not a function`.\n\nRequire it to be callable before invoking it.\nReal `Buffer`, `safer-buffer`,\nand browserify `buffer` polyfill instances serialize exactly as before.",
+    "tree": {
+      "sha": "01add4dc65912af86f5fa7be596f6188349a8338",
+      "url": "https://api.github.com/repos/ljharb/qs/git/trees/01add4dc65912af86f5fa7be596f6188349a8338"
+    },
+    "url": "https://api.github.com/repos/ljharb/qs/git/commits/e83d321ffafb38cf210683ac31714fce6ce1c6c6",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\nComment: GPGTools - https://gpgtools.org\n\niQIzBAABCgAdFiEElR4kAgmd3ro+Aievn2poHjXvi1YFAmqSEC4ACgkQn2poHjXv\ni1ZQrg//e9kI9d2ldCH9SUq7hvoCUuTvWy+XCGYgczqM6yYVMPcZfxio6HjwxLPl\nC575Ls7RD852oznj8l1/clQgNLH1+QXj+GNrjSlLGdOAAdPGmGPdWQfWTynSbjyc\nrHRrizNeMSflO0IGec2/TlVqzd8hNvqsm1WyB01KUeHIlBIUY5V3oqewNXJiQ0fg\njz6foOxoS+tdfpjQJbn2Ru/Wdr9CZTlFegnsmKmBQR2DkW8n0zAkRefBjspOJf8l\naRBa2wyQMKOjMCZjOh4AEBqWto7JScmujL4cys0g0pxz+uMfMa1fL7B5mg0H+Qoe\n6s26Zl2UMIpGznSnNOb67Da9ija2dpK6638icsXkc7Q4NakPfW6PPSTAlHbDvGWf\n0SiqDw47z4Wt9RIX2sPaFGCQXM6mSNxE/Zzo5ktAoBlKdoxLr1YDpv450ZY/p0x+\nRHjYoXNTiyziiOWDPXDkf4w8Xu2ZUEdELbpi7BVvhhXl7JJIkCaR6IACDHeqLVvX\nAjLdAms6KXpgCS5GoK1+b0mi/4EtOtPcKQNqsQFmQUHM00DCFQdUQRBznshp1cvD\nRIKicoSqxfUKCW4NIlDeyInKZ3m3KHd9mDfwFxdt+ofz1CcOPoIRHdnXbMeJ7/U6\n15ExTkCtzdYHEy96jqVojr8YiZ/kx6kKhyZhaI6qu83WTeoPHOo=\n=akOK\n-----END PGP SIGNATURE-----",
+      "payload": "tree 01add4dc65912af86f5fa7be596f6188349a8338\nparent 7e87a07c2c62301dd8fc2e099ac38227bc96c74c\nauthor Jordan Harband <ljharb@gmail.com> 1787957290 -0700\ncommitter Jordan Harband <ljharb@gmail.com> 1787957290 -0700\n\n[Fix] `utils`: `isBuffer`: do not invoke a non-callable `constructor.isBuffer`\n\n`isBuffer` duck-types buffers via `obj.constructor.isBuffer(obj)`\n(since 3768a75 / v2.2.5, so that it works without referencing the `Buffer` global and recognizes polyfill and foreign-realm buffers),\nbut only checked that the property was truthy before calling it.\nAn object with an own `constructor` key whose `isBuffer` member is a non-function,\nas produced by `qs.parse` under `plainObjects` or `allowPrototypes`,\nor by `JSON.parse`,\nmade `stringify` throw `TypeError: obj.constructor.isBuffer is not a function`.\n\nRequire it to be callable before invoking it.\nReal `Buffer`, `safer-buffer`,\nand browserify `buffer` polyfill instances serialize exactly as before.",
+      "verified_at": "2026-08-28T22:48:35Z"
+    }
+  },
+  "url": "https://api.github.com/repos/ljharb/qs/commits/e83d321ffafb38cf210683ac31714fce6ce1c6c6",
+  "html_url": "https://github.com/ljharb/qs/commit/e83d321ffafb38cf210683ac31714fce6ce1c6c6",
+  "comments_url": "https://api.github.com/repos/ljharb/qs/commits/e83d321ffafb38cf210683ac31714fce6ce1c6c6/comments",
+  "author": {
+    "login": "ljharb",
+    "id": 45469,
+    "node_id": "MDQ6VXNlcjQ1NDY5",
+    "avatar_url": "https://avatars.githubusercontent.com/u/45469?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/ljharb",
+    "html_url": "https://github.com/ljharb",
+    "followers_url": "https://api.github.com/users/ljharb/followers",
+    "following_url": "https://api.github.com/users/ljharb/following{/other_user}",
+    "gists_url": "https://api.github.com/users/ljharb/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/ljharb/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/ljharb/subscriptions",
+    "organizations_url": "https://api.github.com/users/ljharb/orgs",
+    "repos_url": "https://api.github.com/users/ljharb/repos",
+    "events_url": "https://api.github.com/users/ljharb/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/ljharb/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "ljharb",
+    "id": 45469,
+    "node_id": "MDQ6VXNlcjQ1NDY5",
+    "avatar_url": "https://avatars.githubusercontent.com/u/45469?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/ljharb",
+    "html_url": "https://github.com/ljharb",
+    "followers_url": "https://api.github.com/users/ljharb/followers",
+    "following_url": "https://api.github.com/users/ljharb/following{/other_user}",
+    "gists_url": "https://api.github.com/users/ljharb/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/ljharb/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/ljharb/subscriptions",
+    "organizations_url": "https://api.github.com/users/ljharb/orgs",
+    "repos_url": "https://api.github.com/users/ljharb/repos",
+    "events_url": "https://api.github.com/users/ljharb/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/ljharb/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "7e87a07c2c62301dd8fc2e099ac38227bc96c74c",
+      "url": "https://api.github.com/repos/ljharb/qs/commits/7e87a07c2c62301dd8fc2e099ac38227bc96c74c",
+      "html_url": "https://github.com/ljharb/qs/commit/7e87a07c2c62301dd8fc2e099ac38227bc96c74c"
+    }
+  ],
+  "stats": {
+    "total": 41,
+    "additions": 40,
+    "deletions": 1
+  },
+  "files": [
+    {
+      "sha": "10698bd5458bdb1a82a862848787944caa31faae",
+      "filename": "lib/utils.js",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/ljharb/qs/blob/e83d321ffafb38cf210683ac31714fce6ce1c6c6/lib%2Futils.js",
+      "raw_url": "https://github.com/ljharb/qs/raw/e83d321ffafb38cf210683ac31714fce6ce1c6c6/lib%2Futils.js",
+      "contents_url": "https://api.github.com/repos/ljharb/qs/contents/lib%2Futils.js?ref=e83d321ffafb38cf210683ac31714fce6ce1c6c6",
+      "patch": "@@ -329,7 +329,7 @@ var isBuffer = function isBuffer(obj) {\n         return false;\n     }\n \n-    return !!(obj.constructor && obj.constructor.isBuffer && obj.constructor.isBuffer(obj));\n+    return !!(obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj));\n };\n \n var combine = function combine(a, b, arrayLimit, plainObjects, throwOnLimitExceeded) {"
+    },
+    {
+      "sha": "98a0190dda83f6a9b5b5c001ab132cca64020cb2",
+      "filename": "test/stringify.js",
+      "status": "modified",
+      "additions": 27,
+      "deletions": 0,
+      "changes": 27,
+      "blob_url": "https://github.com/ljharb/qs/blob/e83d321ffafb38cf210683ac31714fce6ce1c6c6/test%2Fstringify.js",
+      "raw_url": "https://github.com/ljharb/qs/raw/e83d321ffafb38cf210683ac31714fce6ce1c6c6/test%2Fstringify.js",
+      "contents_url": "https://api.github.com/repos/ljharb/qs/contents/test%2Fstringify.js?ref=e83d321ffafb38cf210683ac31714fce6ce1c6c6",
+      "patch": "@@ -932,6 +932,33 @@ test('stringify()', function (t) {\n         st.end();\n     });\n \n+    t.test('does not throw on a non-callable `constructor.isBuffer` key', function (st) {\n+        var input = { a: { constructor: { isBuffer: 'x' } } };\n+        st.doesNotThrow(function () { qs.stringify(input); });\n+        st.equal(qs.stringify(input), 'a%5Bconstructor%5D%5BisBuffer%5D=x');\n+        st.equal(qs.stringify({ a: { constructor: { isBuffer: { b: 'c' } } } }), 'a%5Bconstructor%5D%5BisBuffer%5D%5Bb%5D=c');\n+        st.equal(qs.stringify({ a: { constructor: { isBuffer: ['b'] } } }), 'a%5Bconstructor%5D%5BisBuffer%5D%5B0%5D=b');\n+        st.equal(qs.stringify({ a: { constructor: { isBuffer: true } } }), 'a%5Bconstructor%5D%5BisBuffer%5D=true');\n+        st.end();\n+    });\n+\n+    t.test('round-trips a parsed `constructor[isBuffer]` key', function (st) {\n+        var str = 'x%5Bconstructor%5D%5BisBuffer%5D=y';\n+\n+        var plain = qs.parse(str, { plainObjects: true });\n+        st.deepEqual(plain, { __proto__: null, x: { __proto__: null, constructor: { __proto__: null, isBuffer: 'y' } } }, 'plainObjects keeps the key');\n+        st.doesNotThrow(function () { qs.stringify(plain); });\n+        st.equal(qs.stringify(plain), str, 'plainObjects round-trips');\n+\n+        var proto = qs.parse(str, { allowPrototypes: true });\n+        st.deepEqual(proto, { x: { constructor: { isBuffer: 'y' } } }, 'allowPrototypes keeps the key');\n+        st.doesNotThrow(function () { qs.stringify(proto); });\n+        st.equal(qs.stringify(proto), str, 'allowPrototypes round-trips');\n+\n+        st.equal(qs.stringify(qs.parse(str)), '', 'default options drop the key');\n+        st.end();\n+    });\n+\n     t.test('stringifies an object using an alternative delimiter', function (st) {\n         st.equal(qs.stringify({ a: 'b', c: 'd' }, { delimiter: ';' }), 'a=b;c=d');\n         st.end();"
+    },
+    {
+      "sha": "2bc1b8a14f094e588f01a98a4d25d371f56ff1d1",
+      "filename": "test/utils.js",
+      "status": "modified",
+      "additions": 12,
+      "deletions": 0,
+      "changes": 12,
+      "blob_url": "https://github.com/ljharb/qs/blob/e83d321ffafb38cf210683ac31714fce6ce1c6c6/test%2Futils.js",
+      "raw_url": "https://github.com/ljharb/qs/raw/e83d321ffafb38cf210683ac31714fce6ce1c6c6/test%2Futils.js",
+      "contents_url": "https://api.github.com/repos/ljharb/qs/contents/test%2Futils.js?ref=e83d321ffafb38cf210683ac31714fce6ce1c6c6",
+      "patch": "@@ -604,6 +604,18 @@ test('isBuffer()', function (t) {\n     var fakeBuffer = { constructor: Buffer };\n     t.equal(utils.isBuffer(fakeBuffer), false, 'fake buffer is not a buffer');\n \n+    forEach(['x', 1, true, {}, [], { isBuffer: true }], function (notCallable) {\n+        var obj = { constructor: { isBuffer: notCallable } };\n+        t.doesNotThrow(function () { utils.isBuffer(obj); }, 'non-callable `constructor.isBuffer` (' + inspect(notCallable) + ') does not throw');\n+        t.equal(utils.isBuffer(obj), false, 'non-callable `constructor.isBuffer` (' + inspect(notCallable) + ') is not a buffer');\n+    });\n+\n+    var nullObject = { __proto__: null, constructor: { __proto__: null, isBuffer: 'y' } };\n+    t.equal(utils.isBuffer(nullObject), false, 'null object with non-callable `constructor.isBuffer` is not a buffer');\n+\n+    var duckBuffer = { constructor: { isBuffer: function () { return true; } } };\n+    t.equal(utils.isBuffer(duckBuffer), true, 'callable `constructor.isBuffer` is still honored');\n+\n     var saferBuffer = SaferBuffer.from('abc');\n     t.equal(utils.isBuffer(saferBuffer), true, 'SaferBuffer instance is a buffer');\n "
+    }
+  ]
+}

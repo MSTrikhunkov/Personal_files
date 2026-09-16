@@ -1,0 +1,23 @@
+FAIL utils rejects non-callable "x" obj.constructor.isBuffer is not a function
+FAIL utils rejects non-callable 1 obj.constructor.isBuffer is not a function
+FAIL utils rejects non-callable true obj.constructor.isBuffer is not a function
+FAIL utils rejects non-callable {} obj.constructor.isBuffer is not a function
+FAIL utils rejects non-callable [] obj.constructor.isBuffer is not a function
+FAIL utils rejects non-callable {"isBuffer":true} obj.constructor.isBuffer is not a function
+PASS utils rejects non-callable false
+PASS utils rejects non-callable 0
+PASS utils rejects non-callable null
+PASS utils rejects non-callable undefined
+FAIL stringify "x" obj.constructor.isBuffer is not a function
+FAIL stringify true obj.constructor.isBuffer is not a function
+FAIL stringify {"b":"c"} obj.constructor.isBuffer is not a function
+FAIL stringify ["b"] obj.constructor.isBuffer is not a function
+FAIL roundtrip {"plainObjects":true} obj.constructor.isBuffer is not a function
+FAIL roundtrip {"allowPrototypes":true} obj.constructor.isBuffer is not a function
+PASS default parse keeps existing prototype filtering
+PASS native Buffer
+PASS duck-typed buffer and receiver preserved
+FAIL primitives/null-prototype objects obj.constructor.isBuffer is not a function
+FAIL browser UMD without Node globals obj.constructor.isBuffer is not a function
+PASS 3000 ordinary serialization comparisons and API exports
+{"checks":22,"failures":14,"node":"v18.19.0"}

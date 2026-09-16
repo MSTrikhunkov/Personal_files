@@ -1,0 +1,22 @@
+--- a/lib/utils.js
++++ b/lib/utils.js
+@@ -220,7 +220,7 @@
+         return false;
+     }
+ 
+-    return !!(obj.constructor && obj.constructor.isBuffer && obj.constructor.isBuffer(obj));
++    return !!(obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj));
+ };
+ 
+ var combine = function combine(a, b) {
+--- a/dist/qs.js
++++ b/dist/qs.js
+@@ -852,7 +852,7 @@
+         return false;
+     }
+ 
+-    return !!(obj.constructor && obj.constructor.isBuffer && obj.constructor.isBuffer(obj));
++    return !!(obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj));
+ };
+ 
+ var combine = function combine(a, b) {
