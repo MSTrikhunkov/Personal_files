@@ -1,0 +1,19 @@
+test_empty_hints (__main__.BackportTests) ... ok
+test_entire_reserved_prefix (__main__.BackportTests) ... ok
+test_internal_hints_list (__main__.BackportTests) ... ok
+test_internal_hints_string (__main__.BackportTests) ... ok
+test_no_growth_unchanged (__main__.BackportTests) ... ok
+test_none_hints (__main__.BackportTests) ... ok
+test_nonlocal_unchanged (__main__.BackportTests) ... ok
+test_ploop_unchanged (__main__.BackportTests) ... ok
+test_qcow2_format (__main__.BackportTests) ... ok
+test_raw_format (__main__.BackportTests) ... ok
+test_real_qemu_raw_with_qcow_header (__main__.BackportTests) ... ok
+test_regular_and_unknown_hints (__main__.BackportTests) ... ok
+test_unsupported_format_rejected_before_execute (__main__.BackportTests) ... ok
+test_vmdk_already_rejected_by_model (__main__.BackportTests) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.385s
+
+OK

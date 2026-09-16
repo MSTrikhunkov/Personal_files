@@ -1,0 +1,115 @@
+test_empty_hints (__main__.BackportTests) ... ok
+test_entire_reserved_prefix (__main__.BackportTests) ... FAIL
+test_internal_hints_list (__main__.BackportTests) ... FAIL
+test_internal_hints_string (__main__.BackportTests) ... FAIL
+test_no_growth_unchanged (__main__.BackportTests) ... ok
+test_none_hints (__main__.BackportTests) ... ok
+test_nonlocal_unchanged (__main__.BackportTests) ... ok
+test_ploop_unchanged (__main__.BackportTests) ... ok
+test_qcow2_format (__main__.BackportTests) ... FAIL
+test_raw_format (__main__.BackportTests) ... FAIL
+test_real_qemu_raw_with_qcow_header (__main__.BackportTests) ... FAIL
+test_regular_and_unknown_hints (__main__.BackportTests) ... ok
+test_unsupported_format_rejected_before_execute (__main__.BackportTests) ... FAIL
+test_vmdk_already_rejected_by_model (__main__.BackportTests) ... ok
+
+======================================================================
+FAIL: test_entire_reserved_prefix (__main__.BackportTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/nova/security-patches/verify_backports.py", line 93, in test_entire_reserved_prefix
+    self.check_hints({'_nova': 'x', '_novaAnything': 'y'}, {})
+  File "/Users/bixenonoff/WORK/nova/security-patches/verify_backports.py", line 79, in check_hints
+    self.scheduler.build_filter_properties.assert_called_once_with(
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/unittest/mock.py", line 919, in assert_called_once_with
+    return self.assert_called_with(*args, **kwargs)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/unittest/mock.py", line 907, in assert_called_with
+    raise AssertionError(_error_message()) from cause
+AssertionError: expected call not found.
+Expected: build_filter_properties({}, None, None, <object object at 0x10325ce80>)
+Actual: build_filter_properties({'_nova': 'x', '_novaAnything': 'y'}, None, None, <object object at 0x10325ce80>)
+
+======================================================================
+FAIL: test_internal_hints_list (__main__.BackportTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/nova/security-patches/verify_backports.py", line 85, in test_internal_hints_list
+    self.check_hints({'_nova_check_type': ['rebuild'],
+  File "/Users/bixenonoff/WORK/nova/security-patches/verify_backports.py", line 79, in check_hints
+    self.scheduler.build_filter_properties.assert_called_once_with(
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/unittest/mock.py", line 919, in assert_called_once_with
+    return self.assert_called_with(*args, **kwargs)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/unittest/mock.py", line 907, in assert_called_with
+    raise AssertionError(_error_message()) from cause
+AssertionError: expected call not found.
+Expected: build_filter_properties({'group': 'uuid'}, None, None, <object object at 0x10325cf40>)
+Actual: build_filter_properties({'_nova_check_type': ['rebuild'], '_nova_future': 'x', 'group': 'uuid'}, None, None, <object object at 0x10325cf40>)
+
+======================================================================
+FAIL: test_internal_hints_string (__main__.BackportTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/nova/security-patches/verify_backports.py", line 90, in test_internal_hints_string
+    self.check_hints({'_nova_check_type': 'rebuild'}, {})
+  File "/Users/bixenonoff/WORK/nova/security-patches/verify_backports.py", line 79, in check_hints
+    self.scheduler.build_filter_properties.assert_called_once_with(
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/unittest/mock.py", line 919, in assert_called_once_with
+    return self.assert_called_with(*args, **kwargs)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/unittest/mock.py", line 907, in assert_called_with
+    raise AssertionError(_error_message()) from cause
+AssertionError: expected call not found.
+Expected: build_filter_properties({}, None, None, <object object at 0x10325cfa0>)
+Actual: build_filter_properties({'_nova_check_type': 'rebuild'}, None, None, <object object at 0x10325cfa0>)
+
+======================================================================
+FAIL: test_qcow2_format (__main__.BackportTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/nova/security-patches/verify_backports.py", line 115, in test_qcow2_format
+    self.check_format('qcow2')
+  File "/Users/bixenonoff/WORK/nova/security-patches/verify_backports.py", line 108, in check_format
+    self.execute.assert_called_once_with('qemu-img', 'resize', '-f', fmt,
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/unittest/mock.py", line 919, in assert_called_once_with
+    return self.assert_called_with(*args, **kwargs)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/unittest/mock.py", line 907, in assert_called_with
+    raise AssertionError(_error_message()) from cause
+AssertionError: expected call not found.
+Expected: mock('qemu-img', 'resize', '-f', 'qcow2', '/unused/test.img', 2097152)
+Actual: mock('qemu-img', 'resize', '/unused/test.img', 2097152)
+
+======================================================================
+FAIL: test_raw_format (__main__.BackportTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/nova/security-patches/verify_backports.py", line 112, in test_raw_format
+    self.check_format('raw')
+  File "/Users/bixenonoff/WORK/nova/security-patches/verify_backports.py", line 108, in check_format
+    self.execute.assert_called_once_with('qemu-img', 'resize', '-f', fmt,
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/unittest/mock.py", line 919, in assert_called_once_with
+    return self.assert_called_with(*args, **kwargs)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/unittest/mock.py", line 907, in assert_called_with
+    raise AssertionError(_error_message()) from cause
+AssertionError: expected call not found.
+Expected: mock('qemu-img', 'resize', '-f', 'raw', '/unused/test.img', 2097152)
+Actual: mock('qemu-img', 'resize', '/unused/test.img', 2097152)
+
+======================================================================
+FAIL: test_real_qemu_raw_with_qcow_header (__main__.BackportTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/nova/security-patches/verify_backports.py", line 157, in test_real_qemu_raw_with_qcow_header
+    self.assertEqual(2097152, path.stat().st_size)
+AssertionError: 2097152 != 196616
+
+======================================================================
+FAIL: test_unsupported_format_rejected_before_execute (__main__.BackportTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/bixenonoff/WORK/nova/security-patches/verify_backports.py", line 127, in test_unsupported_format_rejected_before_execute
+    self.disk['extend'](image, 2097152)
+AssertionError: FormatError not raised
+
+----------------------------------------------------------------------
+Ran 14 tests in 1.378s
+
+FAILED (failures=7)

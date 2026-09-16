@@ -1,0 +1,47 @@
+1 RLock(s) were not greened, to fix this error make sure you run eventlet.monkey_patch() before importing any other modules.
+Modules with known eventlet monkey patching issues were imported prior to eventlet monkey patching: oslo_context.context, urllib3. This warning can usually be ignored if the caller is only importing and not executing nova code.
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/__main__.py", line 18, in <module>
+    main(module=None)
+  File "/opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/main.py", line 104, in __init__
+    self.parseArgs(argv)
+  File "/opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/main.py", line 153, in parseArgs
+    self.createTests()
+  File "/opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/main.py", line 164, in createTests
+    self.test = self.testLoader.loadTestsFromNames(self.testNames,
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/loader.py", line 207, in loadTestsFromNames
+    suites = [self.loadTestsFromName(name, module) for name in names]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bixenonoff/WORK/nova/nova-31.0.0/nova/tests/unit/virt/disk/test_api.py", line 23, in <module>
+    from nova import test
+  File "/Users/bixenonoff/WORK/nova/nova-31.0.0/nova/test.py", line 59, in <module>
+    import nova.crypto
+  File "/Users/bixenonoff/WORK/nova/nova-31.0.0/nova/crypto.py", line 48, in <module>
+    from nova.virt import block_device as driver_block_device
+  File "/Users/bixenonoff/WORK/nova/nova-31.0.0/nova/virt/block_device.py", line 18, in <module>
+    from os_brick import encryptors
+  File "/Users/bixenonoff/WORK/nova/nova-31.0.0/.venv/lib/python3.12/site-packages/os_brick/encryptors/__init__.py", line 24, in <module>
+    from os_brick.encryptors import base
+  File "/Users/bixenonoff/WORK/nova/nova-31.0.0/.venv/lib/python3.12/site-packages/os_brick/encryptors/base.py", line 19, in <module>
+    from os_brick import executor
+  File "/Users/bixenonoff/WORK/nova/nova-31.0.0/.venv/lib/python3.12/site-packages/os_brick/executor.py", line 30, in <module>
+    from os_brick.privileged import rootwrap as priv_rootwrap
+  File "/Users/bixenonoff/WORK/nova/nova-31.0.0/.venv/lib/python3.12/site-packages/os_brick/privileged/__init__.py", line 15, in <module>
+    from oslo_privsep import capabilities as c
+  File "/Users/bixenonoff/WORK/nova/nova-31.0.0/.venv/lib/python3.12/site-packages/oslo_privsep/capabilities.py", line 117, in <module>
+    _prctl = crt.prctl
+             ^^^^^^^^^
+  File "/Users/bixenonoff/WORK/nova/nova-31.0.0/.venv/lib/python3.12/site-packages/cffi/api.py", line 914, in __getattr__
+    make_accessor(name)
+  File "/Users/bixenonoff/WORK/nova/nova-31.0.0/.venv/lib/python3.12/site-packages/cffi/api.py", line 910, in make_accessor
+    accessors[name](name)
+  File "/Users/bixenonoff/WORK/nova/nova-31.0.0/.venv/lib/python3.12/site-packages/cffi/api.py", line 840, in accessor_function
+    value = backendlib.load_function(BType, name)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: function/symbol 'prctl' not found in library '<None>': dlsym(RTLD_DEFAULT, prctl): symbol not found

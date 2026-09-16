@@ -1,0 +1,26 @@
+Strip internal _nova-prefixed scheduler hints on create
+
+User-supplied scheduler hints can include internal keys like
+"_nova_check_type" which cause the scheduler to bypass Placement
+candidate selection, request pre-filters, and resource claims.
+This can lead to instances being created without proper resource
+accounting.
+
+Rather than rejecting the request, silently strip any _nova-prefixed
+hints before they reach the scheduler. This is consistent with the
+existing hints behavior of ignoring unknown ones and ensures the
+probe attempt still costs the attacker money.
+
+Assisted-By: Cursor
+
+Change-Id: Iac4fef93bef0bab3060d40a9ea3e0ebd69a38c37
+Closes-Bug: #2151252
+Signed-off-by: Sylvain Bauza <sbauza@redhat.com>
+(cherry picked from commit 9666894b46db4c2c66824f1b6e89584de3ab17b2)
+(cherry picked from commit 32bd8471f86fa33555dc9890b8730d83296da7b0)
+(cherry picked from commit 0e969c5246e3f99b48ed99b58438fc11891b1caa)
+
+CVE: CVE-2026-46448
+Upstream-Commit: 355edcbbc66233328a9b29014cf69e081f6d663e
+Upstream-Review: https://review.opendev.org/993604
+Backport-to: Nova 31.0.0 (unmodified stable/2025.1 diff)

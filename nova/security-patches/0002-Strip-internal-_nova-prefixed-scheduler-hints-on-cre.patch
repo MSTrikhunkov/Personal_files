@@ -1,0 +1,78 @@
+From e70d878997019c2e6399edc5d23338762e82e38e Mon Sep 17 00:00:00 2001
+From: Sylvain Bauza <sbauza@redhat.com>
+Date: Tue, 12 May 2026 12:31:14 +0300
+Subject: [PATCH 2/2] Strip internal _nova-prefixed scheduler hints on create
+
+User-supplied scheduler hints can include internal keys like
+"_nova_check_type" which cause the scheduler to bypass Placement
+candidate selection, request pre-filters, and resource claims.
+This can lead to instances being created without proper resource
+accounting.
+
+Rather than rejecting the request, silently strip any _nova-prefixed
+hints before they reach the scheduler. This is consistent with the
+existing hints behavior of ignoring unknown ones and ensures the
+probe attempt still costs the attacker money.
+
+Assisted-By: Cursor
+
+Change-Id: Iac4fef93bef0bab3060d40a9ea3e0ebd69a38c37
+Closes-Bug: #2151252
+Signed-off-by: Sylvain Bauza <sbauza@redhat.com>
+(cherry picked from commit 9666894b46db4c2c66824f1b6e89584de3ab17b2)
+(cherry picked from commit 32bd8471f86fa33555dc9890b8730d83296da7b0)
+(cherry picked from commit 0e969c5246e3f99b48ed99b58438fc11891b1caa)
+
+CVE: CVE-2026-46448
+Upstream-Commit: 355edcbbc66233328a9b29014cf69e081f6d663e
+Upstream-Review: https://review.opendev.org/993604
+Backport-to: Nova 31.0.0 (unmodified stable/2025.1 diff)
+---
+ nova/compute/api.py                 |  4 ++++
+ nova/tests/unit/compute/test_api.py | 18 ++++++++++++++++++
+ 2 files changed, 22 insertions(+)
+
+diff --git a/nova/compute/api.py b/nova/compute/api.py
+index 5223b29..e00dc84 100644
+--- a/nova/compute/api.py
++++ b/nova/compute/api.py
+@@ -2232,6 +2232,10 @@ class API:
+                 msg = _('The requested availability zone is not available')
+                 raise exception.InvalidRequest(msg)
+ 
++        if scheduler_hints:
++            scheduler_hints = {k: v for k, v in scheduler_hints.items()
++                               if not k.startswith('_nova')}
++
+         filter_properties = scheduler_utils.build_filter_properties(
+             scheduler_hints, forced_host, forced_node, flavor)
+ 
+diff --git a/nova/tests/unit/compute/test_api.py b/nova/tests/unit/compute/test_api.py
+index 8d015aa..ab3ecd1 100644
+--- a/nova/tests/unit/compute/test_api.py
++++ b/nova/tests/unit/compute/test_api.py
+@@ -220,6 +220,24 @@ class _ComputeAPIUnitTestMixIn(object):
+         list_obj.obj_reset_changes()
+         return list_obj
+ 
++    @mock.patch('nova.scheduler.utils.build_filter_properties')
++    def test_create_strips_internal_scheduler_hints(self,
++                                                    mock_build_filter):
++        mock_build_filter.side_effect = (
++            test.TestingException('stop early'))
++        flavor = self._create_flavor()
++        self.assertRaises(
++            test.TestingException,
++            self.compute_api.create,
++            self.context, flavor, 'image_id',
++            scheduler_hints={
++                '_nova_check_type': 'rebuild',
++                '_nova_future': 'something',
++                'group': 'valid-group-uuid',
++            })
++        actual_hints = mock_build_filter.call_args[0][0]
++        self.assertEqual({'group': 'valid-group-uuid'}, actual_hints)
++
+     @mock.patch(
+         'nova.network.neutron.API.is_remote_managed_port',
+         new=mock.Mock(return_value=False),

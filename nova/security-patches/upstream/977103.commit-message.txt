@@ -1,0 +1,40 @@
+Make disk.extend() pass format to qemu-img
+
+This fixes an instance of us passing a disk image to qemu-img for
+resize where we don't constrain the format. As has previously been
+identified, it is never safe to do that when the image itself is not
+trusted. In this case, an instance with a previously-raw disk image
+being used by imagebackend.Flat is susceptible to the user writing a
+qcow2 (or other) header to their disk causing the unconstrained
+qemu-img resize operation to interpret it as a qcow2 file.
+
+Since Flat maintains the intended disk format in the disk.info file,
+and since we would have safety-checked images we got from glance,
+we should be able to trust the image.format specifier, which comes
+from driver_format in imagebackend, which is read from disk.info.
+Since only raw or qcow2 files should be resized anyway, we can further
+constrain it to those.
+
+Notes:
+ 1. qemu-img refuses to resize some types of VMDK files, but it may
+    be able to resize others (there are many subformats). Technically,
+    Flat will allow running an instance directly from a VMDK file,
+    and so this change _could_ be limiting existing "unintentionally
+    works" behavior.
+ 2. This assumes that disk.info is correct, present, etc. The code to
+    handle disk.info will regenerate the file if it's missing or
+    unreadable by probing the image without a safety check, which
+    would be unsafe. However, that is a much more sophisticated attack,
+    requiring either access to the system to delete the file or an
+    errant operator action in the first place.
+
+Change-Id: I07cbe90b7a7a0a416ef13fbc3a1b7e2272c90951
+Closes-Bug: #2137507
+(cherry picked from commit 3eba22ff09c81a61750fbb4882e5f1f01a20fdf5)
+(cherry picked from commit f448173e3c531f3b298ed2f6f02ff9b47981fbc1)
+Signed-off-by: Dan Smith <dansmith@redhat.com>
+
+CVE: CVE-2026-24708
+Upstream-Commit: 992646e49b4b4d96f3258dc154d6f00a43d18d01
+Upstream-Review: https://review.opendev.org/977103
+Backport-to: Nova 31.0.0 (unmodified stable/2025.1 diff)
