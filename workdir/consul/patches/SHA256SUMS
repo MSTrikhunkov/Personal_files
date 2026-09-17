@@ -1,0 +1,4 @@
+a5e226bfdb2f32df5c2f5afb1e455da45bcf33729d71837ea4db1682e6a1ec68  0001-security-backport-CVE-2025-11375-event-payload-limit.patch
+2967ca7d357ac0baa36a81dea58617bb6f4634a3c9f030ead5cfbab5782caa40  0002-security-backport-CVE-2025-11374-bounded-KV-request-.patch
+2b680f025bf77bd1fc7bfd35c40878949cb5d8e5708c0f92180509e51cbfa21f  0003-security-backport-CVE-2024-10086-explicit-error-cont.patch
+809c1de59438b1f418d3f6baa1e1d51fbf7a54f9be18dc44880099cdf8226c2b  0004-security-backport-CVE-2024-10005-and-CVE-2024-10006-.patch
